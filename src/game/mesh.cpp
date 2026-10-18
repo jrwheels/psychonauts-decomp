@@ -8,15 +8,36 @@ struct EBoneInfo {
     const char *m_name;             // 0x5c
 };
 
+struct ESkeleton;
+struct ESkeletonGroup {
+    char pad0[0x54];
+    TArray<ESkeleton *> m_skeletons;
+    // The original ID packer inlines this search in the /Od build.
+    __forceinline unsigned short GetIndex(ESkeleton *skeleton)
+    {
+        for (unsigned short i = 0; i < m_skeletons.m_count; i++) {
+            ESkeleton *item = ((ESkeleton **)m_skeletons.m_data)[i];
+            if (item == skeleton)
+                return i;
+        }
+        return 0;
+    }
+};
+
 struct ESkeleton {
     char pad0[4];
     EBoneInfo *m_bones;             // 0x04
+    char pad8[4];
+    struct ESkeletonGroup *m_group; // 0x0c
+    struct EBone *m_runtimeBones;   // 0x10
+    unsigned short GetBoneId(EBone *bone);
 };
 
 struct EBone {
     EBoneInfo *GetInfo() { return &m_skeleton->m_bones[m_index]; }
     EBone *Find(const char *name);
     EBone *GetNext();
+    unsigned short GetId();
 
     char pad0[0xa8];
     ESkeleton *m_skeleton;          // 0xa8
@@ -38,13 +59,58 @@ struct EJoint {
     EBone *m_bone;                  // 0x08
 };
 
+struct EModel {
+    void *GetSkeletonData() { return (char *)this + 0x6c; }
+
+    char pad0[0x78];
+    bool m_hasSkeleton;            // 0x78
+    char pad79[0xa4 - 0x79];
+    void *m_association;            // 0xa4; entity slot +0x14 argument
+};
+
+class EMeshAnimState {
+public:
+    void *operator new(size_t size) { return _aligned_malloc(size, 16); }
+    EMeshAnimState();
+    void SetBlendShapes(EBlendShapeManager *manager);
+    void SetSkeleton(void *skeleton) { m_skeleton = skeleton; }
+
+    char pad0[0x18];
+    EBlendShapeManager *m_blendShapes; // 0x18
+    char pad1c[4];
+    void *m_skeleton;               // 0x20
+    char pad24[0x224 - 0x24];
+};
+
 class ETriggerA8 {
 public:
     EBone *FindBone(const char *name);
     EJoint *FindJoint(const char *name);
+    void *operator new(size_t size) { return _aligned_malloc(size, 16); }
+    ETriggerA8();
+    void EnsureAnimState();
+    bool HasSkeleton() { return m_model->m_hasSkeleton; }
+    EMeshAnimState *GetAnimState() { return m_animState; }
+    ETriggerA8 *GetActual()
+    {
+        if (m_link == 0 || m_link == (ETriggerA8 *)-1)
+            return this;
+        else
+            return m_link;
+    }
+    void SetContext(int flags, void *context);
 
-    char pad0[0x54];
+
+    char pad0[8];
+    ETriggerA8 *m_link;              // 0x08
+    char padc[8];
+    class EMeshEntity *m_entity;    // 0x14
+    EModel *m_model;                // 0x18
+    char pad1c[0x54 - 0x1c];
     TArray<EJoint *> m_joints;       // 0x54
+    char pad60[0x1d4 - 0x60];
+    EMeshAnimState *m_animState;     // 0x1d4
+    char pad1d8[0x210 - 0x1d8];
 };
 
 EBone *ETriggerA8::FindBone(const char *name)
@@ -85,4 +151,108 @@ EBone *EBone::Find(const char *name)
             return bone;
     }
     return 0;
+}
+
+class EMeshManager {
+public:
+    ETriggerA8 *Load(const char *name, int flags);
+    ETriggerA8 *Create(class EMeshEntity *entity);
+    void Destroy(ETriggerA8 *mesh);
+};
+extern EMeshManager *g_meshManager;
+void CreateMeshManager();
+inline EMeshManager *GetMeshManager()
+{
+    if (!g_meshManager)
+        CreateMeshManager();
+    return g_meshManager;
+}
+
+class EMeshEntity {
+public:
+    virtual void Vf00();
+    virtual void Vf04();
+    virtual void Vf08();
+    virtual void Vf0c();
+    virtual void Vf10();
+    virtual void Vf14(void *association);
+    bool LoadMesh(const char *name, int flags);
+    void SetMesh(ETriggerA8 *mesh, bool flag);
+    void SetHeadBone(const char *name);
+    void *GetContext() { return m_context; }
+    ETriggerA8 *GetMesh()
+    {
+        ETriggerA8 *mesh = m_mesh->GetActual();
+        return mesh;
+    }
+
+    char pad4[0x34 - 4];
+    void *m_context;                // 0x34
+    char pad38[0xa8 - 0x38];
+    ETriggerA8 *m_mesh;             // 0xa8
+};
+
+bool EMeshEntity::LoadMesh(const char *name, int flags)
+{
+    bool success = true;
+    ETriggerA8 *actual = 0;
+    if (name) {
+        actual = GetMeshManager()->Load(name, flags);
+        if (actual) {
+            if (!actual->HasSkeleton()) {
+            } else {
+                actual->EnsureAnimState();
+                actual->GetAnimState()->SetSkeleton(actual->m_model->GetSkeletonData());
+            }
+        } else {
+            actual = (ETriggerA8 *)1;
+            success = false;
+        }
+    } else {
+        actual = (ETriggerA8 *)1;
+        success = false;
+    }
+    SetMesh(actual, false);
+    ETriggerA8 *newMesh = GetMesh();
+    if (newMesh->m_model->m_association)
+        Vf14(newMesh->m_model->m_association);
+    SetHeadBone("headJA_1");
+    m_mesh->SetContext(0, GetContext());
+    return success;
+}
+
+unsigned short ESkeleton::GetBoneId(EBone *bone)
+{
+    unsigned short index = m_group->GetIndex(this);
+    return (index << 12) | (unsigned short)(bone - m_runtimeBones);
+}
+
+unsigned short EBone::GetId()
+{
+    return m_skeleton->GetBoneId(this);
+}
+
+ETriggerA8 *EMeshManager::Create(EMeshEntity *entity)
+{
+    ETriggerA8 *mesh = new ETriggerA8;
+    mesh->m_entity = entity;
+    return mesh;
+}
+
+inline EBlendShapeManager *GetBlendShapes()
+{
+    return g_game->m_blendShapes;
+}
+
+void ETriggerA8::EnsureAnimState()
+{
+    if (!m_animState) {
+        m_animState = new EMeshAnimState;
+        m_animState->SetBlendShapes(GetBlendShapes());
+    }
+}
+
+void EMeshAnimState::SetBlendShapes(EBlendShapeManager *manager)
+{
+    m_blendShapes = manager;
 }

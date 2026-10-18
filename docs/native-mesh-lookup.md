@@ -72,3 +72,9 @@ The [loading call graph](model-loading-next.md) distinguishes these matched
 helpers from the still unreconstructed resource and mesh-loading bodies.
 [Format findings](model-format-findings.md) keep exporter implications separate
 from verified native behavior. No linked engine or animation playback is claimed.
+
+The [mesh replacement continuation](native-mesh-replacement.md) subsequently
+adds six matches /705 bytes and establishes pointer-derived native bone IDs.
+It reruns all 774 lookup cases against the expanded module. The lookup numbers
+above describe the preceding checkpoint; current totals and report hashes are
+in native-verification.json.

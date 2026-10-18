@@ -2548,6 +2548,210 @@
         "Runtime bone indices are not yet mapped to serialized joint IDs.",
         "No original animation playback, material rendering or filesystem behavior is established."
       ]
+    },
+    "0x0043ae60": {
+      "signature": "ETriggerA8::EnsureAnimState",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; RTM matching, caller/RTTI evidence and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-replacement.md",
+        "build/mesh-replacement/comparison-before-map.json",
+        "build/mesh-replacement/map-update.json",
+        "build/mesh-replacement/behavior.json",
+        "build/mesh-replacement/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,339 preceding matching addresses retained",
+        "388 independent expected/original/rebuilt x86 fixtures, including the original external SetMesh helper in both chains",
+        "Rust/Python relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Partial view/method names are provisional except independently confirmed RTTI classes.",
+        "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
+        "No original asset parsing or runtime animation playback verified."
+      ]
+    },
+    "0x0043c980": {
+      "signature": "bool EMeshEntity::LoadMesh(const char *name, int flags)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; RTM matching, caller/RTTI evidence and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-replacement.md",
+        "build/mesh-replacement/comparison-before-map.json",
+        "build/mesh-replacement/map-update.json",
+        "build/mesh-replacement/behavior.json",
+        "build/mesh-replacement/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,339 preceding matching addresses retained",
+        "388 independent expected/original/rebuilt x86 fixtures, including the original external SetMesh helper in both chains",
+        "Rust/Python relocation targets independently agree"
+      ],
+      "vtable_relationships": [
+        "EMeshEntity vtable 0x00703efc and EPlayerEntity vtable 0x0071345c both point to this method at slot +0x6c"
+      ],
+      "unresolved": [
+        "Partial view/method names are provisional except independently confirmed RTTI classes.",
+        "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
+        "No original asset parsing or runtime animation playback verified.",
+        "Original SetMesh 0x0043cad0 executes in tests but is not reconstructed; exact register-allocation mismatch retained privately.",
+        "Model+0xa4 association and model+0x6c data remain opaque."
+      ]
+    },
+    "0x00454eb0": {
+      "signature": "EMeshManager::Create",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; RTM matching, caller/RTTI evidence and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-replacement.md",
+        "build/mesh-replacement/comparison-before-map.json",
+        "build/mesh-replacement/map-update.json",
+        "build/mesh-replacement/behavior.json",
+        "build/mesh-replacement/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,339 preceding matching addresses retained",
+        "388 independent expected/original/rebuilt x86 fixtures, including the original external SetMesh helper in both chains",
+        "Rust/Python relocation targets independently agree"
+      ],
+      "vtable_relationships": [
+        "Constructor 0x00435480 installs EInstancable vtable 0x007035fc then EMesh vtable 0x00703e2c; existing ETriggerA8 spelling retained"
+      ],
+      "unresolved": [
+        "Partial view/method names are provisional except independently confirmed RTTI classes.",
+        "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
+        "No original asset parsing or runtime animation playback verified."
+      ]
+    },
+    "0x0048e480": {
+      "signature": "EMeshAnimState::SetBlendShapes",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; RTM matching, caller/RTTI evidence and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-replacement.md",
+        "build/mesh-replacement/comparison-before-map.json",
+        "build/mesh-replacement/map-update.json",
+        "build/mesh-replacement/behavior.json",
+        "build/mesh-replacement/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,339 preceding matching addresses retained",
+        "388 independent expected/original/rebuilt x86 fixtures, including the original external SetMesh helper in both chains",
+        "Rust/Python relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Partial view/method names are provisional except independently confirmed RTTI classes.",
+        "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
+        "No original asset parsing or runtime animation playback verified."
+      ]
+    },
+    "0x00492cc0": {
+      "signature": "EBone::GetId",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; RTM matching, caller/RTTI evidence and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-replacement.md",
+        "build/mesh-replacement/comparison-before-map.json",
+        "build/mesh-replacement/map-update.json",
+        "build/mesh-replacement/behavior.json",
+        "build/mesh-replacement/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,339 preceding matching addresses retained",
+        "388 independent expected/original/rebuilt x86 fixtures, including the original external SetMesh helper in both chains",
+        "Rust/Python relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Partial view/method names are provisional except independently confirmed RTTI classes.",
+        "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
+        "No original asset parsing or runtime animation playback verified."
+      ]
+    },
+    "0x0049a920": {
+      "signature": "ESkeleton::GetBoneId",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; RTM matching, caller/RTTI evidence and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-replacement.md",
+        "build/mesh-replacement/comparison-before-map.json",
+        "build/mesh-replacement/map-update.json",
+        "build/mesh-replacement/behavior.json",
+        "build/mesh-replacement/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,339 preceding matching addresses retained",
+        "388 independent expected/original/rebuilt x86 fixtures, including the original external SetMesh helper in both chains",
+        "Rust/Python relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Partial view/method names are provisional except independently confirmed RTTI classes.",
+        "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
+        "No original asset parsing or runtime animation playback verified."
+      ]
     }
   }
 }

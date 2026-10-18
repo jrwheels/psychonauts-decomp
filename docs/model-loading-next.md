@@ -2,8 +2,9 @@
 
 All addresses refer to the Steam Windows reference, SHA-256
 `cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3`.
-Only the four lookup bodies in [native-mesh-lookup.md](native-mesh-lookup.md)
-are newly reconstructed here. Other edges below come from bounded disassembly,
+The four lookup bodies in [native-mesh-lookup.md](native-mesh-lookup.md) and six
+[replacement/ID bodies](native-mesh-replacement.md) are now matched. Other edges
+below come from bounded disassembly,
 RTTI or relocations in already matched script implementations.
 
 | Function or role | Address | Mapped bytes | Evidence/status |
@@ -12,7 +13,7 @@ RTTI or relocations in already matched script implementations.
 | EPlayerControl::LoadMesh | 0x005ef390 | 892 | Existing caller relocation; not reconstructed |
 | LoadMesh_impl | 0x005c2a40 | 437 | Existing named, unmatched script implementation |
 | Shared backpack animation setup | 0x005eb370 | 569 | Calls with receiver at player+0x128; not a mesh decoder |
-| EMeshEntity mesh replacement, slot +0x6c | 0x0043c980 | 323 | RTTI-confirmed vtables; not reconstructed |
+| EMeshEntity mesh replacement, slot +0x6c | 0x0043c980 | 323 | Matched; RTTI-confirmed vtables |
 | Mesh manager acquisition | 0x00454bc0 | 500 | Called by mesh replacement; not reconstructed |
 | Mesh path preparation | 0x00454dc0 | 67 | Called before cache lookup; not reconstructed |
 | File-backed resource acquisition | 0x0041f1b0 | 143 | Calls the existing file factory; not reconstructed |
@@ -73,12 +74,23 @@ SetMaterialProperty at 0x00439aa0; no direct loader-to-texture-decoder edge was
 established here. Do not infer material or texture reconstruction from those
 names alone.
 
-## Next bounded reconstruction
+## Verified continuation and next targets
 
-Prefer EMeshEntity's 323-byte replacement method at 0x0043c980 before the larger
-player-specific wrapper. Recover its lazy manager access, resource/mesh handle
-indirection, animation-state ownership and attachment helper signatures. The
-new joint lookup bodies supply verified endpoints for its skeleton path.
-Follow EFileReader dispatch at 0x0041f240 when identifying the serialized model
-reader; do not duplicate the existing file or asset tooling. Continue into mesh,
-skeleton, texture and animation decoding as supported by the actual calls.
+The replacement method now matches, together with lazy state initialization
+0x0043ae60, empty-mesh creation 0x00454eb0, blend-shape binding 0x0048e480,
+GetId 0x00492cc0 and native ID packing 0x0049a920. Constructor RTTI confirms that
+the existing ETriggerA8 view is EMesh, derived from EInstancable. Its spelling
+is retained to avoid an unrelated caller-wide rename.
+
+SetMesh 0x0043cad0 is still external. Its initialization path ignores an incoming
+replacement when the entity has no existing mesh; its replacement path releases
+the old instance, then installs an argument or an empty sentinel. The original
+helper executes in differential tests. Its private C++ probe remains blocked on
+a register phase difference after manager release; no matching criterion changed.
+
+Next follow EFileReader dispatch at 0x0041f240 and its small stream helpers into
+the serialized resource reader. Lazy-state constructor 0x0048d990 is a smaller
+bounded initialization target. Return to SetMesh when its accessor/ownership
+interfaces are better understood. Do not duplicate existing file or asset tools.
+The player-specific 0x005ef390 wrapper still needs exact iterator and parameter
+layouts. The matched common operation now provides a verified endpoint for it.

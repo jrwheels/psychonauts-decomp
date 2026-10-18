@@ -106,7 +106,8 @@ def execute(pe, obj, s, rebuilt):
     uc.mem_write(COMPARE, b'\xc3')
     addresses = REBUILT if rebuilt else ORIGINAL
     if rebuilt:
-        functions = {demangle(f.name): f for f in obj.functions}
+        functions = {demangle(f.name): f for f in obj.functions
+                     if demangle(f.name) in REBUILT}
         assert functions.keys()==REBUILT.keys()
         symbols = {f.name: REBUILT[n] for n, f in functions.items()}
         symbols['__imp___stricmp'] = 0x7002ac

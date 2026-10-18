@@ -868,7 +868,7 @@ address,size,origin,name,status,object
 0x0043a600,690,pointer,,,
 0x0043a8c0,159,pointer,,,
 0x0043a960,1278,pointer,,,
-0x0043ae60,111,pointer,,,
+0x0043ae60,111,pointer,ETriggerA8::EnsureAnimState,matching,mesh.obj
 0x0043aed0,11,gap,,,
 0x0043aee0,240,pointer,,,
 0x0043afd0,91,pointer,,,
@@ -904,7 +904,7 @@ address,size,origin,name,status,object
 0x0043c7f0,146,pointer,,,
 0x0043c890,110,pointer,,,
 0x0043c900,114,pointer,,,
-0x0043c980,323,pointer,,,
+0x0043c980,323,pointer,EMeshEntity::LoadMesh,matching,mesh.obj
 0x0043cad0,301,pointer,,,
 0x0043cc00,286,pointer,,,
 0x0043cd20,380,pointer,,,
@@ -1158,7 +1158,7 @@ address,size,origin,name,status,object
 0x00454bc0,500,pointer,,,
 0x00454dc0,67,pointer,,,
 0x00454e10,151,gap,,,
-0x00454eb0,78,pointer,,,
+0x00454eb0,78,pointer,EMeshManager::Create,matching,mesh.obj
 0x00454f00,101,pointer,,,
 0x00454f70,273,pointer,,,
 0x00455090,365,pointer,,,
@@ -1775,7 +1775,7 @@ address,size,origin,name,status,object
 0x0048e010,682,pointer,,,
 0x0048e2c0,274,gap,,,
 0x0048e3e0,146,pointer,,,
-0x0048e480,22,pointer,,,
+0x0048e480,22,pointer,EMeshAnimState::SetBlendShapes,matching,mesh.obj
 0x0048e4a0,315,pointer,,,
 0x0048e5e0,397,gap,,,
 0x0048e770,253,pointer,,,
@@ -1857,7 +1857,7 @@ address,size,origin,name,status,object
 0x00492b70,78,pointer,,,
 0x00492bc0,78,pointer,,,
 0x00492c10,175,pointer,EBone::Find,matching,mesh.obj
-0x00492cc0,29,pointer,,,
+0x00492cc0,29,pointer,EBone::GetId,matching,mesh.obj
 0x00492ce0,67,pointer,,,
 0x00492d30,232,pointer,,,
 0x00492e20,70,pointer,,,
@@ -1968,7 +1968,7 @@ address,size,origin,name,status,object
 0x0049a6e0,120,pointer,,,
 0x0049a760,250,pointer,,,
 0x0049a860,179,pointer,,,
-0x0049a920,142,pointer,,,
+0x0049a920,142,pointer,ESkeleton::GetBoneId,matching,mesh.obj
 0x0049a9b0,59,pointer,,,
 0x0049a9f0,73,pointer,,,
 0x0049aa40,488,pointer,,,

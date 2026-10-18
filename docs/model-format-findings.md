@@ -10,8 +10,9 @@ sentinel and an implicit first child immediately after its parent. The existing
 PLB research instead records packed 12-bit joint and four-bit skeleton IDs,
 recursive names and local transforms. Do not treat the runtime byte index as
 the complete serialized joint ID, or change the exporter hierarchy from these
-runtime strides. Recover the constructor/reader that builds the flat array
-before connecting those representations.
+runtime strides. The continuation below establishes native ID packing. Recover
+the constructor or reader that builds the flat array before asserting
+serialized-to-runtime ordering.
 
 Bone lookup uses case-insensitive comparison and depth-first first-match
 selection. Joint lookup uses case-sensitive comparison through a separate name
@@ -35,3 +36,25 @@ concrete bridge for investigating CYSP/PLB parsing. Neither the file's magic nor
 its complete mesh/material/skeleton decoder has yet been established by this
 batch. Keep owned-record fixtures and generated exports private and reuse the
 existing asset parsers when testing a recovered reader.
+
+## Native ID packing and animation association
+
+Matched GetId 0x00492cc0 and its callee 0x0049a920 now establish the ID dataflow:
+search the owning group's skeleton-pointer array, shift the found ordinal by
+12, then OR a 16-bit pointer-derived bone ordinal at stride 0xb0. A missing
+group entry uses ordinal zero. The runtime bone's +0xac byte is not the input
+used to construct this ID. Existing lookup still uses that byte for other
+operations, including name-record indexing and sibling traversal.
+
+For group ordinals below 16 and bone ordinals below 4096, the result has the
+4/12-bit split seen in PLB research. Native code does not enforce those bounds
+or independently mask the bone ordinal to 12 bits. Larger values can overlap
+fields or truncate on return. This agreement is useful for testing a reader;
+it does not prove how serialized joint ordering becomes the runtime arrays.
+
+The matched replacement method binds model+0x6c data into animation-state+0x20
+only when model+0x78 is nonzero. Its lazy state also receives the game's blend
+shape manager at +0x18. This separates group/ID lookup from animation-state
+association. The exact model+0x6c serialized type, bind-transform construction,
+skinning records and JAN playback remain unresolved; the C++ view keeps that
+pointer opaque. No exporter or asset data changed in this batch.

@@ -1,16 +1,16 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 87 native C++ matches / 10,474 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,339 / 10,930 functions and
-296,959 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 93 native C++ matches / 11,179 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,345 / 10,930 functions and
+297,664 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
-The latest strict build compiled all 59 sources and retained every previous
-match. All 29 native tooling tests and 774 new mesh/skeleton differential cases
-pass; the preceding 4,510 cases remain applicable because the 58 previous
-objects differ only in COFF timestamps, for 5,284 cases total.
+The latest strict build compiles all 59 sources and retains every previous
+match. All 29 native tooling tests and 1,162 fresh mesh/skeleton differential
+cases pass. The preceding 4,510 cases remain applicable because the 58 other
+objects differ only in COFF timestamps: 5,672 total cases.
 [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
@@ -18,10 +18,10 @@ new addresses, toolchain and report hashes.
 
 Recovered bodies cover sound bindings and handle helpers, one camera default,
 the diagnostic chain, EFileManager dispatch, pooled package access, buffered
-reader/writer methods and lifetimes, native Win32 file methods, and native
-opening/streaming consumer/producer/lifetime methods, and mesh joint/skeleton
-lookup. Partial class layouts retain
-observed offsets and virtual slots. External storage and initialization remain
+reader/writer methods and lifetimes, native Win32 file methods, streaming
+consumer/producer/lifetime methods, mesh replacement, animation-state setup and
+skeleton lookup/IDs. Partial class layouts retain observed offsets and virtual
+slots. External storage and initialization remain
 external where lifetime or ownership is unresolved. Names and semantic types are provisional
 unless independently corroborated.
 
@@ -122,13 +122,19 @@ The [native mesh and skeleton lookup](native-mesh-lookup.md) adds four matches
 3,335 matching rows are unchanged. The 59-source strict build and full matcher
 pass; prior differential evidence is reused with byte-level COFF parity.
 
-The [model-loading call graph](model-loading-next.md) resolves the player and
-script virtual mesh-replacement edge to EMeshEntity 0x0043c980, which is the next
-bounded target. Shared callee 0x005eb370 is backpack animation setup, not the
-mesh decoder. The resource route reaches RTTI-confirmed EFileReader and existing
-file dispatch. [Format findings](model-format-findings.md) record extraction
-implications separately, including the unresolved mapping between serialized
-joint IDs and the newly recovered runtime skeleton indices.
+The [mesh replacement and ID continuation](native-mesh-replacement.md) adds
+six matches /705 bytes. EMeshEntity::LoadMesh 0x0043c980 now matches, with
+empty-instance creation, lazy animation state, blend-shape binding and bone-ID
+packing. All preceding 3,339 matching rows are unchanged; the fresh suites pass
+388 replacement/ID and 774 lookup cases. The original external SetMesh executes
+in both test chains, while constructors and resource/rendering services are mocked.
+
+The [model-loading call graph](model-loading-next.md) connects the common loader
+to EFileReader dispatch at 0x0041f240, the next serialization target. SetMesh
+0x0043cad0 remains blocked on a compiler register phase difference. RTTI confirms
+that the existing ETriggerA8 view is EMesh; its provisional spelling is retained.
+[Format findings](model-format-findings.md) separate native ID packing from the
+still unverified serialized-to-runtime ordering and actual animation behavior.
 
 [Optional Rust relocation decoding](matching-acceleration.md) reduces the measured
 matching phase from 102.1 to 10.8 seconds while preserving all match, candidate
