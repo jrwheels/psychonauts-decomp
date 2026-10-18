@@ -814,7 +814,7 @@ address,size,origin,name,status,object
 0x004370f0,363,pointer,,,
 0x00437260,481,pointer,,,
 0x00437450,1106,gap,,,
-0x004378b0,85,pointer,,,
+0x004378b0,85,pointer,EBone::GetNext,matching,mesh.obj
 0x00437910,158,pointer,,,
 0x004379b0,178,gap,,,
 0x00437a70,292,pointer,,,
@@ -829,8 +829,8 @@ address,size,origin,name,status,object
 0x00438830,193,pointer,,,
 0x00438900,174,pointer,,,
 0x004389b0,438,pointer,,,
-0x00438b70,103,pointer,,,
-0x00438be0,187,pointer,,,
+0x00438b70,103,pointer,ETriggerA8::FindBone,matching,mesh.obj
+0x00438be0,187,pointer,ETriggerA8::FindJoint,matching,mesh.obj
 0x00438ca0,213,gap,,,
 0x00438d80,113,pointer,,,
 0x00438e00,41,pointer,,,
@@ -1856,7 +1856,7 @@ address,size,origin,name,status,object
 0x00492780,1000,pointer,,,
 0x00492b70,78,pointer,,,
 0x00492bc0,78,pointer,,,
-0x00492c10,175,pointer,,,
+0x00492c10,175,pointer,EBone::Find,matching,mesh.obj
 0x00492cc0,29,pointer,,,
 0x00492ce0,67,pointer,,,
 0x00492d30,232,pointer,,,

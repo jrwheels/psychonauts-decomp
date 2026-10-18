@@ -5,18 +5,18 @@
   "compiler": "15.00.21022.08 x86",
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
-  "fresh_source_objects": 58,
-  "coff_function_records": 3348,
-  "matching_functions": 3335,
+  "fresh_source_objects": 59,
+  "coff_function_records": 3352,
+  "matching_functions": 3339,
   "total_mapped_functions": 10930,
-  "matched_bytes": 296409,
+  "matched_bytes": 296959,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 83,
-  "added_bytes": 9924,
+  "added_functions": 87,
+  "added_bytes": 10474,
   "unit_tests_passed": 29,
-  "differential_cases_passed": 4510,
+  "differential_cases_passed": 5284,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -81,6 +81,10 @@
     "test_sound_triggers": {
       "exit_code": 0,
       "cases": 356
+    },
+    "test_mesh": {
+      "exit_code": 0,
+      "cases": 774
     }
   },
   "limitations": [
@@ -89,32 +93,38 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261018T020329Z/summary.json",
-    "matching": "build/streaming-read/comparison-before-map.json",
-    "differential": "build/streaming-read/regressions/summary.json",
+    "strict_audit": "build/audit/20261018T021344Z/summary.json",
+    "matching": "build/mesh/comparison-before-map.json",
+    "differential": "build/mesh/verification-summary.json",
     "file_lifetime": "build/streaming-read/regressions/test_file_lifetime.json",
     "native_file": "build/streaming-read/regressions/test_native_file.json",
     "native_opener": "build/streaming-read/regressions/test_native_opener.json",
-    "map_update": "build/streaming-read/map-update.json",
+    "map_update": "build/mesh/map-update.json",
     "supplementary_objdiff": "build/native-opener/objdiff-review.json",
-    "rust_matching": "build/rust-accelerator/comparison.json",
+    "rust_matching": "build/mesh/comparison-before-map.json",
     "rust_benchmark": "build/rust-accelerator/benchmark.json",
-    "tooling_tests": "build/streaming-read/tooling-tests.log",
-    "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json"
+    "tooling_tests": "build/mesh/tooling-tests.log",
+    "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json",
+    "mesh": "build/mesh/behavior.json",
+    "mesh_decoder_parity": "build/mesh/decoder-parity.json",
+    "cached_object_parity": "build/mesh/cached-object-parity.json"
   },
   "report_sha256": {
-    "strict_audit": "37348417ce5ad65ae379cc8455459fb3d5ea1e3a8e00128cc0e5d533d21eabea",
-    "matching": "cdea743efce53fc61153b0c8abe3b290d8fd45b35878aa4989e3f1b508523619",
-    "differential": "493a7776ae713fc5fb2fd7d0cf72addac7458e86e96e2c3e6464583428676e90",
+    "strict_audit": "e4c69742ae3d4fa83f6247f8128333dc9431a1f5b19110f4024b9cb9e98e89d3",
+    "matching": "bd50fc32cb9fa04c705a3661738d26a4cd4e506c02569a0a2b1805b57233c91a",
+    "differential": "fc97d2359adafee0231ddbecab94c87f9dda4cff51e3a67005b66abdc5be8591",
     "file_lifetime": "4341b685c311e78af5a5f46004d8333e238796dc2572d6ca428c6c3b78c86393",
     "native_file": "96657b511b6257eab2ebe92739fc6bf7e88f2f3241ce208d5465818996834642",
     "native_opener": "c406be0b35a723bd54f1e76a086502e2f6579f2dec8d8b350ab4432678ac9d71",
-    "map_update": "e0307a96a14382fa8b37ab5c9b8b7ce5599ca9f511c3a91190b384310699bc35",
+    "map_update": "f3b4f5d41c93e5c5584cb5b8f91f6eb4dc0918fab3593e563c00128d06fef5c7",
     "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
-    "rust_matching": "a6e33c364fc48c07c87bb79b41e64dd65f089f12ddf3794f820f944bdac610ea",
+    "rust_matching": "bd50fc32cb9fa04c705a3661738d26a4cd4e506c02569a0a2b1805b57233c91a",
     "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
-    "tooling_tests": "20c7e84d919425661f3c40240d7be0ae44f12c843f9b8609ba306d8fd523fb27",
-    "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38"
+    "tooling_tests": "32362758f744dcd815cc3952de763dab3760472dde7d2cc863ba35ea99186a40",
+    "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38",
+    "mesh": "df86899bf7bee8f07865057e47128a3a7ed5bd654e691600423bb6ce275d8852",
+    "mesh_decoder_parity": "05f9b882eacc11490be9391cacfbff3780441bae61a18f03243e0118574ad80e",
+    "cached_object_parity": "38f326b132d9e17bb2ba764b8039cbad8dcc0316243a1f4c5cf8b54f40e092b8"
   },
   "new_matches": [
     {
@@ -531,16 +541,36 @@
       "address": "0x006a7730",
       "size": 355,
       "name": "EWin32StreamingFile::Read"
+    },
+    {
+      "address": "0x004378b0",
+      "size": 85,
+      "name": "EBone::GetNext"
+    },
+    {
+      "address": "0x00438b70",
+      "size": 103,
+      "name": "ETriggerA8::FindBone"
+    },
+    {
+      "address": "0x00438be0",
+      "size": 187,
+      "name": "ETriggerA8::FindJoint"
+    },
+    {
+      "address": "0x00492c10",
+      "size": 175,
+      "name": "EBone::Find"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
-  "continuation_added_functions": 34,
-  "continuation_added_bytes": 3567,
+  "continuation_added_functions": 38,
+  "continuation_added_bytes": 4117,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "4057d33e80a5850a6e143f5cbedcc8e85b32ddb2e38701a110d53e8c1d445b53",
-  "comparison_functions_csv_sha256": "fd85c7a8f892d7b694309e868de3c22485980f95c1ab054b2761fd8d69dc5cad",
+  "functions_csv_sha256": "c879c605ec1db1731b27ee9f32193ccb350f5ab37bf0dcfa5c7be1e917c71d21",
+  "comparison_functions_csv_sha256": "4057d33e80a5850a6e143f5cbedcc8e85b32ddb2e38701a110d53e8c1d445b53",
   "comparison_precedes_csv_promotions": true,
-  "comparison_note": "The full Rust-assisted upstream matcher checked the 3,334-function CSV, retained every address and added only Streaming Read at 0x006a7730 /355 bytes. The map-update record binds the sole promotion to that comparison. No source or objects changed afterward.",
+  "comparison_note": "The full Rust-assisted upstream matcher retained every one of the 3,335 preceding addresses and added only the four mesh/skeleton helpers listed in build/mesh/map-update.json /550 bytes. Only those CSV rows were promoted; no source or objects changed afterward.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -583,5 +613,11 @@
     "default_backend": "python",
     "native_engine_objects_unchanged": true,
     "benchmark_scope": "Single unprofiled matching-phase run per backend, excluding input loading/builds; cold search cache."
+  },
+  "differential_reuse": {
+    "fresh_cases": 774,
+    "cached_cases": 4510,
+    "proof": "build/mesh/cached-object-parity.json",
+    "scope": "Previous 58 COFF objects are byte-identical after restoring only their four-byte header timestamps. Cached suites were not rerun."
   }
 }

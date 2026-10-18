@@ -2412,6 +2412,142 @@
         "Local names are compiler-layout choices, not recovered names.",
         "Signed overflow and invalid buffer states are not portability or safety claims."
       ]
+    },
+    "0x004378b0": {
+      "signature": "EBone::GetNext",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; exact RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-lookup.md",
+        "build/mesh/comparison-before-map.json",
+        "build/mesh/map-update.json",
+        "build/mesh/behavior.json",
+        "build/mesh/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,335 preceding matching addresses retained",
+        "774 independent expected/original/rebuilt x86 cases exercising real lookup, recursion and sibling chains; ASCII _stricmp mocked",
+        "Rust/Python relocation targets agree for this body"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial type views are provisional.",
+        "Valid synthetic hierarchies only; cycles, null names, corrupt indices and real assets are not tested.",
+        "Runtime bone indices are not yet mapped to serialized joint IDs.",
+        "No original animation playback, material rendering or filesystem behavior is established."
+      ]
+    },
+    "0x00438b70": {
+      "signature": "ETriggerA8::FindBone",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; exact RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-lookup.md",
+        "build/mesh/comparison-before-map.json",
+        "build/mesh/map-update.json",
+        "build/mesh/behavior.json",
+        "build/mesh/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,335 preceding matching addresses retained",
+        "774 independent expected/original/rebuilt x86 cases exercising real lookup, recursion and sibling chains; ASCII _stricmp mocked",
+        "Rust/Python relocation targets agree for this body"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial type views are provisional.",
+        "Valid synthetic hierarchies only; cycles, null names, corrupt indices and real assets are not tested.",
+        "Runtime bone indices are not yet mapped to serialized joint IDs.",
+        "No original animation playback, material rendering or filesystem behavior is established."
+      ]
+    },
+    "0x00438be0": {
+      "signature": "ETriggerA8::FindJoint",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; exact RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-lookup.md",
+        "build/mesh/comparison-before-map.json",
+        "build/mesh/map-update.json",
+        "build/mesh/behavior.json",
+        "build/mesh/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,335 preceding matching addresses retained",
+        "774 independent expected/original/rebuilt x86 cases exercising real lookup, recursion and sibling chains; ASCII _stricmp mocked",
+        "Rust/Python relocation targets agree for this body"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial type views are provisional.",
+        "Valid synthetic hierarchies only; cycles, null names, corrupt indices and real assets are not tested.",
+        "Runtime bone indices are not yet mapped to serialized joint IDs.",
+        "No original animation playback, material rendering or filesystem behavior is established."
+      ]
+    },
+    "0x00492c10": {
+      "signature": "EBone::Find",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly derived; exact RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-mesh-lookup.md",
+        "build/mesh/comparison-before-map.json",
+        "build/mesh/map-update.json",
+        "build/mesh/behavior.json",
+        "build/mesh/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 59 fresh objects; all 3,335 preceding matching addresses retained",
+        "774 independent expected/original/rebuilt x86 cases exercising real lookup, recursion and sibling chains; ASCII _stricmp mocked",
+        "Rust/Python relocation targets agree for this body"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial type views are provisional.",
+        "Valid synthetic hierarchies only; cycles, null names, corrupt indices and real assets are not tested.",
+        "Runtime bone indices are not yet mapped to serialized joint IDs.",
+        "No original animation playback, material rendering or filesystem behavior is established."
+      ]
     }
   }
 }

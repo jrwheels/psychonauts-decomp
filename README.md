@@ -1,8 +1,8 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-30.51%25%20(3335%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.10%25-red)
+![Engine](https://img.shields.io/badge/Engine-30.55%25%20(3339%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.12%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -18,7 +18,7 @@ This repository does **not** contain any game assets or game code. You need your
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3335 / 10930 functions (30.51 %), 10.10 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3339 / 10930 functions (30.55 %), 10.12 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -247,8 +247,8 @@ Psychonauts belongs to Double Fine Productions. This project is not affiliated w
 
 ## Native reconstruction verification
 
-The Steam Windows reference now matches **3,335 functions / 296,409 mapped
-bytes**, including 83 additional native bodies / 9,924 bytes beyond upstream
+The Steam Windows reference now matches **3,339 functions / 296,959 mapped
+bytes**, including 87 additional native bodies / 10,474 bytes beyond upstream
 `6959341`. See [native reconstruction](docs/native-reconstruction.md) for the
 strict build, read-only comparison, isolated differential tests, and limitations.
 This is object-level progress; no linked or playable engine is claimed.
@@ -261,3 +261,6 @@ now includes Streaming Read at 0x006a7730, with 732 differential cases.
 
 [Optional Rust relocation decoding](docs/matching-acceleration.md) accelerates
 the existing matching workflow; the engine build remains VC++ 2008 C++.
+
+The [native mesh and skeleton lookup](docs/native-mesh-lookup.md) adds four
+matched helpers and 774 differential cases along the character-loading path.
