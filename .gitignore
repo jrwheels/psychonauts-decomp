@@ -8,3 +8,7 @@ psyluac/psyluac
 *.pkg
 __pycache__/
 build/
+
+# Private references, toolchains, analysis, and Python environments
+.local/
+.venv

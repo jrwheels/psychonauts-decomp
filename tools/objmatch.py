@@ -167,7 +167,7 @@ def run(exe, objs, known_in=None):
         s = strtext.get(n)
         if s is not None:
             o = v - exe.base
-            return exe.image[o:o + len(s) + 1] == s + b"\0"
+            return 0 <= o <= len(exe.image) - len(s) - 1 and exe.image[o:o + len(s) + 1] == s + b"\0"
         return False
 
     for obj in objs:

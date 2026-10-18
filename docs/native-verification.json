@@ -1,0 +1,335 @@
+{
+  "upstream_base": "6959341ed94edeb17d77ad39c3b59ae5dd8f5011",
+  "reference_sha1": "21e9b89c80347c8360a8ce4b17ce45e7cd1d4a07",
+  "reference_sha256": "cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3",
+  "compiler": "15.00.21022.08 x86",
+  "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
+  "strict_build_success": true,
+  "fresh_source_objects": 56,
+  "coff_function_records": 3307,
+  "matching_functions": 3301,
+  "total_mapped_functions": 10930,
+  "matched_bytes": 292842,
+  "total_mapped_bytes": 2935679,
+  "regressions": [],
+  "upstream_matching_rows_preserved": true,
+  "added_functions": 49,
+  "added_bytes": 6357,
+  "unit_tests_passed": 18,
+  "differential_cases_passed": 3078,
+  "differential_suites": {
+    "test_buffered_file": {
+      "cases": 453,
+      "exit_code": 0
+    },
+    "test_diagnostics": {
+      "cases": 192,
+      "exit_code": 0
+    },
+    "test_file_manager": {
+      "cases": 717,
+      "exit_code": 0
+    },
+    "test_package_accessor": {
+      "cases": 385,
+      "exit_code": 0
+    },
+    "test_sound_camera_bindings": {
+      "cases": 30,
+      "exit_code": 0
+    },
+    "test_sound_categories": {
+      "cases": 28,
+      "exit_code": 0
+    },
+    "test_sound_controls": {
+      "cases": 59,
+      "exit_code": 0
+    },
+    "test_sound_flags": {
+      "cases": 340,
+      "exit_code": 0
+    },
+    "test_sound_handles": {
+      "cases": 126,
+      "exit_code": 0
+    },
+    "test_sound_levels": {
+      "cases": 55,
+      "exit_code": 0
+    },
+    "test_sound_mute": {
+      "cases": 71,
+      "exit_code": 0
+    },
+    "test_sound_names_stops": {
+      "cases": 266,
+      "exit_code": 0
+    },
+    "test_sound_triggers": {
+      "cases": 356,
+      "exit_code": 0
+    }
+  },
+  "limitations": [
+    "Original and reconstructed x86 execute with mocked callees; no game or real filesystem/audio tests.",
+    "Object-level reconstruction only; no linked or playable engine.",
+    "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
+  ],
+  "verification_reports": {
+    "strict_audit": "build/audit/20261018T000837Z/summary.json",
+    "matching": "build/github-preparation/comparison.json",
+    "differential": "build/github-preparation/differential-summary.json"
+  },
+  "report_sha256": {
+    "matching": "4fc2bd8f805acf20a00a0322981d9062cec7cb1b83f0bcbf73c94a2cb23208da",
+    "strict_audit": "2bbf089986a69754fdb9576f4b06efc835274ecea47718d868bfd0435534f64b"
+  },
+  "new_matches": [
+    {
+      "address": "0x00402300",
+      "size": 49,
+      "name": "NativeDiagnostic"
+    },
+    {
+      "address": "0x004024d0",
+      "size": 81,
+      "name": "DiagnosticSink::Write"
+    },
+    {
+      "address": "0x00402560",
+      "size": 72,
+      "name": "DiagnosticSink::VPrintf"
+    },
+    {
+      "address": "0x00421520",
+      "size": 59,
+      "name": "EEntity::StopSounds"
+    },
+    {
+      "address": "0x005696b0",
+      "size": 41,
+      "name": "GetCameraDefaultFOV_impl"
+    },
+    {
+      "address": "0x00597d60",
+      "size": 195,
+      "name": "GetSoundArg"
+    },
+    {
+      "address": "0x00597e90",
+      "size": 197,
+      "name": "LoadSound_impl"
+    },
+    {
+      "address": "0x00597fc0",
+      "size": 260,
+      "name": "GetSoundName_impl"
+    },
+    {
+      "address": "0x00598f90",
+      "size": 170,
+      "name": "IsSoundPlaying_impl"
+    },
+    {
+      "address": "0x005991d0",
+      "size": 108,
+      "name": "StopSoundsOnEntity_impl"
+    },
+    {
+      "address": "0x005992a0",
+      "size": 144,
+      "name": "StopSoundInstance_impl"
+    },
+    {
+      "address": "0x00599390",
+      "size": 51,
+      "name": "StopAllSounds_impl"
+    },
+    {
+      "address": "0x00599430",
+      "size": 188,
+      "name": "SoundStopCategory_impl"
+    },
+    {
+      "address": "0x00599710",
+      "size": 261,
+      "name": "SoundVolumeCategory_impl"
+    },
+    {
+      "address": "0x00599880",
+      "size": 105,
+      "name": "SoundSetDucking_impl"
+    },
+    {
+      "address": "0x00599950",
+      "size": 119,
+      "name": "FXVolume_impl"
+    },
+    {
+      "address": "0x00599a30",
+      "size": 119,
+      "name": "VoiceVolume_impl"
+    },
+    {
+      "address": "0x00599b10",
+      "size": 119,
+      "name": "MusicVolume_impl"
+    },
+    {
+      "address": "0x00599bf0",
+      "size": 234,
+      "name": "SoundMuteCategory_impl"
+    },
+    {
+      "address": "0x00599d40",
+      "size": 227,
+      "name": "SoundUnmuteCategory_impl"
+    },
+    {
+      "address": "0x00599e90",
+      "size": 39,
+      "name": "SoundPauseAll_impl"
+    },
+    {
+      "address": "0x00599f20",
+      "size": 39,
+      "name": "SoundResumeAll_impl"
+    },
+    {
+      "address": "0x00599fb0",
+      "size": 188,
+      "name": "SoundPauseCategory_impl"
+    },
+    {
+      "address": "0x0059a0d0",
+      "size": 42,
+      "name": "SoundPauseNonMenu_impl"
+    },
+    {
+      "address": "0x0059a160",
+      "size": 188,
+      "name": "SoundResumeCategory_impl"
+    },
+    {
+      "address": "0x0059a280",
+      "size": 42,
+      "name": "SoundResumeNonMenu_impl"
+    },
+    {
+      "address": "0x0059a310",
+      "size": 177,
+      "name": "SoundSetTriggerVariable_impl"
+    },
+    {
+      "address": "0x0059a430",
+      "size": 183,
+      "name": "SoundGetTriggerVariable_impl"
+    },
+    {
+      "address": "0x0059a550",
+      "size": 187,
+      "name": "SoundSetParameterControl_impl"
+    },
+    {
+      "address": "0x0059a670",
+      "size": 113,
+      "name": "SoundSetDistanceFactor_impl"
+    },
+    {
+      "address": "0x0059a750",
+      "size": 113,
+      "name": "SoundSetRolloffFactor_impl"
+    },
+    {
+      "address": "0x0059a830",
+      "size": 132,
+      "name": "SoundIsDolbyDigital_impl"
+    },
+    {
+      "address": "0x0059a920",
+      "size": 251,
+      "name": "SoundSetCameraRelative_impl"
+    },
+    {
+      "address": "0x0059aa80",
+      "size": 235,
+      "name": "SoundSetEcho_impl"
+    },
+    {
+      "address": "0x0059b320",
+      "size": 109,
+      "name": "GetCueLength_impl"
+    },
+    {
+      "address": "0x006a4ee0",
+      "size": 187,
+      "name": "DiagnosticStream::Write"
+    },
+    {
+      "address": "0x006a9140",
+      "size": 197,
+      "name": "EFileManager::Open"
+    },
+    {
+      "address": "0x006a9c00",
+      "size": 50,
+      "name": "EWriteBufferedFile::Seek"
+    },
+    {
+      "address": "0x006a9ca0",
+      "size": 175,
+      "name": "EWriteBufferedFile::Write"
+    },
+    {
+      "address": "0x006a9d50",
+      "size": 80,
+      "name": "EWriteBufferedFile::Flush"
+    },
+    {
+      "address": "0x006a9ee0",
+      "size": 313,
+      "name": "EReadBufferedFile::Read"
+    },
+    {
+      "address": "0x006aa020",
+      "size": 32,
+      "name": "EReadBufferedFile::Size"
+    },
+    {
+      "address": "0x006aa080",
+      "size": 60,
+      "name": "EReadBufferedFile::Refill"
+    },
+    {
+      "address": "0x006aabb0",
+      "size": 89,
+      "name": "ReadPackedData"
+    },
+    {
+      "address": "0x006aac10",
+      "size": 143,
+      "name": "AcquirePackedFile"
+    },
+    {
+      "address": "0x006aad40",
+      "size": 31,
+      "name": "PackedFileSlot::Close"
+    },
+    {
+      "address": "0x006aad60",
+      "size": 73,
+      "name": "PackedFileSlot::Read"
+    },
+    {
+      "address": "0x006aadc0",
+      "size": 70,
+      "name": "PackedFileSlot::Seek"
+    },
+    {
+      "address": "0x006aae10",
+      "size": 20,
+      "name": "PackedFileSlot::Size"
+    }
+  ]
+}

@@ -1,0 +1,1312 @@
+{
+  "schema_version": 1,
+  "binary_sha256": "cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3",
+  "functions": {
+    "0x00597d60": {
+      "signature": "void *GetSoundArg(lua_State *L, int idx)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00597d60.json",
+        "build/batch-07-final.json",
+        "build/batch-07-map-update.json",
+        "build/batch-07-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: all nonrelocated bytes equal, relocation targets constrained across full object set; unique expected address",
+        "Unicorn x86 original/rebuilt differential traces with mocked callees; independent assembly-derived expectations",
+        "strictbuild: 53 fresh RTM x86 source objects, compiler exits checked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Local variable names are compiler-layout choices, not recovered names.",
+        "Real Lua/audio/gameplay behavior is not exercised by mocked tests.",
+        "Helper name and handle semantic type are provisional.",
+        "INT_MIN negation preserves observed MSVC behavior, not portable ISO C++ semantics."
+      ]
+    },
+    "0x00599390": {
+      "signature": "int StopAllSounds_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00599390.json",
+        "build/batch-07-final.json",
+        "build/batch-07-map-update.json",
+        "build/batch-07-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: all nonrelocated bytes equal, relocation targets constrained across full object set; unique expected address",
+        "Unicorn x86 original/rebuilt differential traces with mocked callees; independent assembly-derived expectations",
+        "strictbuild: 53 fresh RTM x86 source objects, compiler exits checked"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 88,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Local variable names are compiler-layout choices, not recovered names.",
+        "Real Lua/audio/gameplay behavior is not exercised by mocked tests."
+      ]
+    },
+    "0x0059a310": {
+      "signature": "int SoundSetTriggerVariable_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-0059a310.json",
+        "build/batch-07-final.json",
+        "build/batch-07-map-update.json",
+        "build/batch-07-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: all nonrelocated bytes equal, relocation targets constrained across full object set; unique expected address",
+        "Unicorn x86 original/rebuilt differential traces with mocked callees; independent assembly-derived expectations",
+        "strictbuild: 53 fresh RTM x86 source objects, compiler exits checked"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 192,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Local variable names are compiler-layout choices, not recovered names.",
+        "Real Lua/audio/gameplay behavior is not exercised by mocked tests.",
+        "Setter third argument is zero DWORD; semantic type not established."
+      ]
+    },
+    "0x0059a430": {
+      "signature": "int SoundGetTriggerVariable_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-0059a430.json",
+        "build/batch-07-final.json",
+        "build/batch-07-map-update.json",
+        "build/batch-07-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: all nonrelocated bytes equal, relocation targets constrained across full object set; unique expected address",
+        "Unicorn x86 original/rebuilt differential traces with mocked callees; independent assembly-derived expectations",
+        "strictbuild: 53 fresh RTM x86 source objects, compiler exits checked"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 196,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Local variable names are compiler-layout choices, not recovered names.",
+        "Real Lua/audio/gameplay behavior is not exercised by mocked tests."
+      ]
+    },
+    "0x0059a550": {
+      "signature": "int SoundSetParameterControl_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-0059a550.json",
+        "build/batch-07-final.json",
+        "build/batch-07-map-update.json",
+        "build/batch-07-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: all nonrelocated bytes equal, relocation targets constrained across full object set; unique expected address",
+        "Unicorn x86 original/rebuilt differential traces with mocked callees; independent assembly-derived expectations",
+        "strictbuild: 53 fresh RTM x86 source objects, compiler exits checked"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 200,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Local variable names are compiler-layout choices, not recovered names.",
+        "Real Lua/audio/gameplay behavior is not exercised by mocked tests.",
+        "Sound/instance handle meanings are provisional."
+      ]
+    },
+    "0x0068e190": {
+      "signature": "void EISACTSoundManager::slot_c0(DWORD, float, DWORD)",
+      "calling_convention": "thiscall",
+      "parent": "EISACTSoundManager",
+      "confidence": "RTTI and slot linkage; semantic signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md"
+      ],
+      "verification_method": [
+        "bounded assembly inspection",
+        "RTTI complete-object-locator and vtable pointer linkage"
+      ],
+      "unresolved": [
+        "No C++ implementation or runtime equivalence test in this session."
+      ]
+    },
+    "0x0068e270": {
+      "signature": "float EISACTSoundManager::slot_c4(DWORD)",
+      "calling_convention": "thiscall",
+      "parent": "EISACTSoundManager",
+      "confidence": "RTTI and slot linkage; semantic signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md"
+      ],
+      "verification_method": [
+        "bounded assembly inspection",
+        "RTTI complete-object-locator and vtable pointer linkage"
+      ],
+      "unresolved": [
+        "No C++ implementation or runtime equivalence test in this session."
+      ]
+    },
+    "0x0068e280": {
+      "signature": "void EISACTSoundManager::slot_c8(const char *, float, DWORD, DWORD)",
+      "calling_convention": "thiscall",
+      "parent": "EISACTSoundManager",
+      "confidence": "RTTI and slot linkage; semantic signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md"
+      ],
+      "verification_method": [
+        "bounded assembly inspection",
+        "RTTI complete-object-locator and vtable pointer linkage"
+      ],
+      "unresolved": [
+        "No C++ implementation or runtime equivalence test in this session."
+      ]
+    },
+    "0x00597e90": {
+      "signature": "int LoadSound_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00597e90.json",
+        "build/batch-08-final.json",
+        "build/batch-08-map-update.json",
+        "build/batch-08-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: nonrelocated bytes equal, relocation targets constrained; unique expected address",
+        "Unicorn differential x86 traces plus independent expected traces; mocked callees",
+        "strictbuild: 53 fresh RTM x86 objects and checked compiler exits"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 72,
+          "compatible_derived_table_va": 7459468
+        },
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 32,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Virtual method names/handle semantics remain provisional.",
+        "Real Lua/audio and gameplay behavior is not exercised."
+      ]
+    },
+    "0x00598f90": {
+      "signature": "int IsSoundPlaying_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00598f90.json",
+        "build/batch-08-final.json",
+        "build/batch-08-map-update.json",
+        "build/batch-08-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: nonrelocated bytes equal, relocation targets constrained; unique expected address",
+        "Unicorn differential x86 traces plus independent expected traces; mocked callees",
+        "strictbuild: 53 fresh RTM x86 objects and checked compiler exits"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 52,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Virtual method names/handle semantics remain provisional.",
+        "Real Lua/audio and gameplay behavior is not exercised."
+      ]
+    },
+    "0x0059b320": {
+      "signature": "int GetCueLength_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-0059b320.json",
+        "build/batch-08-final.json",
+        "build/batch-08-map-update.json",
+        "build/batch-08-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: nonrelocated bytes equal, relocation targets constrained; unique expected address",
+        "Unicorn differential x86 traces plus independent expected traces; mocked callees",
+        "strictbuild: 53 fresh RTM x86 objects and checked compiler exits"
+      ],
+      "vtable_relationships": [
+        {
+          "receiver": "GameApp +0x198",
+          "slot_offset": 64,
+          "compatible_derived_table_va": 7459468
+        }
+      ],
+      "unresolved": [
+        "Virtual method names/handle semantics remain provisional.",
+        "Real Lua/audio and gameplay behavior is not exercised."
+      ]
+    },
+    "0x00597fc0": {
+      "signature": "int GetSoundName_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00597fc0.json",
+        "build/batch-09-10-final.json",
+        "build/native-continuation/test_sound_names_stops.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established.",
+        "Real Lua string-content behavior is mocked; +0x28 is confirmed, correcting earlier forecast +0x24."
+      ]
+    },
+    "0x005991d0": {
+      "signature": "int StopSoundsOnEntity_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-005991d0.json",
+        "build/batch-09-10-final.json",
+        "build/native-continuation/test_sound_names_stops.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established."
+      ]
+    },
+    "0x005992a0": {
+      "signature": "int StopSoundInstance_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-005992a0.json",
+        "build/batch-09-10-final.json",
+        "build/native-continuation/test_sound_names_stops.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established."
+      ]
+    },
+    "0x00421520": {
+      "signature": "void EEntity::StopSounds()",
+      "calling_convention": "thiscall",
+      "parent": "EEntity",
+      "source": "src/game/sound_lua.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00421520.json",
+        "build/batch-09-10-final.json",
+        "build/native-continuation/test_sound_names_stops.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established."
+      ]
+    },
+    "0x00402300": {
+      "signature": "void NativeDiagnostic(const char *format, ...)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/diagnostic.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00402300.json",
+        "build/batch-09-10-final.json",
+        "build/batch-11-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established."
+      ]
+    },
+    "0x004024d0": {
+      "signature": "void DiagnosticSink::Write(const char *text)",
+      "calling_convention": "thiscall",
+      "parent": "DiagnosticSink (provisional)",
+      "source": "src/game/diagnostic.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-004024d0.json",
+        "build/batch-09-10-final.json",
+        "build/batch-11-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established."
+      ]
+    },
+    "0x00402560": {
+      "signature": "void DiagnosticSink::VPrintf(const char *format, va_list args)",
+      "calling_convention": "thiscall",
+      "parent": "DiagnosticSink (provisional)",
+      "source": "src/game/diagnostic.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-00402560.json",
+        "build/batch-09-10-final.json",
+        "build/batch-11-behavior.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established."
+      ]
+    },
+    "0x006a4ee0": {
+      "signature": "bool DiagnosticStream::Write(const char *text)",
+      "calling_convention": "thiscall",
+      "parent": "DiagnosticStream (provisional)",
+      "source": "src/game/diagnostic.cpp",
+      "confidence": "assembly derived; RTM matching; isolated native differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a4ee0.json",
+        "build/batch-11-extern-final.json",
+        "build/batch-11-behavior.json",
+        "build/diagnostic-extern-verification.json"
+      ],
+      "verification_method": [
+        "upstream objmatch: relocation-aware equality, unique expected VA, full prior-match regression check",
+        "strictbuild: RTM x86 compiler exits and 54 fresh source objects",
+        "Unicorn original/rebuilt differential traces and independent expectations; callees mocked as documented"
+      ],
+      "unresolved": [
+        "Original new method/local names and full class layouts remain unknown.",
+        "No actual game/runtime initialization, file I/O or audio behavior is established.",
+        "Factory pointer is external: original initial value 0x00795a38; static object layout/construction unrecovered.",
+        "File-interface method names/ignored return types and factory options 0x800/4 are provisional."
+      ]
+    },
+    "0x005990a0": {
+      "signature": "int StopSound_impl(lua_State *L)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "confidence": "bounded assembly observations only",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-005990a0.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted Capstone assembly inspection"
+      ],
+      "unresolved": [
+        "Analyzed only. A nonnull-entity path reads [ebp-0x10] into a temporary, then overwrites that temporary with entity+0x38. Original accessor/temporary semantics unresolved; no invented uninitialized source added."
+      ]
+    },
+    "0x006fb930": {
+      "signature": "void DiagnosticFactoryStaticInit() [provisional name]",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "confidence": "bounded assembly observations only",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006fb930.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted Capstone assembly inspection"
+      ],
+      "unresolved": [
+        "ECX 0x00795a38 calls 0x006a88b0; registers 0x006fbd30 through 0x006ed27b. Native factory layout/constructor not reconstructed."
+      ]
+    },
+    "0x006fbd30": {
+      "signature": "void DiagnosticFactoryStaticDestroy() [provisional name]",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "confidence": "bounded assembly observations only",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006fbd30.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted Capstone assembly inspection"
+      ],
+      "unresolved": [
+        "Destructor now inspected; dependencies documented in docs/native-file-manager.md. Full layout/lifetime not reconstructed."
+      ]
+    },
+    "0x006a9140": {
+      "signature": "DiagnosticFile *EFileManager::Open(const char *, unsigned int, int)",
+      "calling_convention": "thiscall",
+      "parent": "EFileManager",
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; RTM unique matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a9140.json",
+        "build/batch-12-behavior.json",
+        "build/batch-12-final.json",
+        "build/batch-12-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated original/rebuilt Unicorn two-body chain; 717 independent expected trace/state cases",
+        "strictbuild: 55 fresh RTM x86 objects; compiler exits checked",
+        "upstream objmatch: relocation-aware equality, unique expected address; full prior-match regression check passed"
+      ],
+      "unresolved": [
+        "Method/helper names, pointer roles and local names are provisional.",
+        "Resolver and physical-file opener mocked; no real I/O or initialization tested.",
+        "Factory and pool globals remain external; partial layouts must not be allocated."
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d920",
+          "slot_offset": 0,
+          "identity": "EFileManager RTTI"
+        }
+      ]
+    },
+    "0x006aac10": {
+      "signature": "DiagnosticFile *AcquirePackedFile(void *, void *)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; RTM unique matching and isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aac10.json",
+        "build/batch-12-behavior.json",
+        "build/batch-12-final.json",
+        "build/batch-12-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated original/rebuilt Unicorn two-body chain; 717 independent expected trace/state cases",
+        "strictbuild: 55 fresh RTM x86 objects; compiler exits checked",
+        "upstream objmatch: relocation-aware equality, unique expected address; full prior-match regression check passed"
+      ],
+      "unresolved": [
+        "Method/helper names, pointer roles and local names are provisional.",
+        "Resolver and physical-file opener mocked; no real I/O or initialization tested.",
+        "Factory and pool globals remain external; partial layouts must not be allocated."
+      ],
+      "vtable_relationships": []
+    },
+    "0x006a88b0": {
+      "signature": "EFileManager constructor",
+      "calling_convention": "thiscall",
+      "confidence": "bounded assembly observations and RTTI; signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a88b0.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly inspection"
+      ],
+      "unresolved": [
+        "Analyzed only; no source, compiled or behavioral verification claim."
+      ]
+    },
+    "0x006a8ab0": {
+      "signature": "EFileManager destructor",
+      "calling_convention": "thiscall",
+      "confidence": "bounded assembly observations and RTTI; signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a8ab0.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly inspection"
+      ],
+      "unresolved": [
+        "Analyzed only; no source, compiled or behavioral verification claim."
+      ]
+    },
+    "0x006aabb0": {
+      "signature": "unsigned int ReadPackedData(PackageReadSource *, PackageReadEntry *, unsigned int, void *, unsigned int)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; focused RTM matching; isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aabb0.json",
+        "build/batch-13-behavior.json",
+        "build/batch-13-final.json",
+        "build/batch-13-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly checked against reconstructed RTM x86 bodies",
+        "385 original/rebuilt Unicorn cases with independent expectations, heap mutation and ABI checks",
+        "strictbuild: 55 fresh sources; compiler exits checked",
+        "upstream objmatch: relocation-aware equality at unique expected VA; all prior matches preserved"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Method/helper names and semantic signedness are provisional; raw 32-bit behavior verified.",
+        "Underlying file Seek/Read mocked; no actual I/O or runtime lifetime proof.",
+        "PackedFileSlot is an opaque partial layout, not a reconstructed allocatable polymorphic class."
+      ]
+    },
+    "0x006aad40": {
+      "signature": "void PackedFileSlot::Close()",
+      "calling_convention": "thiscall",
+      "parent": "EPackageFile::EPackageFileAccessor",
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; focused RTM matching; isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aad40.json",
+        "build/batch-13-behavior.json",
+        "build/batch-13-final.json",
+        "build/batch-13-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly checked against reconstructed RTM x86 bodies",
+        "385 original/rebuilt Unicorn cases with independent expectations, heap mutation and ABI checks",
+        "strictbuild: 55 fresh sources; compiler exits checked",
+        "upstream objmatch: relocation-aware equality at unique expected VA; all prior matches preserved"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d990",
+          "slot_offset": 4,
+          "identity": "EPackageFile::EPackageFileAccessor RTTI"
+        }
+      ],
+      "unresolved": [
+        "Method/helper names and semantic signedness are provisional; raw 32-bit behavior verified.",
+        "Underlying file Seek/Read mocked; no actual I/O or runtime lifetime proof.",
+        "PackedFileSlot is an opaque partial layout, not a reconstructed allocatable polymorphic class."
+      ]
+    },
+    "0x006aad60": {
+      "signature": "unsigned int PackedFileSlot::Read(void *, unsigned int)",
+      "calling_convention": "thiscall",
+      "parent": "EPackageFile::EPackageFileAccessor",
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; focused RTM matching; isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aad60.json",
+        "build/batch-13-behavior.json",
+        "build/batch-13-final.json",
+        "build/batch-13-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly checked against reconstructed RTM x86 bodies",
+        "385 original/rebuilt Unicorn cases with independent expectations, heap mutation and ABI checks",
+        "strictbuild: 55 fresh sources; compiler exits checked",
+        "upstream objmatch: relocation-aware equality at unique expected VA; all prior matches preserved"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d990",
+          "slot_offset": 8,
+          "identity": "EPackageFile::EPackageFileAccessor RTTI"
+        }
+      ],
+      "unresolved": [
+        "Method/helper names and semantic signedness are provisional; raw 32-bit behavior verified.",
+        "Underlying file Seek/Read mocked; no actual I/O or runtime lifetime proof.",
+        "PackedFileSlot is an opaque partial layout, not a reconstructed allocatable polymorphic class."
+      ]
+    },
+    "0x006aadc0": {
+      "signature": "unsigned int PackedFileSlot::Seek(unsigned int, int)",
+      "calling_convention": "thiscall",
+      "parent": "EPackageFile::EPackageFileAccessor",
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; focused RTM matching; isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aadc0.json",
+        "build/batch-13-behavior.json",
+        "build/batch-13-final.json",
+        "build/batch-13-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly checked against reconstructed RTM x86 bodies",
+        "385 original/rebuilt Unicorn cases with independent expectations, heap mutation and ABI checks",
+        "strictbuild: 55 fresh sources; compiler exits checked",
+        "upstream objmatch: relocation-aware equality at unique expected VA; all prior matches preserved"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d990",
+          "slot_offset": 16,
+          "identity": "EPackageFile::EPackageFileAccessor RTTI"
+        }
+      ],
+      "unresolved": [
+        "Method/helper names and semantic signedness are provisional; raw 32-bit behavior verified.",
+        "Underlying file Seek/Read mocked; no actual I/O or runtime lifetime proof.",
+        "PackedFileSlot is an opaque partial layout, not a reconstructed allocatable polymorphic class."
+      ]
+    },
+    "0x006fb950": {
+      "signature": "PackageAccessorPoolInit [provisional]",
+      "calling_convention": "cdecl",
+      "confidence": "bounded assembly observations and RTTI; signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006fb950.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly inspection"
+      ],
+      "unresolved": [
+        "Analyzed only; no source, compiled or behavioral verification claim."
+      ]
+    },
+    "0x006fbd40": {
+      "signature": "PackageAccessorPoolDestroy [provisional]",
+      "calling_convention": "cdecl",
+      "confidence": "bounded assembly observations and RTTI; signatures provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006fbd40.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly inspection"
+      ],
+      "unresolved": [
+        "Analyzed only; no source, compiled or behavioral verification claim."
+      ]
+    },
+    "0x006aae10": {
+      "signature": "unsigned int PackedFileSlot::Size()",
+      "calling_convention": "thiscall",
+      "parent": "EPackageFile::EPackageFileAccessor",
+      "source": "src/game/file_manager.cpp",
+      "confidence": "assembly derived; focused RTM matching; isolated differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aae10.json",
+        "build/batch-13-behavior.json",
+        "build/batch-13-final.json",
+        "build/batch-13-map-update.json"
+      ],
+      "verification_method": [
+        "hash-gated cached assembly checked against reconstructed RTM x86 bodies",
+        "385 original/rebuilt Unicorn cases with independent expectations, heap mutation and ABI checks",
+        "strictbuild: 55 fresh sources; compiler exits checked",
+        "upstream objmatch: relocation-aware equality at unique expected VA; all prior matches preserved"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d990",
+          "slot_offset": 20,
+          "identity": "EPackageFile::EPackageFileAccessor RTTI"
+        }
+      ],
+      "unresolved": [
+        "Method/helper names and semantic signedness are provisional; raw 32-bit behavior verified.",
+        "Underlying file Seek/Read mocked; no actual I/O or runtime lifetime proof.",
+        "PackedFileSlot is an opaque partial layout, not a reconstructed allocatable polymorphic class."
+      ]
+    },
+    "0x006a9ee0": {
+      "signature": "unsigned int EReadBufferedFile::Read(void *, unsigned int)",
+      "calling_convention": "thiscall",
+      "parent": "EReadBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTTI identity, assembly derived, RTM matching and differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a9ee0.json",
+        "build/batch-14-final.json",
+        "build/batch-14-map-update.json",
+        "build/batch-14-behavior.json"
+      ],
+      "verification_method": [
+        "56 fresh RTM x86 sources compiled; strict compiler exits checked",
+        "unique relocation-aware matches; full previous-match regression check passed",
+        "148 original/rebuilt differential cases with independent traces, complete fixture heap and ABI checks"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d958",
+          "slot_offset": 8
+        }
+      ],
+      "unresolved": [
+        "Member/method/local names and semantic signedness provisional; MSVC x86 casts and wrapping arithmetic verified.",
+        "Partial opaque class only; no construction, inheritance or real file I/O proof.",
+        "Exceptional invalid/large memcpy requests are traced only, not dereferenced."
+      ]
+    },
+    "0x006aa080": {
+      "signature": "void EReadBufferedFile::Refill()",
+      "calling_convention": "thiscall",
+      "parent": "EReadBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTTI identity, assembly derived, RTM matching and differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aa080.json",
+        "build/batch-14-final.json",
+        "build/batch-14-map-update.json",
+        "build/batch-14-behavior.json"
+      ],
+      "verification_method": [
+        "56 fresh RTM x86 sources compiled; strict compiler exits checked",
+        "unique relocation-aware matches; full previous-match regression check passed",
+        "148 original/rebuilt differential cases with independent traces, complete fixture heap and ABI checks"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Member/method/local names and semantic signedness provisional; MSVC x86 casts and wrapping arithmetic verified.",
+        "Partial opaque class only; no construction, inheritance or real file I/O proof.",
+        "Exceptional invalid/large memcpy requests are traced only, not dereferenced."
+      ]
+    },
+    "0x006aa020": {
+      "signature": "unsigned int EReadBufferedFile::Size()",
+      "calling_convention": "thiscall",
+      "parent": "EReadBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTTI identity; assembly derived; RTM matching and differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aa020.json",
+        "build/batch-15-final.json",
+        "build/batch-15-map-update.json",
+        "build/batch-15-behavior.json"
+      ],
+      "verification_method": [
+        "56 fresh RTM x86 sources; compiler exits checked",
+        "unique relocation-aware match; all previous matching addresses preserved",
+        "53 new cases plus 148 reader regressions; original/rebuilt traces, complete heap, ABI checks"
+      ],
+      "unresolved": [
+        "Method names and semantic types provisional. Flush modeled void; incidental EAX is not assigned semantic meaning.",
+        "Partial opaque class, no lifetime or real file I/O proof."
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d958",
+          "slot_offset": 20
+        }
+      ]
+    },
+    "0x006aa040": {
+      "signature": "EReadBufferedFile::slot18 [provisional]",
+      "calling_convention": "thiscall",
+      "parent": "EReadBufferedFile",
+      "confidence": "bounded assembly and confirmed vtable; types provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aa040.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted assembly inspection"
+      ],
+      "unresolved": [
+        "Analyzed only; mixed signed/unsigned comparisons need modeling before reconstruction. Copy thunk verified as MSVCR90.dll memcpy."
+      ]
+    },
+    "0x006a9d50": {
+      "signature": "void EWriteBufferedFile::Flush()",
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTTI identity; assembly derived; RTM matching and differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a9d50.json",
+        "build/batch-15-final.json",
+        "build/batch-15-map-update.json",
+        "build/batch-15-behavior.json"
+      ],
+      "verification_method": [
+        "56 fresh RTM x86 sources; compiler exits checked",
+        "unique relocation-aware match; all previous matching addresses preserved",
+        "53 new cases plus 148 reader regressions; original/rebuilt traces, complete heap, ABI checks"
+      ],
+      "unresolved": [
+        "Method names and semantic types provisional. Flush modeled void; incidental EAX is not assigned semantic meaning.",
+        "Partial opaque class, no lifetime or real file I/O proof."
+      ],
+      "vtable_relationships": []
+    },
+    "0x006a9ca0": {
+      "signature": "unsigned int EWriteBufferedFile::Write(const void *, unsigned int)",
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTTI identity; assembly derived; RTM matching and differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a9ca0.json",
+        "build/batch-16-final.json",
+        "build/batch-16-map-update.json",
+        "build/batch-16-behavior.json"
+      ],
+      "verification_method": [
+        "56 fresh RTM x86 sources with /Oy; strict compiler exits checked",
+        "unique relocation-aware match and full combined-address regression pass",
+        "252 new writer cases plus 201 buffered regressions; real Flush chains; complete fixture heap and ABI checks"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d934",
+          "slot_offset": 12
+        }
+      ],
+      "unresolved": [
+        "Names and semantic return/offset types provisional; raw 32-bit values tested.",
+        "Partial opaque class; no construction/lifetime or real file I/O proof.",
+        "Large direct-write requests are traced without dereferencing input."
+      ]
+    },
+    "0x006a9c00": {
+      "signature": "unsigned int EWriteBufferedFile::Seek(int, int)",
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTTI identity; assembly derived; RTM matching and differential verification",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a9c00.json",
+        "build/batch-16-final.json",
+        "build/batch-16-map-update.json",
+        "build/batch-16-behavior.json"
+      ],
+      "verification_method": [
+        "56 fresh RTM x86 sources with /Oy; strict compiler exits checked",
+        "unique relocation-aware match and full combined-address regression pass",
+        "252 new writer cases plus 201 buffered regressions; real Flush chains; complete fixture heap and ABI checks"
+      ],
+      "vtable_relationships": [
+        {
+          "table_va": "0x0071d934",
+          "slot_offset": 16
+        }
+      ],
+      "unresolved": [
+        "Names and semantic return/offset types provisional; raw 32-bit values tested.",
+        "Partial opaque class; no construction/lifetime or real file I/O proof.",
+        "Large direct-write requests are traced without dereferencing input."
+      ]
+    },
+    "0x006a9dd0": {
+      "signature": "EWriteBufferedFile destructor",
+      "calling_convention": "thiscall",
+      "confidence": "bounded assembly observations; ownership and helper signature provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a9dd0.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted cached disassembly"
+      ],
+      "unresolved": [
+        "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+      ]
+    },
+    "0x006aa0f0": {
+      "signature": "EReadBufferedFile destructor",
+      "calling_convention": "thiscall",
+      "confidence": "bounded assembly observations; ownership and helper signature provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006aa0f0.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted cached disassembly"
+      ],
+      "unresolved": [
+        "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+      ]
+    },
+    "0x006a6e30": {
+      "signature": "ReleaseFileMetadata [provisional]",
+      "calling_convention": "cdecl",
+      "confidence": "bounded assembly observations; ownership and helper signature provisional",
+      "last_analysis_date": "2026-10-17",
+      "milestones": {
+        "analyzed": true
+      },
+      "evidence": [
+        "docs/native-reconstruction.md",
+        "build/native-index/target-006a6e30.json"
+      ],
+      "verification_method": [
+        "hash-gated targeted cached disassembly"
+      ],
+      "unresolved": [
+        "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+      ]
+    }
+  }
+}
