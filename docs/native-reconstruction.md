@@ -1,16 +1,16 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 93 native C++ matches / 11,179 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,345 / 10,930 functions and
-297,664 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 99 native C++ matches / 11,635 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,351 / 10,930 functions and
+298,120 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
-The latest strict build compiles all 59 sources and retains every previous
-match. All 29 native tooling tests and 1,162 fresh mesh/skeleton differential
-cases pass. The preceding 4,510 cases remain applicable because the 58 other
-objects differ only in COFF timestamps: 5,672 total cases.
+The latest strict build compiles all 60 sources and retains every previous
+match. All 29 native tooling tests and 266 fresh resource-stream differential
+cases pass. The prior 5,672 cases remain applicable because all 59 previous
+objects differ only in COFF timestamps: 5,938 total cases.
 [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
@@ -135,6 +135,13 @@ to EFileReader dispatch at 0x0041f240, the next serialization target. SetMesh
 that the existing ETriggerA8 view is EMesh; its provisional spelling is retained.
 [Format findings](model-format-findings.md) separate native ID packing from the
 still unverified serialized-to-runtime ordering and actual animation behavior.
+
+The [resource-stream continuation](native-resource-stream.md) adds six matches
+/456 bytes: EFileReader input, file-stream lifetime/name forwarding, the owning
+file-to-resource bridge and first-result transfer. All 3,345 previous matching
+rows are unchanged. The larger resource dispatcher remains external while its
+context, parser and auxiliary record lifetimes are recovered. Four supporting
+short COMDAT bodies are behaviorally tested but remain outside match totals.
 
 [Optional Rust relocation decoding](matching-acceleration.md) reduces the measured
 matching phase from 102.1 to 10.8 seconds while preserving all match, candidate

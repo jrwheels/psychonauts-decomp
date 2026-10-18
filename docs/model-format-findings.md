@@ -58,3 +58,18 @@ shape manager at +0x18. This separates group/ID lookup from animation-state
 association. The exact model+0x6c serialized type, bind-transform construction,
 skinning records and JAN playback remain unresolved; the C++ view keeps that
 pointer opaque. No exporter or asset data changed in this batch.
+
+## Resource input and ownership boundary
+
+The file bridge at 0x0041f1b0 now matches. It owns its EFileReader and closes the
+underlying EFile even when resource dispatch returns null. The stream records
+unequal read counts in a sticky error byte, while a null destination means a
+relative seek without an error update. Future reader fixtures should test both
+paths; parsing success is not established by a single full-length read.
+
+The dispatch context requires one result before PopFront at 0x006a5460 detaches
+its payload and recycles the node. It then clears mesh context before later
+association work. These observations establish ownership boundaries, not the
+serialized model format. Context cleanup, parser 0x0047b980, and auxiliary
+association records remain unresolved. No original file magic or asset payload
+was used to claim these matches.

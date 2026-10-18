@@ -200,11 +200,11 @@ address,size,origin,name,status,object
 0x0040ac00,179,gap,,,
 0x0040acc0,137,gap,,,
 0x0040ad50,148,gap,,,
-0x0040adf0,78,gap,,,
-0x0040ae40,28,pointer,,,
+0x0040adf0,78,gap,EFileStream::~EFileStream,matching,resource_stream.obj
+0x0040ae40,28,pointer,EFileStream::GetName,matching,resource_stream.obj
 0x0040ae60,45,pointer,,,
-0x0040ae90,29,pointer,,,
-0x0040aeb0,87,pointer,,,
+0x0040ae90,29,pointer,EFileReader::Read,matching,resource_stream.obj
+0x0040aeb0,87,pointer,EFileReader::ReadBytes,matching,resource_stream.obj
 0x0040af10,45,pointer,,,
 0x0040af40,99,code,?$TArray::?$TArray,matching,cur/savegame_lua.cpp
 0x0040afb0,67,gap,D::?$TArray::Clear,matching,cur/savegame_lua.cpp
@@ -464,7 +464,7 @@ address,size,origin,name,status,object
 0x0041ee40,545,pointer,,,
 0x0041f070,143,pointer,,,
 0x0041f100,164,gap,,,
-0x0041f1b0,143,pointer,,,
+0x0041f1b0,143,pointer,MeshResourceReader::LoadFile,matching,resource_stream.obj
 0x0041f240,519,pointer,,,
 0x0041f450,327,pointer,,,
 0x0041f5a0,193,pointer,,,
@@ -8432,7 +8432,7 @@ address,size,origin,name,status,object
 0x006a5360,68,gap,,,
 0x006a53b0,67,gap,,,
 0x006a5400,91,gap,,,
-0x006a5460,91,gap,,,
+0x006a5460,91,gap,ResourceList::PopFront,matching,resource_stream.obj
 0x006a54c0,115,pointer,,,
 0x006a5540,112,gap,,,
 0x006a55b0,109,pointer,,,

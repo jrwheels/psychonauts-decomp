@@ -2752,6 +2752,208 @@
         "Resource lookup, constructors, destruction and rendering/physics endpoints are mocked.",
         "No original asset parsing or runtime animation playback verified."
       ]
+    },
+    "0x0040adf0": {
+      "signature": "EFileStream::~EFileStream",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; RTTI stream identities, exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-stream.md",
+        "build/resource-stream/comparison-before-map.json",
+        "build/resource-stream/map-update.json",
+        "build/resource-stream/behavior.json",
+        "build/resource-stream/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 60 fresh source objects; every preceding 3,345 matching address retained",
+        "266 independent expected/original/rebuilt x86 fixtures; native virtual reader and destructor chains execute with bounded mocked file/parser/pool endpoints",
+        "Python and Rust relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Method names, resource-owner name and member meanings are provisional unless RTTI confirmed.",
+        "Resource dispatcher 0x0041f240 and list node recycling remain external.",
+        "No actual filesystem, model parsing or gameplay verification."
+      ]
+    },
+    "0x0040ae40": {
+      "signature": "EFileStream::GetName",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; RTTI stream identities, exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-stream.md",
+        "build/resource-stream/comparison-before-map.json",
+        "build/resource-stream/map-update.json",
+        "build/resource-stream/behavior.json",
+        "build/resource-stream/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 60 fresh source objects; every preceding 3,345 matching address retained",
+        "266 independent expected/original/rebuilt x86 fixtures; native virtual reader and destructor chains execute with bounded mocked file/parser/pool endpoints",
+        "Python and Rust relocation targets independently agree"
+      ],
+      "vtable_relationships": [
+        "EFileStream and EFileReader GetName slot +0x04"
+      ],
+      "unresolved": [
+        "Method names, resource-owner name and member meanings are provisional unless RTTI confirmed.",
+        "Resource dispatcher 0x0041f240 and list node recycling remain external.",
+        "No actual filesystem, model parsing or gameplay verification."
+      ]
+    },
+    "0x0040ae90": {
+      "signature": "EFileReader::Read",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; RTTI stream identities, exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-stream.md",
+        "build/resource-stream/comparison-before-map.json",
+        "build/resource-stream/map-update.json",
+        "build/resource-stream/behavior.json",
+        "build/resource-stream/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 60 fresh source objects; every preceding 3,345 matching address retained",
+        "266 independent expected/original/rebuilt x86 fixtures; native virtual reader and destructor chains execute with bounded mocked file/parser/pool endpoints",
+        "Python and Rust relocation targets independently agree"
+      ],
+      "vtable_relationships": [
+        "EFileReader vtable 0x00703630, Read slot +0x08; EFileStream base vtable 0x00703640; EStream base vtable 0x00703650"
+      ],
+      "unresolved": [
+        "Method names, resource-owner name and member meanings are provisional unless RTTI confirmed.",
+        "Resource dispatcher 0x0041f240 and list node recycling remain external.",
+        "No actual filesystem, model parsing or gameplay verification."
+      ]
+    },
+    "0x0040aeb0": {
+      "signature": "EFileReader::ReadBytes",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; RTTI stream identities, exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-stream.md",
+        "build/resource-stream/comparison-before-map.json",
+        "build/resource-stream/map-update.json",
+        "build/resource-stream/behavior.json",
+        "build/resource-stream/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 60 fresh source objects; every preceding 3,345 matching address retained",
+        "266 independent expected/original/rebuilt x86 fixtures; native virtual reader and destructor chains execute with bounded mocked file/parser/pool endpoints",
+        "Python and Rust relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Method names, resource-owner name and member meanings are provisional unless RTTI confirmed.",
+        "Resource dispatcher 0x0041f240 and list node recycling remain external.",
+        "No actual filesystem, model parsing or gameplay verification."
+      ]
+    },
+    "0x0041f1b0": {
+      "signature": "MeshResourceReader::LoadFile",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; RTTI stream identities, exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-stream.md",
+        "build/resource-stream/comparison-before-map.json",
+        "build/resource-stream/map-update.json",
+        "build/resource-stream/behavior.json",
+        "build/resource-stream/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 60 fresh source objects; every preceding 3,345 matching address retained",
+        "266 independent expected/original/rebuilt x86 fixtures; native virtual reader and destructor chains execute with bounded mocked file/parser/pool endpoints",
+        "Python and Rust relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Method names, resource-owner name and member meanings are provisional unless RTTI confirmed.",
+        "Resource dispatcher 0x0041f240 and list node recycling remain external.",
+        "No actual filesystem, model parsing or gameplay verification."
+      ]
+    },
+    "0x006a5460": {
+      "signature": "ResourceList::PopFront",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; RTTI stream identities, exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-stream.md",
+        "build/resource-stream/comparison-before-map.json",
+        "build/resource-stream/map-update.json",
+        "build/resource-stream/behavior.json",
+        "build/resource-stream/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 60 fresh source objects; every preceding 3,345 matching address retained",
+        "266 independent expected/original/rebuilt x86 fixtures; native virtual reader and destructor chains execute with bounded mocked file/parser/pool endpoints",
+        "Python and Rust relocation targets independently agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Method names, resource-owner name and member meanings are provisional unless RTTI confirmed.",
+        "Resource dispatcher 0x0041f240 and list node recycling remain external.",
+        "No actual filesystem, model parsing or gameplay verification."
+      ]
     }
   }
 }

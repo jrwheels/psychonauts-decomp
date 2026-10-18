@@ -3,7 +3,8 @@
 All addresses refer to the Steam Windows reference, SHA-256
 `cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3`.
 The four lookup bodies in [native-mesh-lookup.md](native-mesh-lookup.md) and six
-[replacement/ID bodies](native-mesh-replacement.md) are now matched. Other edges
+[replacement/ID bodies](native-mesh-replacement.md), plus six
+[resource-stream bodies](native-resource-stream.md), are now matched. Other edges
 below come from bounded disassembly,
 RTTI or relocations in already matched script implementations.
 
@@ -16,7 +17,7 @@ RTTI or relocations in already matched script implementations.
 | EMeshEntity mesh replacement, slot +0x6c | 0x0043c980 | 323 | Matched; RTTI-confirmed vtables |
 | Mesh manager acquisition | 0x00454bc0 | 500 | Called by mesh replacement; not reconstructed |
 | Mesh path preparation | 0x00454dc0 | 67 | Called before cache lookup; not reconstructed |
-| File-backed resource acquisition | 0x0041f1b0 | 143 | Calls the existing file factory; not reconstructed |
+| File-backed resource acquisition | 0x0041f1b0 | 143 | Matched owning EFileReader bridge |
 | Reader dispatch | 0x0041f240 | 519 | Receives EFileReader; not reconstructed |
 
 ## Player and script callers
@@ -94,3 +95,9 @@ bounded initialization target. Return to SetMesh when its accessor/ownership
 interfaces are better understood. Do not duplicate existing file or asset tools.
 The player-specific 0x005ef390 wrapper still needs exact iterator and parameter
 layouts. The matched common operation now provides a verified endpoint for it.
+
+The EFileReader file bridge now matches, along with its Read/ReadBytes, file
+name/destructor and context result-list PopFront at 0x006a5460. The dispatcher
+still depends on unreconstructed context construction 0x0041c670, destruction
+0x0041c720 and parser 0x0047b980. Recover those smaller lifetime/reader dependencies
+before assembling its complete 519-byte body. No new exporter was introduced.

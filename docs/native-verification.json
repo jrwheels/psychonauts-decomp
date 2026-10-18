@@ -5,18 +5,18 @@
   "compiler": "15.00.21022.08 x86",
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
-  "fresh_source_objects": 59,
-  "coff_function_records": 3358,
-  "matching_functions": 3345,
+  "fresh_source_objects": 60,
+  "coff_function_records": 3368,
+  "matching_functions": 3351,
   "total_mapped_functions": 10930,
-  "matched_bytes": 297664,
+  "matched_bytes": 298120,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 93,
-  "added_bytes": 11179,
+  "added_functions": 99,
+  "added_bytes": 11635,
   "unit_tests_passed": 29,
-  "differential_cases_passed": 5672,
+  "differential_cases_passed": 5938,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -89,6 +89,10 @@
     "test_mesh_replacement": {
       "exit_code": 0,
       "cases": 388
+    },
+    "test_resource_stream": {
+      "exit_code": 0,
+      "cases": 266
     }
   },
   "limitations": [
@@ -97,40 +101,44 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261018T023458Z/summary.json",
-    "matching": "build/mesh-replacement/comparison-before-map.json",
-    "differential": "build/mesh-replacement/verification-summary.json",
+    "strict_audit": "build/audit/20261018T025445Z/summary.json",
+    "matching": "build/resource-stream/comparison-before-map.json",
+    "differential": "build/resource-stream/verification-summary.json",
     "file_lifetime": "build/streaming-read/regressions/test_file_lifetime.json",
     "native_file": "build/streaming-read/regressions/test_native_file.json",
     "native_opener": "build/streaming-read/regressions/test_native_opener.json",
-    "map_update": "build/mesh-replacement/map-update.json",
+    "map_update": "build/resource-stream/map-update.json",
     "supplementary_objdiff": "build/native-opener/objdiff-review.json",
-    "rust_matching": "build/mesh-replacement/comparison-before-map.json",
+    "rust_matching": "build/resource-stream/comparison-before-map.json",
     "rust_benchmark": "build/rust-accelerator/benchmark.json",
-    "tooling_tests": "build/mesh-replacement/tooling-tests.log",
+    "tooling_tests": "build/resource-stream/tooling-tests.log",
     "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json",
     "mesh": "build/mesh-replacement/lookup-behavior.json",
     "mesh_decoder_parity": "build/mesh-replacement/decoder-parity.json",
-    "cached_object_parity": "build/mesh-replacement/cached-object-parity.json",
-    "mesh_replacement": "build/mesh-replacement/behavior.json"
+    "cached_object_parity": "build/resource-stream/cached-object-parity.json",
+    "mesh_replacement": "build/mesh-replacement/behavior.json",
+    "resource_stream": "build/resource-stream/behavior.json",
+    "resource_decoder_parity": "build/resource-stream/decoder-parity.json"
   },
   "report_sha256": {
-    "strict_audit": "cd540a92a58db0b30ce3ddb7e5bbf30e33076ec8c58c8c780db4cf1b074efa98",
-    "matching": "f2dbdfe0f38ee5dcf55b1b55ebe2c24b45a2fa7b34ee2dc981af439ca882f3d0",
-    "differential": "66ca102b18202666e2b7c9ab82bb926fa6a98cdf6a3e6b953eb8b4b81335be79",
+    "strict_audit": "845e34452ddf08545158c32e68d86a5d1f0f950fc65e64b9a983cd42c4764d92",
+    "matching": "4eeb5e8744930b699023402b1f59f90a054eb7c10b77dce204eb5c8b43fa7001",
+    "differential": "8ceefae93cd4187e4299566b6183641677e66d86dbdce7f667933457aec89e6d",
     "file_lifetime": "4341b685c311e78af5a5f46004d8333e238796dc2572d6ca428c6c3b78c86393",
     "native_file": "96657b511b6257eab2ebe92739fc6bf7e88f2f3241ce208d5465818996834642",
     "native_opener": "c406be0b35a723bd54f1e76a086502e2f6579f2dec8d8b350ab4432678ac9d71",
-    "map_update": "fe9443c91c0a2a0a0cd7c6b5d254e546e5409a5d145a26816a3d21c01e73cc2f",
+    "map_update": "c7e0b880510b194e9faa3f08142823ea43017162b143c5053a43ad2d6dc4e698",
     "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
-    "rust_matching": "f2dbdfe0f38ee5dcf55b1b55ebe2c24b45a2fa7b34ee2dc981af439ca882f3d0",
+    "rust_matching": "4eeb5e8744930b699023402b1f59f90a054eb7c10b77dce204eb5c8b43fa7001",
     "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
-    "tooling_tests": "9fb0d366a17998475b4ac53e291b6f774ca418ee5c96f00b1398d278710922bc",
+    "tooling_tests": "725e944e7738eb1f071acdeb77b362dc1608630fe4188ebca9c8f64a079f4bb0",
     "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38",
     "mesh": "df688d66a12b373cfd623756671ee2085a30ede6089250b2597ddd023b43d541",
     "mesh_decoder_parity": "035283567199669161f736224ea81a2ed8f6c742474884803b2ca2dd03341847",
-    "cached_object_parity": "21741b2c3fc651b966fad1c58946111412d39a8fba2de2ce32ec53dbddf98676",
-    "mesh_replacement": "3e4c82da1cb2edcbea11d5e8bb1442e6e0c906d290dbc93bb05ade1ddbd9de8f"
+    "cached_object_parity": "2e5bfddda6f7bad216db03b22831d0466f2e108dd72bb876146799009355b348",
+    "mesh_replacement": "3e4c82da1cb2edcbea11d5e8bb1442e6e0c906d290dbc93bb05ade1ddbd9de8f",
+    "resource_stream": "939b9704a5d4ad0c26755b8a6c95eb5f88bf22d8812ba445da331968158b7787",
+    "resource_decoder_parity": "e785f6a6fb4182fee68ecdadc6a6132cb757d5d1df6a3e587f1bf813c0e62c78"
   },
   "new_matches": [
     {
@@ -597,16 +605,46 @@
       "address": "0x0049a920",
       "size": 142,
       "name": "ESkeleton::GetBoneId"
+    },
+    {
+      "address": "0x0040adf0",
+      "size": 78,
+      "name": "EFileStream::~EFileStream"
+    },
+    {
+      "address": "0x0040ae40",
+      "size": 28,
+      "name": "EFileStream::GetName"
+    },
+    {
+      "address": "0x0040ae90",
+      "size": 29,
+      "name": "EFileReader::Read"
+    },
+    {
+      "address": "0x0040aeb0",
+      "size": 87,
+      "name": "EFileReader::ReadBytes"
+    },
+    {
+      "address": "0x0041f1b0",
+      "size": 143,
+      "name": "MeshResourceReader::LoadFile"
+    },
+    {
+      "address": "0x006a5460",
+      "size": 91,
+      "name": "ResourceList::PopFront"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
-  "continuation_added_functions": 44,
-  "continuation_added_bytes": 4822,
+  "continuation_added_functions": 50,
+  "continuation_added_bytes": 5278,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "609a58bc598de5d95e52289e7dfb7ba0cf32da0011d2065868b47ef6322adb2f",
-  "comparison_functions_csv_sha256": "c879c605ec1db1731b27ee9f32193ccb350f5ab37bf0dcfa5c7be1e917c71d21",
+  "functions_csv_sha256": "5d86b59538800fae06e8e6192afa662ebe624fc749618be179db638d4f943685",
+  "comparison_functions_csv_sha256": "609a58bc598de5d95e52289e7dfb7ba0cf32da0011d2065868b47ef6322adb2f",
   "comparison_precedes_csv_promotions": true,
-  "comparison_note": "The full Rust-assisted upstream matcher retained all 3,339 preceding addresses and found exactly six additions /705 bytes. Only those rows were promoted; source and objects are unchanged after comparison.",
+  "comparison_note": "The full Rust-assisted upstream matcher retained all 3,345 preceding addresses and found six additions /456 bytes. Only those rows were promoted. Four tested short COMDAT helpers remain ambiguous and were not counted as new matches.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -651,9 +689,9 @@
     "benchmark_scope": "Single unprofiled matching-phase run per backend, excluding input loading/builds; cold search cache."
   },
   "differential_reuse": {
-    "fresh_cases": 1162,
-    "cached_cases": 4510,
-    "proof": "build/mesh-replacement/cached-object-parity.json",
-    "scope": "The 58 unchanged modules are byte-identical after restoring only COFF header timestamps. Both suites for the modified mesh module were run freshly; cached suites were not rerun."
+    "fresh_cases": 266,
+    "cached_cases": 5672,
+    "proof": "build/resource-stream/cached-object-parity.json",
+    "scope": "All 59 prior modules reproduce their previous hashes after changing only COFF header timestamps; cached suites were not rerun."
   }
 }

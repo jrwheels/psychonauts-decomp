@@ -1,8 +1,8 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-30.60%25%20(3345%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.14%25-red)
+![Engine](https://img.shields.io/badge/Engine-30.66%25%20(3351%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.16%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -18,7 +18,7 @@ This repository does **not** contain any game assets or game code. You need your
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3345 / 10930 functions (30.60 %), 10.14 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3351 / 10930 functions (30.66 %), 10.16 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -247,8 +247,8 @@ Psychonauts belongs to Double Fine Productions. This project is not affiliated w
 
 ## Native reconstruction verification
 
-The Steam Windows reference now matches **3,345 functions / 297,664 mapped
-bytes**, including 93 additional native bodies / 11,179 bytes beyond upstream
+The Steam Windows reference now matches **3,351 functions / 298,120 mapped
+bytes**, including 99 additional native bodies / 11,635 bytes beyond upstream
 `6959341`. See [native reconstruction](docs/native-reconstruction.md) for the
 strict build, read-only comparison, isolated differential tests, and limitations.
 This is object-level progress; no linked or playable engine is claimed.
@@ -267,3 +267,6 @@ matched helpers and 774 differential cases along the character-loading path.
 
 The [mesh replacement and ID continuation](docs/native-mesh-replacement.md)
 adds six matches /705 bytes, including the common native mesh-loading method.
+
+The [resource-stream continuation](docs/native-resource-stream.md) adds six
+matched input/lifetime and result-transfer functions /456 bytes.
