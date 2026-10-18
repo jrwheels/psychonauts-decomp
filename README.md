@@ -2,7 +2,7 @@
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
 ![Engine](https://img.shields.io/badge/Engine-30.50%25%20(3334%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.01%25-red)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.08%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -258,3 +258,6 @@ file lifetime, I/O and timestamp methods with 371 additional differential cases.
 
 The [native opener and streaming-file continuation](docs/native-file-streaming.md)
 adds eight matches with 548 differential cases. Streaming Read remains external.
+
+[Optional Rust relocation decoding](docs/matching-acceleration.md) accelerates
+the existing matching workflow; the engine build remains VC++ 2008 C++.

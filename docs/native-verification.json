@@ -15,7 +15,7 @@
   "upstream_matching_rows_preserved": true,
   "added_functions": 82,
   "added_bytes": 9569,
-  "unit_tests_passed": 18,
+  "unit_tests_passed": 29,
   "differential_cases_passed": 4326,
   "differential_suites": {
     "test_buffered_file": {
@@ -96,7 +96,10 @@
     "native_file": "build/native-opener/regressions/test_native_file.json",
     "native_opener": "build/native-opener/regressions/test_native_opener.json",
     "map_update": "build/native-opener/map-update.json",
-    "supplementary_objdiff": "build/native-opener/objdiff-review.json"
+    "supplementary_objdiff": "build/native-opener/objdiff-review.json",
+    "rust_matching": "build/rust-accelerator/comparison.json",
+    "rust_benchmark": "build/rust-accelerator/benchmark.json",
+    "tooling_tests": "build/rust-accelerator/unit-tests.log"
   },
   "report_sha256": {
     "strict_audit": "9fd06feef9bc9b587e5c0dceb5d362e10d0a7cca0afa2c225c309ee700d9a28b",
@@ -106,7 +109,10 @@
     "native_file": "d57ff2378f42b3a38646bcb0bfdb593205a10605773279f8a4e3d3199c175ae9",
     "native_opener": "f073adca947e59537e993b5df420a5619c7b794da66712e881b6ab40f08e773e",
     "map_update": "fddb137a5d5f4bb012c020c62f983fb8a631e2cc82aae5a43f9e363b2ab305e1",
-    "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1"
+    "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
+    "rust_matching": "a6e33c364fc48c07c87bb79b41e64dd65f089f12ddf3794f820f944bdac610ea",
+    "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
+    "tooling_tests": "1d744ccca3a1014031b89a93ffdf7de3f7696c1eac897ff10ce5e7d8790e3964"
   },
   "new_matches": [
     {
@@ -540,5 +546,35 @@
     "all_prior_functions_match_percent": 100,
     "establishes_original_binary_matches": false,
     "required_build_dependency": false
+  },
+  "rust_acceleration": {
+    "runs": {
+      "python": {
+        "seconds": 102.07392527299817,
+        "matched_records": 3338
+      },
+      "cached_python": {
+        "seconds": 15.071942027003388,
+        "matched_records": 3338
+      },
+      "rust": {
+        "seconds": 10.754313529003412,
+        "matched_records": 3338
+      }
+    },
+    "matching_speedup": 9.491440341376883,
+    "speedup_over_cached_python": 1.4014787635078447,
+    "candidate_function_address_pairs_checked": 2537426,
+    "decoded_symbol_targets_checked": 8899337,
+    "all_matches_candidates_known_symbols_equal": true,
+    "all_decoded_targets_equal": true,
+    "compiler": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "compiler_sha256": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "library_sha256": "9de750a6b1af8708ffe4dcf7c295cb8a20c8ca18efb84f50cc05479cfe1ea29d",
+    "source_sha256": "88c61852f887ccc53fee2ad027b05c6c65bfd4109a6682c73173c55bd76a17c4",
+    "required_engine_dependency": false,
+    "default_backend": "python",
+    "native_engine_objects_unchanged": true,
+    "benchmark_scope": "Single unprofiled matching-phase run per backend, excluding input loading/builds; cold search cache."
   }
 }

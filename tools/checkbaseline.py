@@ -22,8 +22,9 @@ def main():
     ap.add_argument("functions", type=Path)
     ap.add_argument("objs", nargs="+", type=Path)
     ap.add_argument("--report", required=True, type=Path)
+    ap.add_argument("--rust-targets", type=Path, help="optional compiled Rust relocation library")
     args = ap.parse_args()
-    protected = [args.exe, args.functions] + args.objs
+    protected = [args.exe, args.functions] + args.objs + ([args.rust_targets] if args.rust_targets else [])
     if args.report.resolve() in {p.resolve() for p in protected}:
         ap.error("report path must not overwrite the reference, CSV or objects")
     data = args.exe.read_bytes()
@@ -32,7 +33,12 @@ def main():
         sys.exit("Unsupported reference SHA-1: " + sha1)
     csv_bytes = args.functions.read_bytes()
     rows = list(csv.DictReader(csv_bytes.decode().splitlines()))
-    results, candidates, known = run(Exe(str(args.exe)), [ObjFile(str(p)) for p in args.objs])
+    exe = Exe(str(args.exe))
+    target_batch = None
+    if args.rust_targets:
+        from rust_targets import RustTargets
+        target_batch = RustTargets(exe, args.rust_targets)
+    results, candidates, known = run(exe, [ObjFile(str(p)) for p in args.objs], target_batch=target_batch)
     matched = set(results.values())
     recorded = {int(r["address"], 16) for r in rows if r["status"] == "matching"}
     by_va = {int(r["address"], 16): r for r in rows}
@@ -49,6 +55,8 @@ def main():
               "matches": [{"address": "0x%08x" % a, "symbol": demangle(name),
                            "object": str(Path(path).name)} for (path, name), a in sorted(results.items())],
               "unmatched_symbols": [name for key in sorted(candidates) for path, name in [key] if key not in results]}
+    if args.rust_targets:
+        report["rust_targets_sha256"] = hashlib.sha256(args.rust_targets.read_bytes()).hexdigest()
     if args.functions.read_bytes() != csv_bytes:
         sys.exit("Function database changed during read-only comparison")
     args.report.parent.mkdir(parents=True, exist_ok=True)

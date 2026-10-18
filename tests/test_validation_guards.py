@@ -74,6 +74,30 @@ sys.exit(0)
         self.assertIn("must not overwrite", result.stderr)
         self.assertEqual(csv.read_bytes(), before)
 
+    def test_report_cannot_overwrite_rust_library(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            library = Path(tmp) / "decoder.so"
+            library.write_bytes(b"preserve")
+            result = subprocess.run([sys.executable, str(ROOT / "tools/checkbaseline.py"),
+                "missing.exe", str(ROOT / "engine/functions.csv"), "missing.obj",
+                "--rust-targets", str(library), "--report", str(library)],
+                capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("must not overwrite", result.stderr)
+            self.assertEqual(library.read_bytes(), b"preserve")
+
+    def test_wrong_reference_rejected_before_rust_load(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            exe = Path(tmp) / "wrong.exe"
+            exe.write_bytes(b"wrong reference")
+            result = subprocess.run([sys.executable, str(ROOT / "tools/checkbaseline.py"),
+                str(exe), str(ROOT / "engine/functions.csv"), "missing.obj",
+                "--rust-targets", "missing.so", "--report", str(Path(tmp) / "report.json")],
+                capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("Unsupported reference SHA-1", result.stderr)
+            self.assertNotIn("cannot open shared object", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

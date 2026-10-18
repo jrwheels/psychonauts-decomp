@@ -154,7 +154,7 @@ class Known(dict):
         return dict.__getitem__(self, self._strip(k))
 
 
-def run(exe, objs, known_in=None):
+def run(exe, objs, known_in=None, target_batch=None):
     known = Known(exe.imports)
     known.update(known_in or {})
     strtext = {}
@@ -201,7 +201,8 @@ def run(exe, objs, known_in=None):
         for fn in obj.functions:
             hits = find(exe, fn)
             candidates[(obj.path, fn.name)] = (fn, hits)
-            hit_targets[(obj.path, fn.name)] = [(va, targets(exe, fn, va)) for va in hits]
+            hit_targets[(obj.path, fn.name)] = (target_batch(exe, fn, hits) if target_batch else
+                [(va, targets(exe, fn, va)) for va in hits])
     claimed = {}    # address -> name of the function there (COMDAT copies share it)
     by_section = {}
     for key, (fn, hits) in candidates.items():
@@ -326,10 +327,15 @@ def main():
     ap.add_argument("objs", nargs="+")
     ap.add_argument("--write", action="store_true", help="store matched names in functions.csv")
     ap.add_argument("-v", action="store_true", help="list every function")
+    ap.add_argument("--rust-targets", help="optional compiled Rust relocation library")
     args = ap.parse_args()
     exe = Exe(args.exe)
     objs = [ObjFile(p) for p in args.objs]
-    results, candidates, known = run(exe, objs)
+    target_batch = None
+    if args.rust_targets:
+        from rust_targets import RustTargets
+        target_batch = RustTargets(exe, args.rust_targets)
+    results, candidates, known = run(exe, objs, target_batch=target_batch)
     cpp_objs = {o.path for o in objs if any(f.name.startswith("?") for f in o.functions)}
     per_obj = {}
     for (path, name), (fn, hits) in candidates.items():

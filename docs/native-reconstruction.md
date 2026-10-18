@@ -8,7 +8,7 @@ addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
 The fresh contribution check compiled all 58 sources, retained every previous
-match, and passed 18 native tooling unit tests and all 4,326 isolated differential
+match, and passed 29 native tooling unit tests and all 4,326 isolated differential
 cases. [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
@@ -114,3 +114,8 @@ Next bounded targets are streaming Read 0x006a7730 and file-manager construction
 Original filename-helper spellings, allocation category meanings, complete
 runtime ownership and concurrent streaming behavior remain unresolved. No full
 EFile runtime is claimed.
+
+[Optional Rust relocation decoding](matching-acceleration.md) reduces the measured
+matching phase from 102.1 to 10.8 seconds while preserving all match, candidate
+and known-symbol results. The 29 tooling tests include nine optional Rust tests.
+It changes no engine source, compiler flags, reference identity or map entries.
