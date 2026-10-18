@@ -1124,24 +1124,57 @@
       ]
     },
     "0x006aa040": {
-      "signature": "EReadBufferedFile::slot18 [provisional]",
+      "signature": null,
       "calling_convention": "thiscall",
       "parent": "EReadBufferedFile",
-      "confidence": "bounded assembly and confirmed vtable; types provisional",
-      "last_analysis_date": "2026-10-17",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
       "milestones": {
-        "analyzed": true
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
       },
       "evidence": [
         "docs/native-reconstruction.md",
-        "build/native-index/target-006aa040.json"
+        "build/native-index/target-006aa040.json",
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
       ],
       "verification_method": [
-        "hash-gated targeted assembly inspection"
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
       ],
       "unresolved": [
-        "Analyzed only; mixed signed/unsigned comparisons need modeling before reconstruction. Copy thunk verified as MSVCR90.dll memcpy."
-      ]
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ],
+      "previous_analysis": {
+        "signature": "EReadBufferedFile::slot18 [provisional]",
+        "calling_convention": "thiscall",
+        "parent": "EReadBufferedFile",
+        "confidence": "bounded assembly and confirmed vtable; types provisional",
+        "last_analysis_date": "2026-10-17",
+        "milestones": {
+          "analyzed": true
+        },
+        "evidence": [
+          "docs/native-reconstruction.md",
+          "build/native-index/target-006aa040.json"
+        ],
+        "verification_method": [
+          "hash-gated targeted assembly inspection"
+        ],
+        "unresolved": [
+          "Analyzed only; mixed signed/unsigned comparisons need modeling before reconstruction. Copy thunk verified as MSVCR90.dll memcpy."
+        ]
+      }
     },
     "0x006a9d50": {
       "signature": "void EWriteBufferedFile::Flush()",
@@ -1252,60 +1285,1104 @@
       ]
     },
     "0x006a9dd0": {
-      "signature": "EWriteBufferedFile destructor",
+      "signature": null,
       "calling_convention": "thiscall",
-      "confidence": "bounded assembly observations; ownership and helper signature provisional",
-      "last_analysis_date": "2026-10-17",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
       "milestones": {
-        "analyzed": true
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
       },
       "evidence": [
         "docs/native-reconstruction.md",
-        "build/native-index/target-006a9dd0.json"
+        "build/native-index/target-006a9dd0.json",
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
       ],
       "verification_method": [
-        "hash-gated targeted cached disassembly"
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
       ],
       "unresolved": [
-        "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
-      ]
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ],
+      "previous_analysis": {
+        "signature": "EWriteBufferedFile destructor",
+        "calling_convention": "thiscall",
+        "confidence": "bounded assembly observations; ownership and helper signature provisional",
+        "last_analysis_date": "2026-10-17",
+        "milestones": {
+          "analyzed": true
+        },
+        "evidence": [
+          "docs/native-reconstruction.md",
+          "build/native-index/target-006a9dd0.json"
+        ],
+        "verification_method": [
+          "hash-gated targeted cached disassembly"
+        ],
+        "unresolved": [
+          "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+        ]
+      }
     },
     "0x006aa0f0": {
-      "signature": "EReadBufferedFile destructor",
+      "signature": null,
       "calling_convention": "thiscall",
-      "confidence": "bounded assembly observations; ownership and helper signature provisional",
-      "last_analysis_date": "2026-10-17",
+      "parent": "EReadBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
       "milestones": {
-        "analyzed": true
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
       },
       "evidence": [
         "docs/native-reconstruction.md",
-        "build/native-index/target-006aa0f0.json"
+        "build/native-index/target-006aa0f0.json",
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
       ],
       "verification_method": [
-        "hash-gated targeted cached disassembly"
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
       ],
       "unresolved": [
-        "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
-      ]
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ],
+      "previous_analysis": {
+        "signature": "EReadBufferedFile destructor",
+        "calling_convention": "thiscall",
+        "confidence": "bounded assembly observations; ownership and helper signature provisional",
+        "last_analysis_date": "2026-10-17",
+        "milestones": {
+          "analyzed": true
+        },
+        "evidence": [
+          "docs/native-reconstruction.md",
+          "build/native-index/target-006aa0f0.json"
+        ],
+        "verification_method": [
+          "hash-gated targeted cached disassembly"
+        ],
+        "unresolved": [
+          "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+        ]
+      }
     },
     "0x006a6e30": {
-      "signature": "ReleaseFileMetadata [provisional]",
+      "signature": null,
       "calling_convention": "cdecl",
-      "confidence": "bounded assembly observations; ownership and helper signature provisional",
-      "last_analysis_date": "2026-10-17",
+      "parent": null,
+      "source": "src/game/file_memory.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
       "milestones": {
-        "analyzed": true
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
       },
       "evidence": [
         "docs/native-reconstruction.md",
-        "build/native-index/target-006a6e30.json"
+        "build/native-index/target-006a6e30.json",
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
       ],
       "verification_method": [
-        "hash-gated targeted cached disassembly"
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
       ],
       "unresolved": [
-        "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ],
+      "previous_analysis": {
+        "signature": "ReleaseFileMetadata [provisional]",
+        "calling_convention": "cdecl",
+        "confidence": "bounded assembly observations; ownership and helper signature provisional",
+        "last_analysis_date": "2026-10-17",
+        "milestones": {
+          "analyzed": true
+        },
+        "evidence": [
+          "docs/native-reconstruction.md",
+          "build/native-index/target-006a6e30.json"
+        ],
+        "verification_method": [
+          "hash-gated targeted cached disassembly"
+        ],
+        "unresolved": [
+          "Analyzed only. Base +4 allocation ownership, allocation/delete form and helper extra parameters need recovery."
+        ]
+      }
+    },
+    "0x006a6e10": {
+      "signature": null,
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/file_memory.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a6e50": {
+      "signature": null,
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/file_memory.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9940": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "?_GDiagnosticFile",
+      "source": "src/game/diagnostic.h",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9b30": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9bc0": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9c40": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9c70": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "EWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9da0": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "?_GEWriteBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a9e50": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "EReadBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006aa0c0": {
+      "signature": null,
+      "calling_convention": "thiscall",
+      "parent": "?_GEReadBufferedFile",
+      "source": "src/game/buffered_file.cpp",
+      "confidence": "RTM relocation-aware match and original/rebuilt differential verification; helper names and unrecovered semantic types provisional",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/file-lifetime.md",
+        "build/file-lifetime/comparison-before-map.json",
+        "build/file-lifetime/behavior.json",
+        "build/file-lifetime/map-update.json",
+        "build/audit/20261018T010104Z/summary.json"
+      ],
+      "verification_method": [
+        "Full reference comparison with relocation/caller/vtable constraints; exact expected original address.",
+        "329 original/rebuilt x86 cases over real helper/lifetime chains, independent expected traces/heap/ABI, mocked allocation/file operations.",
+        "Strict VC++ 2008 RTM x86 build, all 57 sources fresh; all 3,301 prior matching addresses preserved."
+      ],
+      "unresolved": [
+        "No real allocator, filesystem, audio or gameplay equivalence is established.",
+        "Original helper/member spellings, category meanings and slot +0x18 semantic meaning are unresolved."
+      ]
+    },
+    "0x006a8440": {
+      "signature": "CreateParentDirectories",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a8580": {
+      "signature": "EWin32File::EWin32File",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a85e0": {
+      "signature": "?_GEWin32File",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a8610": {
+      "signature": "EWin32File::~EWin32File",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a8680": {
+      "signature": "EWin32File::Read",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a86e0": {
+      "signature": "EWin32File::Write",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a8730": {
+      "signature": "EWin32File::Seek",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a87b0": {
+      "signature": "EWin32File::Size",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a8800": {
+      "signature": "EWin32File::Vf18",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a8840": {
+      "signature": "EWin32File::Vf1c",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a9660": {
+      "signature": "DiagnosticFile::Close",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-win32-file.md",
+        "build/native-file/comparison-before-map.json",
+        "build/native-file/map-update.json",
+        "build/native-file/regressions/test_native_file.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "371 original/rebuilt x86 cases; mocked APIs and independent expected state, trace and ABI"
+      ],
+      "vtable_relationships": [
+        "EFile vtable 0x0071d8c4; EWin32File vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "Win32 and filename helper callees are mocked; no actual filesystem or game test.",
+        "Native opener, streaming implementation and complete runtime ownership remain unresolved."
+      ]
+    },
+    "0x006a78a0": {
+      "signature": "EWin32StreamingFile::Vf20",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a7990": {
+      "signature": "EWin32StreamingFile::Vf24",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a79c0": {
+      "signature": "NativeStreamingThread",
+      "calling_convention": "stdcall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a79e0": {
+      "signature": "EWin32StreamingFile::EWin32StreamingFile",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a7a90": {
+      "signature": "EWin32StreamingFile::Write",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a7aa0": {
+      "signature": "?_GEWin32StreamingFile",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a7ad0": {
+      "signature": "EWin32StreamingFile::~EWin32StreamingFile",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a8180": {
+      "signature": "OpenNativeFile",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/native-opener/comparison-before-map.json",
+        "build/native-opener/map-update.json",
+        "build/native-opener/regressions/test_native_opener.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across all 58 fresh objects; no previously matching address lost",
+        "548 original/rebuilt x86 cases; mocked Win32/allocation/scheduling and independent expected heap, trace, state and ABI"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874; EWin32File base vtable 0x0071d8a0; RTTI-derived inheritance"
+      ],
+      "unresolved": [
+        "Names remain provisional except RTTI class identity.",
+        "No real concurrency, filesystem or gameplay verification.",
+        "Streaming Read 0x006a7730 remains external.",
+        "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     }
   }

@@ -25,7 +25,8 @@ The resolver 0x006a8ca0 receives `(name, mode, &first, &second)`, with both
 outputs initialized null. If both outputs become nonnull, dispatch uses the
 packed-file allocator regardless of the resolver's returned string. Otherwise,
 a null string returns null and a nonnull string goes to 0x006a8180 with the
-original options. Resolver and native opener implementations remain unresolved.
+original options. The resolver remains unresolved; the native opener is reconstructed in
+[native-file-streaming.md](native-file-streaming.md).
 Names and handle meanings are provisional. Local spellings are RTM stack-layout
 choices; they are not original source identifiers.
 
@@ -148,3 +149,15 @@ did not match the target stack assignment. Inspection reduced the remaining
 difference to two local slots; swapping their spellings achieved the observed
 layout. No inline assembly or uninitialized reads were added. Full expensive
 analysis was not rerun; all work used existing target exports and compiler.
+
+Buffered constructors, destructors, aligned filename ownership and additional
+forwarding methods are now reconstructed and tested; see [file-lifetime.md](file-lifetime.md).
+The +0x18 return is forwarded as raw EDX:EAX; EWin32File uses last-write FILETIME.
+
+## Native Win32 file continuation
+
+[Native Win32 file methods](native-win32-file.md) documents the reconstructed
+EFile Close, EWin32File lifetime and I/O, timestamp methods, and parent-directory
+helper. The subsequent [native opener/streaming work](native-file-streaming.md)
+adds opening and streaming lifetime/producer methods. Streaming Read remains
+external, and real concurrency is unverified.

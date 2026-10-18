@@ -1,24 +1,25 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 49 native C++ matches / 6,357 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,301 / 10,930 functions and
-292,842 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 82 native C++ matches / 9,569 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,334 / 10,930 functions and
+296,054 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
-The fresh contribution check compiled all 56 sources, retained every previous
-match, and passed 18 native tooling unit tests and all 3,078 isolated differential
+The fresh contribution check compiled all 58 sources, retained every previous
+match, and passed 18 native tooling unit tests and all 4,326 isolated differential
 cases. [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
 ## Scope and integration
 
 Recovered bodies cover sound bindings and handle helpers, one camera default,
-the diagnostic chain, EFileManager dispatch, pooled package access, and all six
-buffered reader/writer methods. Partial class layouts retain observed offsets
-and virtual slots. External storage and initialization remain external where
-lifetime or ownership is unresolved. Names and semantic types are provisional
+the diagnostic chain, EFileManager dispatch, pooled package access, buffered
+reader/writer methods and lifetimes, native Win32 file methods, and native
+opening/streaming lifetime/producer methods. Partial class layouts retain
+observed offsets and virtual slots. External storage and initialization remain
+external where lifetime or ownership is unresolved. Names and semantic types are provisional
 unless independently corroborated.
 
 Upstream's four latest commits added 382 matches / 56,669 bytes over the earlier
@@ -89,8 +90,27 @@ Diagnostic behavior and formatting limits are in [native-diagnostics.md](native-
 The canonical map counts matches independently from individual behavioral tests.
 A collection of matching objects is not a linked or playable engine.
 
-Next bounded targets are EFile and buffered-file lifetime/ownership. Writer
-0x006a9dd0 and reader 0x006aa0f0 destructors are analyzed only; scalar deleting
-wrappers and helper 0x006a6e30 require allocation/ownership evidence before
-source reconstruction. No replacement initialization or ownership model is
-asserted by this contribution.
+The [buffered-file lifetime continuation](file-lifetime.md) adds 14 matches /997
+bytes over fork d2c5583: constructors, destructors, aligned filename helpers,
+scalar deleting wrappers and additional file forwarders. All previous 3,301
+matching rows remain unchanged. The 329 new lifetime cases and all 3,078 prior
+cases pass against the same strict build.
+
+The [Win32 file continuation](native-win32-file.md) adds 11 matches /838
+bytes over that lifetime checkpoint. All 3,315 preceding matching rows are
+unchanged. The 371 new file cases and all 3,407 preceding cases pass against
+58 freshly compiled sources.
+
+The [native opener and streaming continuation](native-file-streaming.md) adds
+eight matches /1,377 bytes. All 3,326 preceding matching rows remain unchanged.
+Its 548 cases and all 3,778 preceding cases pass. The latest full comparison ran
+against the previous CSV before these eight reviewed promotions; its map-update
+report binds those exact edits to the comparison. No compiled code changed
+afterward. Supplementary Rust objdiff review confirms the 14 previously defined
+native-file bodies remain unchanged; it adds no engine or build dependency.
+
+Next bounded targets are streaming Read 0x006a7730 and file-manager construction
+0x006a88b0. Slot +0x18 is identified as last-write FILETIME for EWin32File.
+Original filename-helper spellings, allocation category meanings, complete
+runtime ownership and concurrent streaming behavior remain unresolved. No full
+EFile runtime is claimed.

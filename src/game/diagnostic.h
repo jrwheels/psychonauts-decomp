@@ -5,23 +5,30 @@
 #define DIAGNOSTIC_H
 
 #include <stdarg.h>
+#include <malloc.h>
 
 // Partial interfaces from the stream writer's dispatch; original names and
 // ignored return types are unknown. Open's two numeric options are untranslated.
 class DiagnosticFile {
 public:
-    virtual void Vf00();
+    // RTTI EFile; keep this name distinct from script_lua.cpp's file wrapper.
+    virtual ~DiagnosticFile() {}
+    void operator delete(void *block) { _aligned_free(block); }
     virtual void Close();
-    virtual unsigned int Read(void *data, unsigned int size); // slot +8
-    virtual unsigned int Write(const void *data, unsigned int size); // raw EAX observed by writer flush
-    virtual unsigned int Seek(int offset, int origin); // raw EAX saved by buffered writer
-    virtual unsigned int Size(); // slot +0x14, forwarded by buffered files
+    virtual unsigned int Read(void *data, unsigned int size) = 0; // slot +8
+    virtual unsigned int Write(const void *data, unsigned int size) = 0; // raw EAX observed by writer flush
+    virtual unsigned int Seek(int offset, int origin) = 0; // raw EAX saved by buffered writer
+    virtual unsigned int Size() = 0; // slot +0x14, forwarded by buffered files
+    virtual __int64 Vf18() { return 0; } // EDX:EAX; meaning unresolved
+    virtual bool Vf1c(unsigned int a, unsigned int b) { return false; }
 
     // Inferred inline byte-count forwarding; its original declaration is lost.
     void Write(const void *data, unsigned int size, unsigned int count)
     {
         Write(data, size * count);
     }
+
+    char *m_name; // +4; owned string, original member name unknown
 };
 
 // EFileManager identity is confirmed by RTTI and its static-object constructor.

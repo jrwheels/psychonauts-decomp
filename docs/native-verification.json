@@ -5,70 +5,82 @@
   "compiler": "15.00.21022.08 x86",
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
-  "fresh_source_objects": 56,
-  "coff_function_records": 3307,
-  "matching_functions": 3301,
+  "fresh_source_objects": 58,
+  "coff_function_records": 3347,
+  "matching_functions": 3334,
   "total_mapped_functions": 10930,
-  "matched_bytes": 292842,
+  "matched_bytes": 296054,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 49,
-  "added_bytes": 6357,
+  "added_functions": 82,
+  "added_bytes": 9569,
   "unit_tests_passed": 18,
-  "differential_cases_passed": 3078,
+  "differential_cases_passed": 4326,
   "differential_suites": {
     "test_buffered_file": {
-      "cases": 453,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 453
     },
     "test_diagnostics": {
-      "cases": 192,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 192
+    },
+    "test_file_lifetime": {
+      "exit_code": 0,
+      "cases": 329
     },
     "test_file_manager": {
-      "cases": 717,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 717
+    },
+    "test_native_file": {
+      "exit_code": 0,
+      "cases": 371
+    },
+    "test_native_opener": {
+      "exit_code": 0,
+      "cases": 548
     },
     "test_package_accessor": {
-      "cases": 385,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 385
     },
     "test_sound_camera_bindings": {
-      "cases": 30,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 30
     },
     "test_sound_categories": {
-      "cases": 28,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 28
     },
     "test_sound_controls": {
-      "cases": 59,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 59
     },
     "test_sound_flags": {
-      "cases": 340,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 340
     },
     "test_sound_handles": {
-      "cases": 126,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 126
     },
     "test_sound_levels": {
-      "cases": 55,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 55
     },
     "test_sound_mute": {
-      "cases": 71,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 71
     },
     "test_sound_names_stops": {
-      "cases": 266,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 266
     },
     "test_sound_triggers": {
-      "cases": 356,
-      "exit_code": 0
+      "exit_code": 0,
+      "cases": 356
     }
   },
   "limitations": [
@@ -77,13 +89,24 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261018T000837Z/summary.json",
-    "matching": "build/github-preparation/comparison.json",
-    "differential": "build/github-preparation/differential-summary.json"
+    "strict_audit": "build/audit/20261018T012640Z/summary.json",
+    "matching": "build/native-opener/comparison-before-map.json",
+    "differential": "build/native-opener/regressions/summary.json",
+    "file_lifetime": "build/native-opener/regressions/test_file_lifetime.json",
+    "native_file": "build/native-opener/regressions/test_native_file.json",
+    "native_opener": "build/native-opener/regressions/test_native_opener.json",
+    "map_update": "build/native-opener/map-update.json",
+    "supplementary_objdiff": "build/native-opener/objdiff-review.json"
   },
   "report_sha256": {
-    "matching": "4fc2bd8f805acf20a00a0322981d9062cec7cb1b83f0bcbf73c94a2cb23208da",
-    "strict_audit": "2bbf089986a69754fdb9576f4b06efc835274ecea47718d868bfd0435534f64b"
+    "strict_audit": "9fd06feef9bc9b587e5c0dceb5d362e10d0a7cca0afa2c225c309ee700d9a28b",
+    "matching": "0a57b2c3ec2b0291ea19bc0f1ed1be161f45522835852d3541afdfcf15f39d4c",
+    "differential": "394fe971927a5ba6bda8260774f0bf90309164978cf566172d1f97c8d623323b",
+    "file_lifetime": "ea09d002de9296d7eb5488911860eab16178a64ed07ea68cb6cd245f96390df8",
+    "native_file": "d57ff2378f42b3a38646bcb0bfdb593205a10605773279f8a4e3d3199c175ae9",
+    "native_opener": "f073adca947e59537e993b5df420a5619c7b794da66712e881b6ab40f08e773e",
+    "map_update": "fddb137a5d5f4bb012c020c62f983fb8a631e2cc82aae5a43f9e363b2ab305e1",
+    "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1"
   },
   "new_matches": [
     {
@@ -267,14 +290,149 @@
       "name": "DiagnosticStream::Write"
     },
     {
+      "address": "0x006a6e10",
+      "size": 21,
+      "name": "CopyFileName"
+    },
+    {
+      "address": "0x006a6e30",
+      "size": 27,
+      "name": "FreeFileName"
+    },
+    {
+      "address": "0x006a6e50",
+      "size": 121,
+      "name": "StrDup"
+    },
+    {
+      "address": "0x006a78a0",
+      "size": 232,
+      "name": "EWin32StreamingFile::Vf20"
+    },
+    {
+      "address": "0x006a7990",
+      "size": 39,
+      "name": "EWin32StreamingFile::Vf24"
+    },
+    {
+      "address": "0x006a79c0",
+      "size": 31,
+      "name": "NativeStreamingThread"
+    },
+    {
+      "address": "0x006a79e0",
+      "size": 170,
+      "name": "EWin32StreamingFile::EWin32StreamingFile"
+    },
+    {
+      "address": "0x006a7a90",
+      "size": 16,
+      "name": "EWin32StreamingFile::Write"
+    },
+    {
+      "address": "0x006a7aa0",
+      "size": 45,
+      "name": "?_GEWin32StreamingFile"
+    },
+    {
+      "address": "0x006a7ad0",
+      "size": 144,
+      "name": "EWin32StreamingFile::~EWin32StreamingFile"
+    },
+    {
+      "address": "0x006a8180",
+      "size": 700,
+      "name": "OpenNativeFile"
+    },
+    {
+      "address": "0x006a8440",
+      "size": 80,
+      "name": "CreateParentDirectories"
+    },
+    {
+      "address": "0x006a8580",
+      "size": 84,
+      "name": "EWin32File::EWin32File"
+    },
+    {
+      "address": "0x006a85e0",
+      "size": 45,
+      "name": "?_GEWin32File"
+    },
+    {
+      "address": "0x006a8610",
+      "size": 104,
+      "name": "EWin32File::~EWin32File"
+    },
+    {
+      "address": "0x006a8680",
+      "size": 84,
+      "name": "EWin32File::Read"
+    },
+    {
+      "address": "0x006a86e0",
+      "size": 69,
+      "name": "EWin32File::Write"
+    },
+    {
+      "address": "0x006a8730",
+      "size": 125,
+      "name": "EWin32File::Seek"
+    },
+    {
+      "address": "0x006a87b0",
+      "size": 75,
+      "name": "EWin32File::Size"
+    },
+    {
+      "address": "0x006a8800",
+      "size": 55,
+      "name": "EWin32File::Vf18"
+    },
+    {
+      "address": "0x006a8840",
+      "size": 60,
+      "name": "EWin32File::Vf1c"
+    },
+    {
       "address": "0x006a9140",
       "size": 197,
       "name": "EFileManager::Open"
     },
     {
+      "address": "0x006a9660",
+      "size": 57,
+      "name": "DiagnosticFile::Close"
+    },
+    {
+      "address": "0x006a9940",
+      "size": 46,
+      "name": "?_GDiagnosticFile"
+    },
+    {
+      "address": "0x006a9b30",
+      "size": 139,
+      "name": "EWriteBufferedFile::EWriteBufferedFile"
+    },
+    {
+      "address": "0x006a9bc0",
+      "size": 50,
+      "name": "EWriteBufferedFile::Read"
+    },
+    {
       "address": "0x006a9c00",
       "size": 50,
       "name": "EWriteBufferedFile::Seek"
+    },
+    {
+      "address": "0x006a9c40",
+      "size": 42,
+      "name": "EWriteBufferedFile::Size"
+    },
+    {
+      "address": "0x006a9c70",
+      "size": 42,
+      "name": "EWriteBufferedFile::Vf18"
     },
     {
       "address": "0x006a9ca0",
@@ -287,6 +445,21 @@
       "name": "EWriteBufferedFile::Flush"
     },
     {
+      "address": "0x006a9da0",
+      "size": 47,
+      "name": "?_GEWriteBufferedFile"
+    },
+    {
+      "address": "0x006a9dd0",
+      "size": 126,
+      "name": "EWriteBufferedFile::~EWriteBufferedFile"
+    },
+    {
+      "address": "0x006a9e50",
+      "size": 139,
+      "name": "EReadBufferedFile::EReadBufferedFile"
+    },
+    {
       "address": "0x006a9ee0",
       "size": 313,
       "name": "EReadBufferedFile::Read"
@@ -297,9 +470,24 @@
       "name": "EReadBufferedFile::Size"
     },
     {
+      "address": "0x006aa040",
+      "size": 32,
+      "name": "EReadBufferedFile::Vf18"
+    },
+    {
       "address": "0x006aa080",
       "size": 60,
       "name": "EReadBufferedFile::Refill"
+    },
+    {
+      "address": "0x006aa0c0",
+      "size": 47,
+      "name": "?_GEReadBufferedFile"
+    },
+    {
+      "address": "0x006aa0f0",
+      "size": 118,
+      "name": "EReadBufferedFile::~EReadBufferedFile"
     },
     {
       "address": "0x006aabb0",
@@ -331,5 +519,26 @@
       "size": 20,
       "name": "PackedFileSlot::Size"
     }
-  ]
+  ],
+  "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
+  "continuation_added_functions": 33,
+  "continuation_added_bytes": 3212,
+  "file_lifetime_cases_passed": 329,
+  "functions_csv_sha256": "fd85c7a8f892d7b694309e868de3c22485980f95c1ab054b2761fd8d69dc5cad",
+  "comparison_functions_csv_sha256": "50e03f010835aac0fcfe4f84d18937f28da6399058b2571860a4b1ebf179a46f",
+  "comparison_precedes_csv_promotions": true,
+  "comparison_note": "The latest full matcher ran against the 3,326-function checkpoint, found exactly eight additions and lost no address. Its map-update record proves that only those rows were promoted. No compiled code or objects changed after the comparison.",
+  "native_file_cases_passed": 371,
+  "native_file_added_functions": 11,
+  "native_file_added_bytes": 838,
+  "native_opener_cases_passed": 548,
+  "native_opener_added_functions": 8,
+  "native_opener_added_bytes": 1377,
+  "supplementary_coff_review": {
+    "tool": "objdiff-cli 3.8.2 (Rust)",
+    "prior_defined_functions_unchanged": 14,
+    "all_prior_functions_match_percent": 100,
+    "establishes_original_binary_matches": false,
+    "required_build_dependency": false
+  }
 }
