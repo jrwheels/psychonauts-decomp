@@ -1,14 +1,14 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 82 native C++ matches / 9,569 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,334 / 10,930 functions and
-296,054 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 83 native C++ matches / 9,924 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,335 / 10,930 functions and
+296,409 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
 The fresh contribution check compiled all 58 sources, retained every previous
-match, and passed 29 native tooling unit tests and all 4,326 isolated differential
+match, and passed 29 native tooling unit tests and all 4,510 isolated differential
 cases. [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
@@ -17,7 +17,7 @@ new addresses, toolchain and report hashes.
 Recovered bodies cover sound bindings and handle helpers, one camera default,
 the diagnostic chain, EFileManager dispatch, pooled package access, buffered
 reader/writer methods and lifetimes, native Win32 file methods, and native
-opening/streaming lifetime/producer methods. Partial class layouts retain
+opening/streaming consumer/producer/lifetime methods. Partial class layouts retain
 observed offsets and virtual slots. External storage and initialization remain
 external where lifetime or ownership is unresolved. Names and semantic types are provisional
 unless independently corroborated.
@@ -109,11 +109,19 @@ report binds those exact edits to the comparison. No compiled code changed
 afterward. Supplementary Rust objdiff review confirms the 14 previously defined
 native-file bodies remain unchanged; it adds no engine or build dependency.
 
-Next bounded targets are streaming Read 0x006a7730 and file-manager construction
-0x006a88b0. Slot +0x18 is identified as last-write FILETIME for EWin32File.
-Original filename-helper spellings, allocation category meanings, complete
-runtime ownership and concurrent streaming behavior remain unresolved. No full
-EFile runtime is claimed.
+Streaming Read at 0x006a7730 now matches /355 bytes, preserving all previous
+3,334 addresses. The fresh 58-source strict build, 29 tooling tests and 4,510
+differential cases pass. Its consumer fixture adds 184 cases, including bounded
+waits after data runs out; the original has no consumer EOF/stop check.
+
+Next, follow the native model-loading route documented in
+[model-loading-next.md](model-loading-next.md), beginning with
+EPlayerControl::LoadMesh at 0x005ef390 and the shared callee 0x005eb370.
+File-manager construction 0x006a88b0 remains a secondary target if the model path
+needs missing file ownership or initialization facts. Slot +0x18 is identified
+as last-write FILETIME for EWin32File. Original filename-helper spellings,
+allocation category meanings, complete runtime ownership and concurrent
+streaming behavior remain unresolved. No full EFile runtime is claimed.
 
 [Optional Rust relocation decoding](matching-acceleration.md) reduces the measured
 matching phase from 102.1 to 10.8 seconds while preserving all match, candidate

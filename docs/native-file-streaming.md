@@ -7,6 +7,7 @@ The compiler remains VC++ 2008 RTM x86 with `/Od /Oy /Ob1 /Oi /MD /GS-`.
 
 | Body | Original address | Mapped bytes |
 | --- | --- | ---: |
+| Streaming Read, slot +0x08 | 0x006a7730 | 355 |
 | Streaming producer, slot +0x20 | 0x006a78a0 | 232 |
 | Streaming startup, slot +0x24 | 0x006a7990 | 39 |
 | Thread entry | 0x006a79c0 | 31 |
@@ -69,30 +70,55 @@ ReadFile's BOOL is retained but unused; no new failure policy was introduced.
 This is the observed RTM x86 arithmetic, not a portability claim for signed
 overflow or invalid buffer requests.
 
+## Streaming Read
+
+Slot +0x08 at 0x006a7730 consumes the ring allocated by the constructor.
+It checks availability before locking and yields with Sleep(0) when empty.
+Under the critical section it copies the signed minimum of the remaining
+request and available count. A copy crossing capacity is split at the buffer
+end; read position and availability are updated before unlocking. Capacity
+comparisons, rather than a power-of-two mask, implement wrapping. The opener's
+0x8000-by-12 allocation therefore has capacity 0x60000.
+
+The unsigned request is stored in a signed local. Requests with the high bit
+set skip the loop and return the original unsigned size. There is no consumer
+check of the stop flag, ReadFile failure, producer completion or EOF. A request
+larger than the available data can wait indefinitely after the producer exits.
+No new EOF or partial-return behavior has been inserted. The test fixture stops
+empty-buffer waits after three observed Sleep calls and records an incomplete
+call, not a successful return.
+
+The buffer belongs to the streaming object and is released by its destructor;
+Read does not transfer ownership. The producer performs ReadFile outside the
+lock and publishes counts under it. The consumer keeps copying under that same
+lock. These observations do not establish safe concurrent destruction. Local
+names reproduce the RTM stack layout; they are not recovered original names.
+
 ## Verification
 
-`tools/test_native_opener.py` checks 548 original/rebuilt x86 fixtures against
-independent expected traces, full fixture heap, counter, results and ABI.
-It covers all combinations of the seven relevant option bits, directory retry
-limits, filename/buffer/object allocation failures, null streaming allocation,
-counter/product wrap, thread startup with unchanged failure output, exit-query
-failure, teardown order, signed position edges and bounded producer sequences.
-Real constructor/destructor, directory-helper and producer call chains execute.
-Win32, allocation, filename helpers and scheduling are mocked. Huge or invalid
-buffer requests are traced without dereferencing them. No game, actual thread
-or filesystem test was performed.
+`tools/test_native_opener.py` checks 732 original/rebuilt x86 fixtures against
+independent expected traces, the full fixture heap, counter, results and ABI
+for completed calls. Its 548 existing opener/lifetime/producer cases are retained;
+184 consumer cases add contiguous, split and exact-boundary copies, multiple
+availability updates, signed requests, stopped producers and bounded empty waits.
+Selected cases dispatch through the actual streaming vtable's Read slot.
+The consumer model uses modular ring arithmetic independently of the C++ branch
+layout. Every consumer memcpy is required to occur while locked; empty waits
+must occur outside the lock. Scheduling and Win32 services remain mocked.
+No game, actual thread or filesystem test was performed.
 
-The full matcher retains all previous 3,326 addresses and adds these eight
-bodies /1,377 bytes. Total: 3,334 matches /296,054 bytes. All 58 sources compile,
-18 tooling tests and 4,326 differential cases pass. Exact reports and hashes
-are in [native-verification.json](native-verification.json).
+The full Rust-assisted upstream matcher retains all previous 3,334 addresses
+and adds Read /355 mapped bytes. Total: 3,335 matches /296,409 bytes. Its COFF
+body includes 13 bytes of alignment padding after the 355 mapped bytes; the map
+boundary is unchanged. All 58 sources compile with the same compiler and flags.
+Exact report paths, suite counts and hashes are in
+[native-verification.json](native-verification.json).
 
-A supplementary COFF review used Rust-based [objdiff-cli 3.8.2](https://github.com/encounter/objdiff/releases/tag/v3.8.2).
-All 14 previously defined native-file bodies, including repeated base virtuals,
-compare at 100%. This compares two reconstructed objects; upstream objmatch
-and the hash-gated executable comparison establish actual binary matches.
-The optional tool and its reports remain local; it adds no engine/build dependency.
+The earlier eight opener/producer/lifetime matches contributed 1,377 bytes.
+Supplementary COFF review with Rust-based objdiff-cli 3.8.2 preserved its 14
+previously defined bodies. That reconstructed-object comparison is distinct
+from the executable-based matching proof used for every checkpoint.
 
-Streaming Read at 0x006a7730 remains external. Real concurrency, complete file
-ownership, original helper/member names and safe use of invalid inputs remain
-unresolved. Matching objects are not a linked or playable engine.
+Real concurrency, complete file ownership, original helper/member names and
+safe use of invalid inputs remain unresolved. Matching objects are not a linked
+or playable engine.

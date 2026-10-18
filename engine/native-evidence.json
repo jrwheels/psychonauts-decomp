@@ -2143,7 +2143,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2177,7 +2176,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2211,7 +2209,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2245,7 +2242,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2279,7 +2275,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2313,7 +2308,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2347,7 +2341,6 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
       ]
     },
@@ -2381,8 +2374,43 @@
       "unresolved": [
         "Names remain provisional except RTTI class identity.",
         "No real concurrency, filesystem or gameplay verification.",
-        "Streaming Read 0x006a7730 remains external.",
         "Original thread-ID/handle misuse, unchecked path copy and failed-allocation behavior are preserved."
+      ]
+    },
+    "0x006a7730": {
+      "signature": "unsigned int EWin32StreamingFile::Read(void *data, unsigned int size)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/native_file.cpp",
+      "confidence": "assembly derived; RTTI, RTM matching and isolated differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-file-streaming.md",
+        "build/streaming-read/comparison-before-map.json",
+        "build/streaming-read/map-update.json",
+        "build/streaming-read/regressions/test_native_opener.json",
+        "build/streaming-read/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream objmatch across 58 fresh objects; all 3,334 preceding matching addresses retained",
+        "732 original/rebuilt x86 fixtures including 184 consumer cases; independent expected heap, trace, ABI and bounded scheduling",
+        "New Read relocation targets independently agree between Rust and Python decoders"
+      ],
+      "vtable_relationships": [
+        "EWin32StreamingFile vtable 0x0071d874, Read slot +0x08"
+      ],
+      "unresolved": [
+        "No real concurrency, filesystem or gameplay verification.",
+        "The original consumer does not check stop or EOF and can wait indefinitely.",
+        "Local names are compiler-layout choices, not recovered names.",
+        "Signed overflow and invalid buffer states are not portability or safety claims."
       ]
     }
   }

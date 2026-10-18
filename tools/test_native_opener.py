@@ -3,7 +3,7 @@
 
 Win32, filename helpers, allocation and scheduling are mocked. Large/invalid
 buffer requests are traced without dereferencing them. No threads are started;
-the consumer and real concurrent/file behavior remain unverified.
+consumer scheduling is deterministic, not a test of real concurrent/file behavior.
 """
 import argparse
 import hashlib
@@ -31,6 +31,7 @@ TARGETS = {'OpenNativeFile': 0x6a8180, 'CreateParentDirectories': 0x6a8440,
     'EWin32File::EWin32File': 0x6a8580, 'EWin32File::~EWin32File': 0x6a8610,
     'NativeStreamingThread': 0x6a79c0, 'EWin32StreamingFile::Vf24': 0x6a7990,
     'EWin32StreamingFile::Vf20': 0x6a78a0,
+    'EWin32StreamingFile::Read': 0x6a7730,
     'EWin32StreamingFile::EWin32StreamingFile': 0x6a79e0,
     'EWin32StreamingFile::~EWin32StreamingFile': 0x6a7ad0,
     'EWin32StreamingFile::Write': 0x6a7a90, '?_GEWin32StreamingFile': 0x6a7aa0}
@@ -52,7 +53,8 @@ CALLEES = {
     'mkdir': ('__imp__CreateDirectoryA@8', 0x700040, 8),
     'strrchr': ('__imp__strrchr', 0x7002e8, 0),
     'copyname': ('?CopyFileName@@YAPADPBDH@Z', 0x6a6e10, 0),
-    'freename': ('?FreeFileName@@YAXPADHH@Z', 0x6a6e30, 0)}
+    'freename': ('?FreeFileName@@YAXPADHH@Z', 0x6a6e30, 0),
+    'copy': ('_memcpy', 0x6ed156, 0)}
 STUBS = {n: STOP+(i+1)*0x100 for i, n in enumerate(CALLEES)}
 
 
@@ -70,8 +72,10 @@ def initial(s):
                          s['handle'], s['thread'])
         struct.pack_into('<7I', memory, 0x28, s['block'], s['blocks'],
                          BUFFER if s['buffer'] else 0, s['capacity'],
-                         s['position'], 3, s['available'])
+                         s['position'], s.get('read_position', 3), s['available'])
         memory[0x44] = int(s['stop'])
+    if s['kind']=='consumer':
+        memory[BUFFER-HEAP:BUFFER-HEAP+32] = bytes(range(32))
     return memory
 
 
@@ -177,6 +181,37 @@ def expected(s):
         start()
     elif kind=='write':
         result = MASK
+    elif kind=='consumer':
+        remaining = signed(s['request'])
+        position, available, dest = s['read_position'], s['available'], TEXT
+        supplies = iter(s['supplies'])
+        sleeps = 0
+        while remaining > 0:
+            if available == 0:
+                trace.append(['sleep', 0])
+                sleeps += 1
+                if sleeps == 3:
+                    break
+                available = next(supplies, 0)
+                put(0x40, available)
+                continue
+            trace.append(['enter', OBJECT+0x10])
+            n = min(remaining, available)
+            first = min(n, s['capacity']-position)
+            chunks = [(BUFFER+position, first)]
+            if first < n:
+                chunks.append((BUFFER, n-first))
+            for source, length in chunks:
+                trace.append(['copy', dest, source, length])
+                memory[dest-HEAP:dest-HEAP+length] = memory[source-HEAP:source-HEAP+length]
+                dest += length
+            position = (position+n) % s['capacity']
+            available -= n
+            remaining -= n
+            put(0x3c, position)
+            put(0x40, available)
+            trace.append(['leave', OBJECT+0x10])
+        result = None if remaining > 0 else s['request']
     else:
         position, available, stop = s['position'], s['available'], s['stop']
         reads = iter(s['reads'])
@@ -242,11 +277,13 @@ def execute(pe, obj, s, rebuilt):
         symbols.update({f.name: REBUILT[n] for n, f in functions.items()})
         for name, f in functions.items():
             uc.mem_write(REBUILT[name], relocate(f, REBUILT[name], symbols))
-        for slot, name in [(0, '?_GEWin32StreamingFile'), (0x20, 'EWin32StreamingFile::Vf20'),
+        for slot, name in [(8, 'EWin32StreamingFile::Read'), (0, '?_GEWin32StreamingFile'), (0x20, 'EWin32StreamingFile::Vf20'),
                             (0x24, 'EWin32StreamingFile::Vf24')]:
             uc.mem_write(STREAM_VT+slot, struct.pack('<I', REBUILT[name]))
     trace, fault, allocations = [], [], []
     handles, exits, reads = iter(s['handles']), iter(s['exits']), iter(s['reads'])
+    supplies = iter(s.get('supplies', []))
+    waiting, locked = [], []
     def string(pointer):
         return bytes(uc.mem_read(pointer, 2048)).split(b'\0', 1)[0]
     def hook(machine, address, length, user):
@@ -297,10 +334,23 @@ def execute(pe, obj, s, rebuilt):
         elif label in ('init', 'destroy', 'enter', 'leave'):
             lock = args(1)[0]
             trace.append([label, lock])
+            if s['kind']=='consumer':
+                if label=='enter':
+                    assert not locked
+                    locked.append(True)
+                elif label=='leave':
+                    assert locked.pop()
             if label=='init':
                 machine.mem_write(lock, b'\x1c'*24)
         elif label=='sleep':
             trace.append([label, *args(1)])
+            if s['kind']=='consumer':
+                assert not locked
+                if sum(t[0]=='sleep' for t in trace)==3:
+                    waiting.append(True)
+                    machine.emu_stop()
+                else:
+                    machine.mem_write(OBJECT+0x40, struct.pack('<I', next(supplies, 0)))
             if s['kind'] in ('worker', 'thread'):
                 if s['wake']=='space':
                     machine.mem_write(OBJECT+0x40, struct.pack('<I', 0))
@@ -313,6 +363,12 @@ def execute(pe, obj, s, rebuilt):
             machine.mem_write(out, struct.pack('<I', n))
             if 0 < n <= 16 and BUFFER <= dest <= BUFFER+32-n:
                 machine.mem_write(dest, b'\x7b'*n)
+        elif label=='copy':
+            dest, source, size = args(3)
+            assert locked and 0 <= size <= 32
+            trace.append([label, dest, source, size])
+            machine.mem_write(dest, bytes(machine.mem_read(source, size)))
+            value = dest
         elif label=='strrchr':
             p, char = args(2)
             i = string(p).rfind(bytes([char]))
@@ -330,7 +386,8 @@ def execute(pe, obj, s, rebuilt):
     args = ([TEXT if s['name'] else 0, s['options']] if kind=='open' else
             [s['handle'], TEXT if s['name'] else 0, s['block'], s['blocks']] if kind=='ctor' else
             [s['flags']] if kind=='delete' else [OBJECT] if kind=='thread' else
-            [BUFFER, s['request']] if kind=='write' else [])
+            [BUFFER, s['request']] if kind=='write' else
+            [TEXT, s['request']] if kind=='consumer' else [])
     sp = STACK+0x8000
     uc.mem_write(sp, struct.pack('<'+'I'*(len(args)+1), STOP, *args))
     preserved = {UC_X86_REG_EBP: 0x12345678, UC_X86_REG_EBX: 0x23456789,
@@ -339,17 +396,25 @@ def execute(pe, obj, s, rebuilt):
         uc.reg_write(register, value)
     uc.reg_write(UC_X86_REG_ECX, OBJECT)
     uc.reg_write(UC_X86_REG_ESP, sp)
+    entry = addresses[s['function']]
+    if kind=='consumer' and s.get('virtual'):
+        entry = CODE+0xf000
+        uc.mem_write(entry, b'\x8b\x01\xff\x60\x08')
     try:
-        uc.emu_start(addresses[s['function']], STOP, count=30000)
+        uc.emu_start(entry, STOP, count=30000)
     except UcError:
         assert kind=='open' and s['options'] & 0x1000 and s['fail']=='object'
         assert fault==[['read', 0, 4]]
-    if not fault:
+    if not fault and not waiting:
         assert uc.reg_read(UC_X86_REG_EIP)==STOP
         pop = 0 if kind=='open' else len(args)*4
         assert uc.reg_read(UC_X86_REG_ESP)==sp+4+pop
         assert all(uc.reg_read(reg)==value for reg, value in preserved.items())
-    result = None if fault or kind in ('dtor', 'start', 'worker') else uc.reg_read(UC_X86_REG_EAX)
+    if waiting:
+        assert kind=='consumer' and not locked
+        assert all(uc.reg_read(reg)==value for reg, value in preserved.items()
+                   if reg != UC_X86_REG_EBP)
+    result = None if fault or waiting or kind in ('dtor', 'start', 'worker') else uc.reg_read(UC_X86_REG_EAX)
     return dict(memory=bytes(uc.mem_read(HEAP, 0x10000)).hex(), trace=trace,
                 count=struct.unpack('<I', uc.mem_read(COUNT, 4))[0], result=result,
                 fault=fault[0] if fault else None)
@@ -364,7 +429,7 @@ def scenarios():
     names = {'open':'OpenNativeFile', 'ctor':'EWin32StreamingFile::EWin32StreamingFile',
         'dtor':'EWin32StreamingFile::~EWin32StreamingFile', 'delete':'?_GEWin32StreamingFile',
         'start':'EWin32StreamingFile::Vf24', 'thread':'NativeStreamingThread',
-        'worker':'EWin32StreamingFile::Vf20', 'write':'EWin32StreamingFile::Write'}
+        'worker':'EWin32StreamingFile::Vf20', 'consumer':'EWin32StreamingFile::Read', 'write':'EWin32StreamingFile::Write'}
     def case(kind, **kw):
         return dict(defaults, kind=kind, function=names[kind], **kw)
     for combination in range(128):
@@ -406,6 +471,15 @@ def scenarios():
     yield case('dtor', handle=MASK, ok=0)
     yield case('open', handles=[0], count=MASK)
     yield case('open', options=0x2401)
+    for position, available, request in itertools.product([0, 1, 15, 24, 31],
+            [1, 7, 16, 32], [0, 1, 7, 16, 32, 33, 0x80000000, MASK]):
+        yield case('consumer', read_position=position, available=available,
+                   request=request, supplies=[], virtual=bool(position & 1))
+    for supplies, request, stop in itertools.product([[], [8], [8, 8]],
+            [1, 8, 12, 17], [False, True]):
+        yield case('consumer', read_position=28, available=0, request=request,
+                   supplies=supplies, stop=stop)
+
 
 
 def main():

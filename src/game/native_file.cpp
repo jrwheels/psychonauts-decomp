@@ -48,6 +48,43 @@ public:
     bool m_stop;                     // +0x44
 };
 
+unsigned int EWin32StreamingFile::Read(void *data, unsigned int size)
+{
+    char *destination = (char *)data;
+    int bytesLeft = size;
+    while (bytesLeft > 0) {
+        if (m_available == 0) {
+            Sleep(0);
+            continue;
+        }
+        EnterCriticalSection(&m_lock);
+        int n = bytesLeft;
+        if (n > m_available)
+            n = m_available;
+        bool linear = true;
+        if (m_readPosition + n > m_capacity)
+            linear = false;
+        if (linear) {
+            memcpy(destination, (char *)m_buffer + m_readPosition, n);
+            destination += n;
+            m_readPosition += n;
+            if (m_readPosition >= m_capacity)
+                m_readPosition = 0;
+        } else {
+            int tail = m_capacity - m_readPosition;
+            memcpy(destination, (char *)m_buffer + m_readPosition, tail);
+            destination += tail;
+            memcpy(destination, m_buffer, n - tail);
+            destination += n - tail;
+            m_readPosition = n - tail;
+        }
+        m_available -= n;
+        bytesLeft -= n;
+        LeaveCriticalSection(&m_lock);
+    }
+    return size;
+}
+
 DWORD WINAPI NativeStreamingThread(void *parameter)
 {
     EWin32StreamingFile *file = (EWin32StreamingFile *)parameter;

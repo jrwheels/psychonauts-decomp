@@ -6,17 +6,17 @@
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
   "fresh_source_objects": 58,
-  "coff_function_records": 3347,
-  "matching_functions": 3334,
+  "coff_function_records": 3348,
+  "matching_functions": 3335,
   "total_mapped_functions": 10930,
-  "matched_bytes": 296054,
+  "matched_bytes": 296409,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 82,
-  "added_bytes": 9569,
+  "added_functions": 83,
+  "added_bytes": 9924,
   "unit_tests_passed": 29,
-  "differential_cases_passed": 4326,
+  "differential_cases_passed": 4510,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -40,7 +40,7 @@
     },
     "test_native_opener": {
       "exit_code": 0,
-      "cases": 548
+      "cases": 732
     },
     "test_package_accessor": {
       "exit_code": 0,
@@ -89,30 +89,32 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261018T012640Z/summary.json",
-    "matching": "build/native-opener/comparison-before-map.json",
-    "differential": "build/native-opener/regressions/summary.json",
-    "file_lifetime": "build/native-opener/regressions/test_file_lifetime.json",
-    "native_file": "build/native-opener/regressions/test_native_file.json",
-    "native_opener": "build/native-opener/regressions/test_native_opener.json",
-    "map_update": "build/native-opener/map-update.json",
+    "strict_audit": "build/audit/20261018T020329Z/summary.json",
+    "matching": "build/streaming-read/comparison-before-map.json",
+    "differential": "build/streaming-read/regressions/summary.json",
+    "file_lifetime": "build/streaming-read/regressions/test_file_lifetime.json",
+    "native_file": "build/streaming-read/regressions/test_native_file.json",
+    "native_opener": "build/streaming-read/regressions/test_native_opener.json",
+    "map_update": "build/streaming-read/map-update.json",
     "supplementary_objdiff": "build/native-opener/objdiff-review.json",
     "rust_matching": "build/rust-accelerator/comparison.json",
     "rust_benchmark": "build/rust-accelerator/benchmark.json",
-    "tooling_tests": "build/rust-accelerator/unit-tests.log"
+    "tooling_tests": "build/streaming-read/tooling-tests.log",
+    "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json"
   },
   "report_sha256": {
-    "strict_audit": "9fd06feef9bc9b587e5c0dceb5d362e10d0a7cca0afa2c225c309ee700d9a28b",
-    "matching": "0a57b2c3ec2b0291ea19bc0f1ed1be161f45522835852d3541afdfcf15f39d4c",
-    "differential": "394fe971927a5ba6bda8260774f0bf90309164978cf566172d1f97c8d623323b",
-    "file_lifetime": "ea09d002de9296d7eb5488911860eab16178a64ed07ea68cb6cd245f96390df8",
-    "native_file": "d57ff2378f42b3a38646bcb0bfdb593205a10605773279f8a4e3d3199c175ae9",
-    "native_opener": "f073adca947e59537e993b5df420a5619c7b794da66712e881b6ab40f08e773e",
-    "map_update": "fddb137a5d5f4bb012c020c62f983fb8a631e2cc82aae5a43f9e363b2ab305e1",
+    "strict_audit": "37348417ce5ad65ae379cc8455459fb3d5ea1e3a8e00128cc0e5d533d21eabea",
+    "matching": "cdea743efce53fc61153b0c8abe3b290d8fd45b35878aa4989e3f1b508523619",
+    "differential": "493a7776ae713fc5fb2fd7d0cf72addac7458e86e96e2c3e6464583428676e90",
+    "file_lifetime": "4341b685c311e78af5a5f46004d8333e238796dc2572d6ca428c6c3b78c86393",
+    "native_file": "96657b511b6257eab2ebe92739fc6bf7e88f2f3241ce208d5465818996834642",
+    "native_opener": "c406be0b35a723bd54f1e76a086502e2f6579f2dec8d8b350ab4432678ac9d71",
+    "map_update": "e0307a96a14382fa8b37ab5c9b8b7ce5599ca9f511c3a91190b384310699bc35",
     "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
     "rust_matching": "a6e33c364fc48c07c87bb79b41e64dd65f089f12ddf3794f820f944bdac610ea",
     "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
-    "tooling_tests": "1d744ccca3a1014031b89a93ffdf7de3f7696c1eac897ff10ce5e7d8790e3964"
+    "tooling_tests": "20c7e84d919425661f3c40240d7be0ae44f12c843f9b8609ba306d8fd523fb27",
+    "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38"
   },
   "new_matches": [
     {
@@ -524,22 +526,27 @@
       "address": "0x006aae10",
       "size": 20,
       "name": "PackedFileSlot::Size"
+    },
+    {
+      "address": "0x006a7730",
+      "size": 355,
+      "name": "EWin32StreamingFile::Read"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
-  "continuation_added_functions": 33,
-  "continuation_added_bytes": 3212,
+  "continuation_added_functions": 34,
+  "continuation_added_bytes": 3567,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "fd85c7a8f892d7b694309e868de3c22485980f95c1ab054b2761fd8d69dc5cad",
-  "comparison_functions_csv_sha256": "50e03f010835aac0fcfe4f84d18937f28da6399058b2571860a4b1ebf179a46f",
+  "functions_csv_sha256": "4057d33e80a5850a6e143f5cbedcc8e85b32ddb2e38701a110d53e8c1d445b53",
+  "comparison_functions_csv_sha256": "fd85c7a8f892d7b694309e868de3c22485980f95c1ab054b2761fd8d69dc5cad",
   "comparison_precedes_csv_promotions": true,
-  "comparison_note": "The latest full matcher ran against the 3,326-function checkpoint, found exactly eight additions and lost no address. Its map-update record proves that only those rows were promoted. No compiled code or objects changed after the comparison.",
+  "comparison_note": "The full Rust-assisted upstream matcher checked the 3,334-function CSV, retained every address and added only Streaming Read at 0x006a7730 /355 bytes. The map-update record binds the sole promotion to that comparison. No source or objects changed afterward.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
-  "native_opener_cases_passed": 548,
-  "native_opener_added_functions": 8,
-  "native_opener_added_bytes": 1377,
+  "native_opener_cases_passed": 732,
+  "native_opener_added_functions": 9,
+  "native_opener_added_bytes": 1732,
   "supplementary_coff_review": {
     "tool": "objdiff-cli 3.8.2 (Rust)",
     "prior_defined_functions_unchanged": 14,

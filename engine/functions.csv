@@ -8509,7 +8509,7 @@ address,size,origin,name,status,object
 0x006a75b0,13,gap,,,
 0x006a75c0,90,gap,,,
 0x006a7640,238,pointer,,,
-0x006a7730,355,pointer,,,
+0x006a7730,355,pointer,EWin32StreamingFile::Read,matching,native_file.obj
 0x006a78a0,232,pointer,EWin32StreamingFile::Vf20,matching,native_file.obj
 0x006a7990,39,pointer,EWin32StreamingFile::Vf24,matching,native_file.obj
 0x006a79c0,31,gap,NativeStreamingThread,matching,native_file.obj
