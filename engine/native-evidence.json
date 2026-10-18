@@ -3053,6 +3053,146 @@
         "Context construction, complete cleanup and parser remain external. Array cleanup compiles and passes behavior tests but does not match.",
         "No asset payload, actual allocator, filesystem or gameplay verification."
       ]
+    },
+    "0x00464150": {
+      "signature": "ResourceNode::SetOwner",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_node.cpp",
+      "confidence": "assembly derived; provisional names, exact RTM matching and independent differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-parser.md",
+        "build/resource-parser/comparison-before-map.json",
+        "build/resource-parser/map-update.json",
+        "build/resource-parser/behavior.json",
+        "build/resource-parser/context-regressions.json",
+        "build/resource-parser/node-behavior.json",
+        "build/resource-parser/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 62 fresh source objects; all 3,354 previous matching addresses retained",
+        "454 original/rebuilt/independent-expected cases across affected suites; separate 44 original-only parser fixtures",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Provisional type/member names; no complete format or runtime skeleton mapping asserted.",
+        "Parser entry, context construction, association Clear and larger mesh readers remain external/unmatched.",
+        "Stream, pool and large parser dependencies use bounded mocks; no asset/gameplay test."
+      ]
+    },
+    "0x006a5090": {
+      "signature": "ContextListBase::Clear",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_context.cpp",
+      "confidence": "assembly derived; provisional names, exact RTM matching and independent differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-parser.md",
+        "build/resource-parser/comparison-before-map.json",
+        "build/resource-parser/map-update.json",
+        "build/resource-parser/behavior.json",
+        "build/resource-parser/context-regressions.json",
+        "build/resource-parser/node-behavior.json",
+        "build/resource-parser/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 62 fresh source objects; all 3,354 previous matching addresses retained",
+        "454 original/rebuilt/independent-expected cases across affected suites; separate 44 original-only parser fixtures",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Provisional type/member names; no complete format or runtime skeleton mapping asserted.",
+        "Parser entry, context construction, association Clear and larger mesh readers remain external/unmatched.",
+        "Stream, pool and large parser dependencies use bounded mocks; no asset/gameplay test."
+      ]
+    },
+    "0x006a5620": {
+      "signature": "ResourceList::GetFromBack",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; provisional names, exact RTM matching and independent differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-parser.md",
+        "build/resource-parser/comparison-before-map.json",
+        "build/resource-parser/map-update.json",
+        "build/resource-parser/behavior.json",
+        "build/resource-parser/context-regressions.json",
+        "build/resource-parser/node-behavior.json",
+        "build/resource-parser/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 62 fresh source objects; all 3,354 previous matching addresses retained",
+        "454 original/rebuilt/independent-expected cases across affected suites; separate 44 original-only parser fixtures",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Provisional type/member names; no complete format or runtime skeleton mapping asserted.",
+        "Parser entry, context construction, association Clear and larger mesh readers remain external/unmatched.",
+        "Stream, pool and large parser dependencies use bounded mocks; no asset/gameplay test."
+      ]
+    },
+    "0x006a5d10": {
+      "signature": "EStream::ReadString",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly derived; provisional names, exact RTM matching and independent differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-parser.md",
+        "build/resource-parser/comparison-before-map.json",
+        "build/resource-parser/map-update.json",
+        "build/resource-parser/behavior.json",
+        "build/resource-parser/context-regressions.json",
+        "build/resource-parser/node-behavior.json",
+        "build/resource-parser/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 62 fresh source objects; all 3,354 previous matching addresses retained",
+        "454 original/rebuilt/independent-expected cases across affected suites; separate 44 original-only parser fixtures",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Provisional type/member names; no complete format or runtime skeleton mapping asserted.",
+        "Parser entry, context construction, association Clear and larger mesh readers remain external/unmatched.",
+        "Stream, pool and large parser dependencies use bounded mocks; no asset/gameplay test."
+      ]
     }
   }
 }

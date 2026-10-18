@@ -109,3 +109,11 @@ array Clear 0x0041ffa0 is behaviorally tested but also unmatched. Before the
 larger dispatcher/parser, resolve the list wrapper/+0x4c construction and
 association member destructor 0x00420320. Native parser header reads confirm
 CYSP and stream+0x08 version-word handling without decoding mesh payloads.
+
+The [CYSP dependency continuation](native-resource-parser.md) now matches string
+transfer at 0x006a5d10, list lookup at 0x006a5620, list Clear at 0x006a5090 and
+recursive owner association at 0x00464150. The context reader at 0x0041d510 calls EMesh construction at
+0x00435480 and its reader0x00435f40, establishing the next native mesh edge.
+Recover context SetName at 0x0041f670 and bounded mesh-reader dependencies next;
+constructor/frame and association-Clear blockers remain recorded. No complete
+parser, serialized skeleton mapping or exporter is claimed.

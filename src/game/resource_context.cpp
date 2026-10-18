@@ -1,6 +1,11 @@
 // Resource-dispatch lifetime views; names are provisional.
 #include "engine.h"
 
+class ContextPool {
+public:
+    void Release();
+};
+
 class ContextListBase {
 public:
     ContextListBase(int mode);
@@ -33,6 +38,16 @@ ContextListBase::ContextListBase(int mode)
 ContextListBase::~ContextListBase()
 {
     Clear();
+}
+
+void ContextListBase::Clear()
+{
+    m_count = 0;
+    m_first = 0;
+    m_last = 0;
+    m_cursor = 0;
+    ((ContextPool *)m_pool)->Release();
+    m_pool = 0;
 }
 
 struct ContextAssociation {

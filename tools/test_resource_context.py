@@ -25,6 +25,7 @@ CODE, HEAP, STACK, STOP = 0x1000000, 0x2000000, 0x3000000, 0x2100000
 ITEMS, NAME, POOL = HEAP+0x1000, HEAP+0x2000, HEAP+0x3000
 ORIGINAL = {'ContextListBase::ContextListBase': 0x6a5030,
     'ContextListBase::~ContextListBase': 0x6a50e0,
+    'ContextListBase::Clear': 0x6a5090,
     'ResourceContext::~ResourceContext': 0x41c720,
     'UContextAssociation::?$TArray::Clear': 0x41ffa0,
     'EArrayBase::Reserve': 0x408960}
@@ -68,7 +69,7 @@ def expected(s):
         for member in (0, 20, 16, 12, 4):
             put(4+member, 0)
         put(12, 10)
-    elif name=='ContextListBase::~ContextListBase':
+    elif name in ('ContextListBase::~ContextListBase', 'ContextListBase::Clear'):
         clear_list(4)
     elif name=='ResourceContext::~ResourceContext':
         trace.append(['cleanup', HEAP])
@@ -101,10 +102,11 @@ def execute(pe, obj, s, rebuilt):
             '?FreeFileName@@YAXPADHH@Z': 0x6a6e30,
             '?Clear@ContextListBase@@QAEXXZ': 0x6a5090,
             '??1Entry@ContextAssociation@@QAE@XZ': STUBS['entry'],
+            '?Release@ContextPool@@QAEXXZ': STUBS['pool'],
             '__imp___aligned_free': 0x700298,
             '__imp___aligned_malloc': 0x700288,
             '_memcpy': 0x6ed156}
-        functions = {demangle(f.name): f for f in obj.functions}
+        functions = {demangle(f.name): f for f in obj.functions if demangle(f.name) in REBUILT}
         assert functions.keys()==REBUILT.keys()
         symbols.update({f.name: REBUILT[n] for n, f in functions.items()})
         for name, f in functions.items():
@@ -145,8 +147,9 @@ def scenarios():
         flag=0, data=False, named=False)
     for mode in (0, 1, 2, 0xffffffff):
         yield dict(base, function='ContextListBase::ContextListBase', mode=mode)
-    for pool in (False, True):
-        yield dict(base, function='ContextListBase::~ContextListBase', pool=pool)
+    for name, pool in itertools.product(('ContextListBase::~ContextListBase',
+            'ContextListBase::Clear'), (False, True)):
+        yield dict(base, function=name, pool=pool)
     for count, category, flag, named, pool in itertools.product(
             (0, 1, 3), (0, 31), (0, 1), (False, True), (False, True)):
         yield dict(base, function='ResourceContext::~ResourceContext',

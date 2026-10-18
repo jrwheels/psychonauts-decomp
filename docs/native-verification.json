@@ -5,18 +5,18 @@
   "compiler": "15.00.21022.08 x86",
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
-  "fresh_source_objects": 61,
-  "coff_function_records": 3373,
-  "matching_functions": 3354,
+  "fresh_source_objects": 62,
+  "coff_function_records": 3377,
+  "matching_functions": 3358,
   "total_mapped_functions": 10930,
-  "matched_bytes": 298325,
+  "matched_bytes": 298852,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 102,
-  "added_bytes": 11840,
+  "added_functions": 106,
+  "added_bytes": 12367,
   "unit_tests_passed": 29,
-  "differential_cases_passed": 6006,
+  "differential_cases_passed": 6126,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -96,7 +96,15 @@
     },
     "test_resource_context": {
       "exit_code": 0,
-      "cases": 68
+      "cases": 70
+    },
+    "test_resource_parser": {
+      "exit_code": 0,
+      "cases": 108
+    },
+    "test_resource_nodes": {
+      "exit_code": 0,
+      "cases": 10
     }
   },
   "limitations": [
@@ -105,50 +113,60 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261018T033459Z/summary.json",
-    "matching": "build/resource-context/comparison-before-map.json",
-    "differential": "build/resource-context/verification-summary.json",
+    "strict_audit": "build/audit/20261018T162239Z/summary.json",
+    "matching": "build/resource-parser/comparison-before-map.json",
+    "differential": "build/resource-parser/verification-summary.json",
     "file_lifetime": "build/streaming-read/regressions/test_file_lifetime.json",
     "native_file": "build/streaming-read/regressions/test_native_file.json",
     "native_opener": "build/streaming-read/regressions/test_native_opener.json",
-    "map_update": "build/resource-context/map-update.json",
+    "map_update": "build/resource-parser/map-update.json",
     "supplementary_objdiff": "build/native-opener/objdiff-review.json",
-    "rust_matching": "build/resource-context/comparison-before-map.json",
+    "rust_matching": "build/resource-parser/comparison-before-map.json",
     "rust_benchmark": "build/rust-accelerator/benchmark.json",
-    "tooling_tests": "build/resource-context/tooling-tests.log",
+    "tooling_tests": "build/resource-parser/tooling-tests.log",
     "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json",
     "mesh": "build/mesh-replacement/lookup-behavior.json",
     "mesh_decoder_parity": "build/mesh-replacement/decoder-parity.json",
-    "cached_object_parity": "build/resource-context/cached-object-parity.json",
+    "cached_object_parity": "build/resource-parser/cached-object-parity.json",
     "mesh_replacement": "build/mesh-replacement/behavior.json",
-    "resource_stream": "build/resource-stream/behavior.json",
+    "resource_stream": "build/resource-parser/stream-regressions.json",
     "resource_decoder_parity": "build/resource-stream/decoder-parity.json",
-    "resource_context": "build/resource-context/behavior.json",
+    "resource_context": "build/resource-parser/context-regressions.json",
     "context_decoder_parity": "build/resource-context/decoder-parity.json",
-    "parser_header": "build/resource-context/parser-header.json"
+    "parser_header": "build/resource-context/parser-header.json",
+    "parser_decoder_parity": "build/resource-parser/decoder-parity.json",
+    "resource_parser": "build/resource-parser/behavior.json",
+    "resource_nodes": "build/resource-parser/node-behavior.json",
+    "cysp_header": "build/resource-parser/header-behavior.json",
+    "parser_callgraph": "build/resource-parser/callgraph.json"
   },
   "report_sha256": {
-    "strict_audit": "c6e3519060e0e98087107c50c6d9ef91ff6d09a7d44060301b66a7467299e5d2",
-    "matching": "b66a840be9f8a890cec1e02929dbb88f3bf6cfdbfa79fc5572addd4cb86e1778",
-    "differential": "63e5f051525e16f50bf0adea8cf6fbd3d40ae5ce27d3368d2bf5c38289e48b75",
+    "strict_audit": "7fe128aa7d0fc92455d954ddbf675fe0eaa2a0d52dd8519471ebfe447f947828",
+    "matching": "f56f0aa3e62c3c7eca627070803f0f50e54bf0d11eb81455d1d73b9336711f7d",
+    "differential": "9fe56e7248bd0107f0e967319e99f409f91ce44fdc863f07fa8e66f9e909b6ed",
     "file_lifetime": "4341b685c311e78af5a5f46004d8333e238796dc2572d6ca428c6c3b78c86393",
     "native_file": "96657b511b6257eab2ebe92739fc6bf7e88f2f3241ce208d5465818996834642",
     "native_opener": "c406be0b35a723bd54f1e76a086502e2f6579f2dec8d8b350ab4432678ac9d71",
-    "map_update": "d3ab57879f73e050865bac16127516e3af53f3cd44ac16247fba2ef5f9d1ac79",
+    "map_update": "06d51b453203128c79830ffccabeaa7564713e30e3297b768c2a98d7adbac63e",
     "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
-    "rust_matching": "b66a840be9f8a890cec1e02929dbb88f3bf6cfdbfa79fc5572addd4cb86e1778",
+    "rust_matching": "f56f0aa3e62c3c7eca627070803f0f50e54bf0d11eb81455d1d73b9336711f7d",
     "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
-    "tooling_tests": "ee3a7ad27adaae7f64179122930ce14ebe796d66cf4e29577630573dac62ed51",
+    "tooling_tests": "36f5226114ae44b937f79d3b699ec3e204fe517a9a8938608cd437e4b1167661",
     "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38",
     "mesh": "df688d66a12b373cfd623756671ee2085a30ede6089250b2597ddd023b43d541",
     "mesh_decoder_parity": "035283567199669161f736224ea81a2ed8f6c742474884803b2ca2dd03341847",
-    "cached_object_parity": "8c99c0426a82d4e8ccf947758d25bc1a87ad994a068f9fdbfeeacbb5a37e4b1d",
+    "cached_object_parity": "28e0c8d6ef12d51e29f08392cdca7979dcf988bb8a36a286d9a3e13ed11f205e",
     "mesh_replacement": "3e4c82da1cb2edcbea11d5e8bb1442e6e0c906d290dbc93bb05ade1ddbd9de8f",
-    "resource_stream": "939b9704a5d4ad0c26755b8a6c95eb5f88bf22d8812ba445da331968158b7787",
+    "resource_stream": "6f06de3e1d435bef2d21c4a6b5c24c89ee45d9e34ba433884f6679f5966372d5",
     "resource_decoder_parity": "e785f6a6fb4182fee68ecdadc6a6132cb757d5d1df6a3e587f1bf813c0e62c78",
-    "resource_context": "90a9f6ab07563931424d5d6e86f19a4f324fd3241b7e813f451c581e4dafeb42",
+    "resource_context": "2fbb152480c41639a64d4196fb3cecd329819def012ea30de628efff744f81b8",
     "context_decoder_parity": "c8e069274e9740efba77838d75ce2053cd08252d8d01b8931fc140736065da15",
-    "parser_header": "228552f742abcff2d1cdbe65f652e6ca03ba8327282860742e0a11c214f6d960"
+    "parser_header": "228552f742abcff2d1cdbe65f652e6ca03ba8327282860742e0a11c214f6d960",
+    "parser_decoder_parity": "789078024a6fabf0d8aa46a28d1f9e65cff1dc658b63ed3b223422329803b033",
+    "resource_parser": "23fdaf54c3e8621997e710836b61cf13f955852610dda9024c5a25d766ecb402",
+    "resource_nodes": "faa8934887295877a35fac839269058c71fddc62ab94db7217e0e50c3a175fcf",
+    "cysp_header": "3203022d15c174f36ec2486493b372365fe17e8e3fa1a940f2d136b9fef4fd41",
+    "parser_callgraph": "b0b9e7fcd687f73f8a8f8098a120ee11877674293b3ec0c0cc3a6a13ca68c481"
   },
   "new_matches": [
     {
@@ -660,16 +678,36 @@
       "address": "0x006a50e0",
       "size": 19,
       "name": "ContextListBase::~ContextListBase"
+    },
+    {
+      "address": "0x00464150",
+      "size": 186,
+      "name": "ResourceNode::SetOwner"
+    },
+    {
+      "address": "0x006a5090",
+      "size": 71,
+      "name": "ContextListBase::Clear"
+    },
+    {
+      "address": "0x006a5620",
+      "size": 67,
+      "name": "ResourceList::GetFromBack"
+    },
+    {
+      "address": "0x006a5d10",
+      "size": 203,
+      "name": "EStream::ReadString"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
-  "continuation_added_functions": 53,
-  "continuation_added_bytes": 5483,
+  "continuation_added_functions": 57,
+  "continuation_added_bytes": 6010,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "3b0af66249a4368910bc50c634f541b80e4cff0e25215feda897ceea250fc049",
-  "comparison_functions_csv_sha256": "5d86b59538800fae06e8e6192afa662ebe624fc749618be179db638d4f943685",
+  "functions_csv_sha256": "1df7618c6e5ca25b819b472fb85489830bd8660644056d76001c115669eaaf35",
+  "comparison_functions_csv_sha256": "3b0af66249a4368910bc50c634f541b80e4cff0e25215feda897ceea250fc049",
   "comparison_precedes_csv_promotions": true,
-  "comparison_note": "Full Rust-assisted comparison retained every preceding 3,351 matching address and added three matches /205 bytes. Context construction and array cleanup were not promoted.",
+  "comparison_note": "Full Rust-assisted comparison retained every preceding 3,354 matching address and added four matches /527 bytes. Parser entry, context constructor and association Clear remain unpromoted.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -714,9 +752,10 @@
     "benchmark_scope": "Single unprofiled matching-phase run per backend, excluding input loading/builds; cold search cache."
   },
   "differential_reuse": {
-    "fresh_cases": 68,
-    "cached_cases": 5938,
-    "proof": "build/resource-context/cached-object-parity.json",
-    "scope": "All 60 prior objects reproduce their previous hashes after changing only COFF timestamps; cached suites were not rerun."
-  }
+    "fresh_cases": 454,
+    "cached_cases": 5672,
+    "proof": "build/resource-parser/cached-object-parity.json",
+    "scope": "All59 unchanged modules reproduce previous SHA-256 after restoring only COFF timestamps. Changed module suites rerun."
+  },
+  "original_parser_cases_passed": 44
 }

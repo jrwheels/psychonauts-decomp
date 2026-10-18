@@ -85,3 +85,20 @@ hash-pinned native code, independently of existing package/asset decoders.
 See [resource-context lifetimes](native-resource-context.md). The matched
 context destructor and 16-byte array-element cleanup boundary do not establish
 serialized mesh or skeleton layouts. No exporter or original asset changed.
+
+## Native dependency and owner paths
+
+The [CYSP continuation](native-resource-parser.md) confirms that the second word
+is a version (native diagnostic: PLB version, accepted 317 through 319). The next
+words are container flags and a dependency count. Each dependency consists of a
+four-byte name length, byte payload and two separately interpreted flag bytes.
+Writing includes NUL in the length; reading does not independently enforce it.
+Existing local asset research's combined u16 flags and permissive version range
+should not be mistaken for those native semantics. No asset tool was changed.
+
+The context reader reaches the known EMesh constructor and 0x00435f40 reader,
+then later entity SetMesh. Optional 128-byte runtime nodes and 44-byte records
+have a newly matched owner/child-ordinal propagation method. Their strides are
+runtime layout evidence, not file strides, skeleton IDs or skinning data. The
+native parser is a shared resource container path; a complete model, material,
+texture or animation decoder remains unclaimed.

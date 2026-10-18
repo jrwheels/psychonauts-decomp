@@ -1256,7 +1256,7 @@ address,size,origin,name,status,object
 0x00463800,1145,gap,,,
 0x00463c80,875,gap,,,
 0x00463ff0,344,gap,,,
-0x00464150,186,pointer,,,
+0x00464150,186,pointer,ResourceNode::SetOwner,matching,resource_node.obj
 0x00464210,234,gap,,,
 0x00464300,244,gap,,,
 0x00464400,1447,gap,,,
@@ -8422,7 +8422,7 @@ address,size,origin,name,status,object
 0x006a4fa0,62,pointer,,,
 0x006a4fe0,66,gap,,,
 0x006a5030,84,code,ContextListBase::ContextListBase,matching,resource_context.obj
-0x006a5090,71,gap,,,
+0x006a5090,71,gap,ContextListBase::Clear,matching,resource_context.obj
 0x006a50e0,19,gap,ContextListBase::~ContextListBase,matching,resource_context.obj
 0x006a5100,136,pointer,,,
 0x006a5190,204,pointer,,,
@@ -8436,7 +8436,7 @@ address,size,origin,name,status,object
 0x006a54c0,115,pointer,,,
 0x006a5540,112,gap,,,
 0x006a55b0,109,pointer,,,
-0x006a5620,67,pointer,,,
+0x006a5620,67,pointer,ResourceList::GetFromBack,matching,resource_stream.obj
 0x006a5670,82,pointer,,,
 0x006a56d0,78,gap,,,
 0x006a5720,138,pointer,,,
@@ -8446,7 +8446,7 @@ address,size,origin,name,status,object
 0x006a5a10,323,pointer,,,
 0x006a5b60,208,gap,,,
 0x006a5c30,209,pointer,,,
-0x006a5d10,203,pointer,,,
+0x006a5d10,203,pointer,EStream::ReadString,matching,resource_stream.obj
 0x006a5de0,131,pointer,,,
 0x006a5e70,94,gap,,,
 0x006a5ed0,45,pointer,,,

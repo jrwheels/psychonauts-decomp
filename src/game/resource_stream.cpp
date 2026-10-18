@@ -1,5 +1,6 @@
 // File-backed resource input; stream class names are confirmed by RTTI.
 #include "diagnostic.h"
+#include <string.h>
 
 class EStream {
 public:
@@ -9,10 +10,35 @@ public:
     virtual const char *GetName() { return 0; }
     virtual void Read(void *data, unsigned int size) = 0;
 
+    bool IsReading() { return m_flags == 0; }
+    bool IsWriting() { return m_flags == 1; }
+    void ReadString(char *data, int capacity);
+    template <class T> void Transfer(T *data, int count)
+    {
+        Read(data, sizeof(T) * count);
+    }
+
     unsigned int m_flags;          // +0x04
     unsigned int m_unknown8;
     bool m_error;                  // +0x0c
 };
+
+void EStream::ReadString(char *data, int capacity)
+{
+    int length;
+    if (IsWriting()) {
+        int size = strlen(data);
+        length = size + 1;
+    }
+    Read(&length, 4);
+    if (length && length < capacity) {
+        Transfer(data, length);
+    } else {
+        Transfer((char *)0, length);
+        if (IsReading())
+            *data = 0;
+    }
+}
 
 class EFileStream : public EStream {
 public:
@@ -85,9 +111,11 @@ struct ResourceListNode {
 class ResourceList {
 public:
     void *PopFront();
+    ResourceListNode *GetFromBack(unsigned int index);
     void ReleaseNode(ResourceListNode *node);
 
-    char pad0[0x10];
+    unsigned int m_count;
+    char pad4[0x0c];
     ResourceListNode *m_last;       // +0x10
     ResourceListNode *m_first;      // +0x14
 };
@@ -103,4 +131,14 @@ void *ResourceList::PopFront()
         m_last = 0;
     ReleaseNode(first);
     return data;
+}
+
+ResourceListNode *ResourceList::GetFromBack(unsigned int index)
+{
+    if (index >= m_count)
+        return 0;
+    ResourceListNode *node = m_last;
+    while (index--)
+        node = node->m_prev;
+    return node;
 }

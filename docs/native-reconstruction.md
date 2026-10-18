@@ -1,16 +1,17 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 102 native C++ matches / 11,840 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,354 / 10,930 functions and
-298,325 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 106 native C++ matches / 12,367 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,358 / 10,930 functions and
+298,852 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
-The latest strict build compiles all 61 sources and retains every previous
-match. All 29 native tooling tests and 68 fresh resource-context differential
-cases pass. The prior 5,938 cases remain applicable because all 60 previous
-objects differ only in COFF timestamps: 6,006 total cases.
+The latest strict build compiles all 62 sources and retains every previous
+match. All 29 native tooling tests and 454 fresh differential cases pass.
+The prior 5,672 unaffected cases remain applicable because all 59 other objects
+differ only in COFF timestamps: 6,126 total differential cases. Separately,
+44 synthetic original-parser fixtures pass; no rebuilt parser is claimed.
 [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
@@ -153,3 +154,9 @@ matches /205 bytes for context destruction and list construction/destruction.
 Context constructor and array-clear probes remain unmatched. Bounded parser
 inspection confirms native CYSP signature and version-word handling; it does
 not establish complete model decoding.
+
+The [CYSP dependency continuation](native-resource-parser.md) adds four matches
+/527 bytes: string transfer, list lookup/cleanup and recursive owner propagation.
+Header and dependency fixtures establish native version/flag behavior and a
+context-to-EMesh reader edge. Constructor, association Clear and the larger
+parser/context reader remain unmatched; no existing match was sacrificed.

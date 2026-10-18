@@ -97,3 +97,7 @@ Next investigate list wrapper and +0x4c member constructor lifetimes to resolve
 0x0041c670's frame mismatch. Inspect entry destructor 0x00420320 and cleanup
 0x0041c790 before the larger 519-byte dispatch and 1,911-byte parser. Keep the
 CYSP header evidence separate from any claim of a reconstructed mesh decoder.
+
+The [CYSP continuation](native-resource-parser.md) now also matches list Clear
+0x006a5090. The context constructor and association Clear remain unmatched;
+the matched context destructor is retained without a frame change.
