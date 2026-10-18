@@ -1,16 +1,16 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 99 native C++ matches / 11,635 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,351 / 10,930 functions and
-298,120 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 102 native C++ matches / 11,840 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,354 / 10,930 functions and
+298,325 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
-The latest strict build compiles all 60 sources and retains every previous
-match. All 29 native tooling tests and 266 fresh resource-stream differential
-cases pass. The prior 5,672 cases remain applicable because all 59 previous
-objects differ only in COFF timestamps: 5,938 total cases.
+The latest strict build compiles all 61 sources and retains every previous
+match. All 29 native tooling tests and 68 fresh resource-context differential
+cases pass. The prior 5,938 cases remain applicable because all 60 previous
+objects differ only in COFF timestamps: 6,006 total cases.
 [Verification metadata](native-verification.json) records the results,
 new addresses, toolchain and report hashes.
 
@@ -147,3 +147,9 @@ short COMDAT bodies are behaviorally tested but remain outside match totals.
 matching phase from 102.1 to 10.8 seconds while preserving all match, candidate
 and known-symbol results. The 29 tooling tests include nine optional Rust tests.
 It changes no engine source, compiler flags, reference identity or map entries.
+
+The [resource-context continuation](native-resource-context.md) adds three
+matches /205 bytes for context destruction and list construction/destruction.
+Context constructor and array-clear probes remain unmatched. Bounded parser
+inspection confirms native CYSP signature and version-word handling; it does
+not establish complete model decoding.

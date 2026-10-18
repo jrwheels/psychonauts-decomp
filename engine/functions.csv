@@ -446,7 +446,7 @@ address,size,origin,name,status,object
 0x0041c510,166,gap,,,
 0x0041c5c0,174,pointer,,,
 0x0041c670,173,pointer,,,
-0x0041c720,102,pointer,,,
+0x0041c720,102,pointer,ResourceContext::~ResourceContext,matching,resource_context.obj
 0x0041c790,531,pointer,,,
 0x0041c9b0,54,gap,,,
 0x0041c9f0,303,gap,,,
@@ -8421,9 +8421,9 @@ address,size,origin,name,status,object
 0x006a4ee0,187,pointer,DiagnosticStream::Write,matching,game/diagnostic.cpp
 0x006a4fa0,62,pointer,,,
 0x006a4fe0,66,gap,,,
-0x006a5030,84,code,,,
+0x006a5030,84,code,ContextListBase::ContextListBase,matching,resource_context.obj
 0x006a5090,71,gap,,,
-0x006a50e0,19,gap,,,
+0x006a50e0,19,gap,ContextListBase::~ContextListBase,matching,resource_context.obj
 0x006a5100,136,pointer,,,
 0x006a5190,204,pointer,,,
 0x006a5260,62,gap,,,

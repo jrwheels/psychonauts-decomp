@@ -2954,6 +2954,105 @@
         "Resource dispatcher 0x0041f240 and list node recycling remain external.",
         "No actual filesystem, model parsing or gameplay verification."
       ]
+    },
+    "0x0041c720": {
+      "signature": "ResourceContext::~ResourceContext",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_context.cpp",
+      "confidence": "assembly derived; provisional names; exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-context.md",
+        "build/resource-context/comparison-before-map.json",
+        "build/resource-context/map-update.json",
+        "build/resource-context/behavior.json",
+        "build/resource-context/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 61 fresh source objects; all previous 3,351 matching addresses retained",
+        "68 original/rebuilt/independent-expected x86 lifetime fixtures with bounded mocked cleanup, pool release, association destruction and free",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial member meanings are provisional.",
+        "Context construction, complete cleanup and parser remain external. Array cleanup compiles and passes behavior tests but does not match.",
+        "No asset payload, actual allocator, filesystem or gameplay verification."
+      ]
+    },
+    "0x006a5030": {
+      "signature": "ContextListBase::ContextListBase",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_context.cpp",
+      "confidence": "assembly derived; provisional names; exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-context.md",
+        "build/resource-context/comparison-before-map.json",
+        "build/resource-context/map-update.json",
+        "build/resource-context/behavior.json",
+        "build/resource-context/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 61 fresh source objects; all previous 3,351 matching addresses retained",
+        "68 original/rebuilt/independent-expected x86 lifetime fixtures with bounded mocked cleanup, pool release, association destruction and free",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial member meanings are provisional.",
+        "Context construction, complete cleanup and parser remain external. Array cleanup compiles and passes behavior tests but does not match.",
+        "No asset payload, actual allocator, filesystem or gameplay verification."
+      ]
+    },
+    "0x006a50e0": {
+      "signature": "ContextListBase::~ContextListBase",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_context.cpp",
+      "confidence": "assembly derived; provisional names; exact RTM matching and differential verification",
+      "last_analysis_date": "2026-10-18",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-context.md",
+        "build/resource-context/comparison-before-map.json",
+        "build/resource-context/map-update.json",
+        "build/resource-context/behavior.json",
+        "build/resource-context/decoder-parity.json"
+      ],
+      "verification_method": [
+        "upstream matcher across 61 fresh source objects; all previous 3,351 matching addresses retained",
+        "68 original/rebuilt/independent-expected x86 lifetime fixtures with bounded mocked cleanup, pool release, association destruction and free",
+        "Python and Rust relocation decoders agree"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and partial member meanings are provisional.",
+        "Context construction, complete cleanup and parser remain external. Array cleanup compiles and passes behavior tests but does not match.",
+        "No asset payload, actual allocator, filesystem or gameplay verification."
+      ]
     }
   }
 }

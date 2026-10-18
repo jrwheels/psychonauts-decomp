@@ -73,3 +73,15 @@ association work. These observations establish ownership boundaries, not the
 serialized model format. Context cleanup, parser 0x0047b980, and auxiliary
 association records remain unresolved. No original file magic or asset payload
 was used to claim these matches.
+
+## Native CYSP header evidence
+
+Bounded parser inspection now confirms a four-byte read compared with
+0x50535943 (`CYSP`) at 0x0047ba25, followed by a second four-byte word stored
+in stream+0x08 at 0x0047ba57. Unsigned checks use 0x13d and 0x13f; values outside
+that interval enter diagnostic construction. Complete parse acceptance and the
+subsequent error paths remain unreconstructed. These observations come from the
+hash-pinned native code, independently of existing package/asset decoders.
+See [resource-context lifetimes](native-resource-context.md). The matched
+context destructor and 16-byte array-element cleanup boundary do not establish
+serialized mesh or skeleton layouts. No exporter or original asset changed.

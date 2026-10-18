@@ -101,3 +101,11 @@ name/destructor and context result-list PopFront at 0x006a5460. The dispatcher
 still depends on unreconstructed context construction 0x0041c670, destruction
 0x0041c720 and parser 0x0047b980. Recover those smaller lifetime/reader dependencies
 before assembling its complete 519-byte body. No new exporter was introduced.
+
+The [context lifetime continuation](native-resource-context.md) matches the
+context destructor 0x0041c720 and list constructor/destructor 0x006a5030/0x006a50e0.
+Context construction 0x0041c670 remains blocked on frame/local allocation;
+array Clear 0x0041ffa0 is behaviorally tested but also unmatched. Before the
+larger dispatcher/parser, resolve the list wrapper/+0x4c construction and
+association member destructor 0x00420320. Native parser header reads confirm
+CYSP and stream+0x08 version-word handling without decoding mesh payloads.
