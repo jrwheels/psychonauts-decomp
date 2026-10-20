@@ -468,7 +468,7 @@ address,size,origin,name,status,object
 0x0041f240,519,pointer,,,
 0x0041f450,327,pointer,,,
 0x0041f5a0,193,pointer,,,
-0x0041f670,61,pointer,,,
+0x0041f670,61,pointer,ResourceContext::SetName,matching,resource_context
 0x0041f6b0,130,pointer,,,
 0x0041f740,285,pointer,,,
 0x0041f860,184,pointer,,,

@@ -1,7 +1,7 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-30.72%25%20(3358%2F10930)-orange)
+![Engine](https://img.shields.io/badge/Engine-30.73%25%20(3359%2F10930)-orange)
 ![Engine code](https://img.shields.io/badge/Engine%20code-10.18%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
@@ -18,7 +18,7 @@ This repository does **not** contain any game assets or game code. You need your
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3358 / 10930 functions (30.72 %), 10.18 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3359 / 10930 functions (30.73 %), 10.18 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -247,8 +247,8 @@ Psychonauts belongs to Double Fine Productions. This project is not affiliated w
 
 ## Native reconstruction verification
 
-The Steam Windows reference now matches **3,358 functions / 298,852 mapped
-bytes**, including 106 additional native bodies / 12,367 bytes beyond upstream
+The Steam Windows reference now matches **3,359 functions / 298,913 mapped
+bytes**, including 107 additional native bodies / 12,428 bytes beyond upstream
 `6959341`. See [native reconstruction](docs/native-reconstruction.md) for the
 strict build, read-only comparison, isolated differential tests, and limitations.
 This is object-level progress; no linked or playable engine is claimed.

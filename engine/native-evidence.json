@@ -3193,6 +3193,38 @@
         "Parser entry, context construction, association Clear and larger mesh readers remain external/unmatched.",
         "Stream, pool and large parser dependencies use bounded mocks; no asset/gameplay test."
       ]
+    },
+    "0x0041f670": {
+      "signature": "void ResourceContext::SetName(const char *name)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_context.cpp",
+      "confidence": "assembly derived; exact RTM match and bounded differential verification",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-context-name.md",
+        "build/context-name/behavior.json",
+        "build/context-name/comparison-before-map.json",
+        "build/context-name/map-update.json"
+      ],
+      "verification_method": [
+        "Full relocation-aware comparison retains all prior3358 addresses and uniquely adds61bytes.",
+        "82 original/rebuilt/expected context cases;12new setter cases with bounded copy/free mocks.",
+        "Python and Rust relocation targets agree."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method names remain provisional.",
+        "Aliasing fixtures establish free-before-copy ordering, not safe dereference of freed memory.",
+        "No actual allocation, resource parser or gameplay test."
+      ]
     }
   }
 }

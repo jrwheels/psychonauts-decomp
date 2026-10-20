@@ -28,10 +28,11 @@ ORIGINAL = {'ContextListBase::ContextListBase': 0x6a5030,
     'ContextListBase::Clear': 0x6a5090,
     'ResourceContext::~ResourceContext': 0x41c720,
     'UContextAssociation::?$TArray::Clear': 0x41ffa0,
-    'EArrayBase::Reserve': 0x408960}
+    'EArrayBase::Reserve': 0x408960,
+    'ResourceContext::SetName': 0x41f670}
 REBUILT = {name: CODE+i*0x1000 for i, name in enumerate(ORIGINAL)}
 STUBS = {'cleanup': 0x41c790, 'entry': 0x420320, 'pool': 0x6a4fe0,
-    'free': STOP+0x100}
+    'free': STOP+0x100, 'copy': 0x6a6e10}
 
 
 def fixture(s):
@@ -71,6 +72,11 @@ def expected(s):
         put(12, 10)
     elif name in ('ContextListBase::~ContextListBase', 'ContextListBase::Clear'):
         clear_list(4)
+    elif name=='ResourceContext::SetName':
+        if s['named']:
+            trace.append(['free', NAME])
+        trace.append(['copy', s['source'], 0x1a])
+        put(0x44, s['allocated'])
     elif name=='ResourceContext::~ResourceContext':
         trace.append(['cleanup', HEAP])
         trace.append(['free', NAME if s['named'] else 0])
@@ -100,6 +106,7 @@ def execute(pe, obj, s, rebuilt):
     if rebuilt:
         symbols = {'?Cleanup@ResourceContext@@QAEXXZ': STUBS['cleanup'],
             '?FreeFileName@@YAXPADHH@Z': 0x6a6e30,
+            '?CopyFileName@@YAPADPBDH@Z': STUBS['copy'],
             '?Clear@ContextListBase@@QAEXXZ': 0x6a5090,
             '??1Entry@ContextAssociation@@QAE@XZ': STUBS['entry'],
             '?Release@ContextPool@@QAEXXZ': STUBS['pool'],
@@ -119,17 +126,24 @@ def execute(pe, obj, s, rebuilt):
             if name=='free':
                 sp = machine.reg_read(UC_X86_REG_ESP)
                 value = struct.unpack('<I', machine.mem_read(sp+4, 4))[0]
-            trace.append([name, value])
-            machine.reg_write(UC_X86_REG_EAX, 0)
+            if name=='copy':
+                sp = machine.reg_read(UC_X86_REG_ESP)
+                source, category = struct.unpack('<II', machine.mem_read(sp+4, 8))
+                trace.append(['copy', source, category])
+                machine.reg_write(UC_X86_REG_EAX, s['allocated'])
+            else:
+                trace.append([name, value])
+                machine.reg_write(UC_X86_REG_EAX, 0)
     uc.hook_add(UC_HOOK_CODE, hook)
-    args = [s['mode']] if s['function']=='ContextListBase::ContextListBase' else []
+    args = ([s['mode']] if s['function']=='ContextListBase::ContextListBase' else
+        [s['source']] if s['function']=='ResourceContext::SetName' else [])
     sp = STACK+0x8000
     uc.mem_write(sp, struct.pack('<'+'I'*(len(args)+1), STOP, *args))
     saved = {UC_X86_REG_EBP: 0x12345678, UC_X86_REG_EBX: 0x23456789,
         UC_X86_REG_ESI: 0x3456789a, UC_X86_REG_EDI: 0x456789ab}
     for reg, value in saved.items():
         uc.reg_write(reg, value)
-    receiver = HEAP if s['function']=='ResourceContext::~ResourceContext' else (
+    receiver = HEAP if s['function'] in ('ResourceContext::~ResourceContext', 'ResourceContext::SetName') else (
         HEAP+0x34 if 'TArray::Clear' in s['function'] else HEAP+4)
     uc.reg_write(UC_X86_REG_ECX, receiver)
     uc.reg_write(UC_X86_REG_ESP, sp)
@@ -137,7 +151,7 @@ def execute(pe, obj, s, rebuilt):
     assert uc.reg_read(UC_X86_REG_EIP)==STOP
     assert uc.reg_read(UC_X86_REG_ESP)==sp+4+len(args)*4
     assert all(uc.reg_read(reg)==value for reg, value in saved.items())
-    if args:
+    if s['function']=='ContextListBase::ContextListBase':
         assert uc.reg_read(UC_X86_REG_EAX)==receiver
     return dict(memory=bytes(uc.mem_read(HEAP, 0x4000)).hex(), trace=trace)
 
@@ -145,6 +159,11 @@ def execute(pe, obj, s, rebuilt):
 def scenarios():
     base = dict(mode=1, pool=False, count=0, category=0,
         flag=0, data=False, named=False)
+    # Copy is mocked: alias cases verify ordering, not validity after free.
+    for named, source, allocated in itertools.product((False, True),
+            (0, NAME, NAME+0x100), (0, NAME+0x200)):
+        yield dict(base, function='ResourceContext::SetName', named=named,
+            source=source, allocated=allocated)
     for mode in (0, 1, 2, 0xffffffff):
         yield dict(base, function='ContextListBase::ContextListBase', mode=mode)
     for name, pool in itertools.product(('ContextListBase::~ContextListBase',

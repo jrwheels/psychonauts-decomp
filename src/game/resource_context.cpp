@@ -74,12 +74,14 @@ struct ContextBounds {
 };
 
 void FreeFileName(char *block, int category, int flags);
+char *CopyFileName(const char *name, int category);
 
 class ResourceContext {
 public:
     ResourceContext(void *manager, void *allocator);
     ~ResourceContext();
     void Cleanup();
+    void SetName(const char *name);
 
     void *m_allocator;                 // +0x00
     ContextList m_children;            // +0x04
@@ -98,4 +100,13 @@ ResourceContext::~ResourceContext()
 {
     Cleanup();
     FreeFileName(m_name, 0x1a, 1);
+}
+
+// Releases the previous allocation before copying, even for an aliasing input.
+// Callers must supply a valid source lifetime; no self-assignment guard exists.
+void ResourceContext::SetName(const char *name)
+{
+    if (m_name)
+        FreeFileName(m_name, 0x1a, 1);
+    m_name = CopyFileName(name, 0x1a);
 }

@@ -1,9 +1,9 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 106 native C++ matches / 12,367 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,358 / 10,930 functions and
-298,852 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
+The contribution adds 107 native C++ matches / 12,428 mapped bytes to upstream's
+3,252 matches / 286,485 bytes: **3,359 / 10,930 functions and
+298,913 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
 addresses, sizes and provenance are preserved. The progress SVG is generated
 with the unchanged upstream `tools/progressmap.py`.
 
@@ -160,3 +160,7 @@ The [CYSP dependency continuation](native-resource-parser.md) adds four matches
 Header and dependency fixtures establish native version/flag behavior and a
 context-to-EMesh reader edge. Constructor, association Clear and the larger
 parser/context reader remain unmatched; no existing match was sacrificed.
+
+Latest continuation: [context name ownership](native-context-name.md), one body
+/61bytes;62sources compile,82affected differential and29tooling tests pass.
+Parent upstream checked2026-10-20:6959341 unchanged;no merge required.
