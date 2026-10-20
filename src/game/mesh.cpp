@@ -59,10 +59,15 @@ struct EJoint {
     EBone *m_bone;                  // 0x08
 };
 
+void FreeFileName(char *block, int category, int flags);
+char *CopyFileName(const char *name, int category);
+
 struct EModel {
+    void SetName(const char *name);
     void *GetSkeletonData() { return (char *)this + 0x6c; }
 
-    char pad0[0x78];
+    char *m_name;                  // 0x00
+    char pad4[0x78 - 4];
     bool m_hasSkeleton;            // 0x78
     char pad79[0xa4 - 0x79];
     void *m_association;            // 0xa4; entity slot +0x14 argument
@@ -255,4 +260,14 @@ void ETriggerA8::EnsureAnimState()
 void EMeshAnimState::SetBlendShapes(EBlendShapeManager *manager)
 {
     m_blendShapes = manager;
+}
+
+void EModel::SetName(const char *name)
+{
+    if (m_name) {
+        FreeFileName(m_name, 7, 1);
+        m_name = 0;
+    }
+    if (name)
+        m_name = CopyFileName(name, 7);
 }

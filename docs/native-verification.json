@@ -6,17 +6,17 @@
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
   "fresh_source_objects": 62,
-  "coff_function_records": 3378,
-  "matching_functions": 3359,
+  "coff_function_records": 3380,
+  "matching_functions": 3360,
   "total_mapped_functions": 10930,
-  "matched_bytes": 298913,
+  "matched_bytes": 298986,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 107,
-  "added_bytes": 12428,
+  "added_functions": 108,
+  "added_bytes": 12501,
   "unit_tests_passed": 29,
-  "differential_cases_passed": 6138,
+  "differential_cases_passed": 6490,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -105,6 +105,10 @@
     "test_resource_nodes": {
       "exit_code": 0,
       "cases": 10
+    },
+    "test_model_input": {
+      "exit_code": 0,
+      "cases": 352
     }
   },
   "limitations": [
@@ -113,60 +117,64 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261020T232003Z/summary.json",
-    "matching": "build/context-name/comparison-before-map.json",
-    "differential": "build/context-name/verification-summary.json",
+    "strict_audit": "build/audit/20261020T233225Z/summary.json",
+    "matching": "build/model-input/comparison-before-map.json",
+    "differential": "build/model-input/verification-summary.json",
     "file_lifetime": "build/streaming-read/regressions/test_file_lifetime.json",
     "native_file": "build/streaming-read/regressions/test_native_file.json",
     "native_opener": "build/streaming-read/regressions/test_native_opener.json",
-    "map_update": "build/context-name/map-update.json",
+    "map_update": "build/model-input/map-update.json",
     "supplementary_objdiff": "build/native-opener/objdiff-review.json",
-    "rust_matching": "build/context-name/comparison-before-map.json",
+    "rust_matching": "build/model-input/comparison-before-map.json",
     "rust_benchmark": "build/rust-accelerator/benchmark.json",
     "tooling_tests": "build/resource-parser/tooling-tests.log",
     "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json",
-    "mesh": "build/mesh-replacement/lookup-behavior.json",
+    "mesh": "build/model-input/test_mesh.json",
     "mesh_decoder_parity": "build/mesh-replacement/decoder-parity.json",
-    "cached_object_parity": "build/context-name/cached-object-parity.json",
-    "mesh_replacement": "build/mesh-replacement/behavior.json",
-    "resource_stream": "build/resource-parser/stream-regressions.json",
+    "cached_object_parity": "build/model-input/cached-object-parity.json",
+    "mesh_replacement": "build/model-input/test_mesh_replacement.json",
+    "resource_stream": "build/model-input/test_resource_stream.json",
     "resource_decoder_parity": "build/resource-stream/decoder-parity.json",
     "resource_context": "build/context-name/behavior.json",
     "context_decoder_parity": "build/context-name/decoder-parity.json",
     "parser_header": "build/resource-context/parser-header.json",
     "parser_decoder_parity": "build/resource-parser/decoder-parity.json",
-    "resource_parser": "build/resource-parser/behavior.json",
+    "resource_parser": "build/model-input/test_resource_parser.json",
     "resource_nodes": "build/resource-parser/node-behavior.json",
     "cysp_header": "build/resource-parser/header-behavior.json",
-    "parser_callgraph": "build/resource-parser/callgraph.json"
+    "parser_callgraph": "build/resource-parser/callgraph.json",
+    "model_input_decoder_parity": "build/model-input/decoder-parity.json",
+    "model_input": "build/model-input/test_model_input.json"
   },
   "report_sha256": {
-    "strict_audit": "c8e46857e6e2dce52bdcdc8955fc89df8930d7ca3d54059a5d50074a1888d811",
-    "matching": "fefd54b39398733e5f961b846f0340c91da17d776a7f0f7599502b11aad354e3",
-    "differential": "500b880bc89f9272664bde319a680621d8e4a00cee86c2fc554da0e7396a2b9c",
+    "strict_audit": "3b21fe0ee707f0621489001c8fe4efe3c2fb7ffb6f45a5ba320e5f04d25797c3",
+    "matching": "2ab9a00dc769518392071ab087926542d3c9aa1607725ba0069a95710639cceb",
+    "differential": "39877a8672aae3c158bafd6dc7875a87d46982e13a2b11a6000c42e18a1444dc",
     "file_lifetime": "4341b685c311e78af5a5f46004d8333e238796dc2572d6ca428c6c3b78c86393",
     "native_file": "96657b511b6257eab2ebe92739fc6bf7e88f2f3241ce208d5465818996834642",
     "native_opener": "c406be0b35a723bd54f1e76a086502e2f6579f2dec8d8b350ab4432678ac9d71",
-    "map_update": "9d948494467d6874c741707fd472413b181e8477034803b24bfe599fdeb38de5",
+    "map_update": "0494b93c533cf8bc2bc46d5afca43cabc9443fff106a766115602898856a72a9",
     "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
-    "rust_matching": "fefd54b39398733e5f961b846f0340c91da17d776a7f0f7599502b11aad354e3",
+    "rust_matching": "2ab9a00dc769518392071ab087926542d3c9aa1607725ba0069a95710639cceb",
     "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
     "tooling_tests": "36f5226114ae44b937f79d3b699ec3e204fe517a9a8938608cd437e4b1167661",
     "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38",
-    "mesh": "df688d66a12b373cfd623756671ee2085a30ede6089250b2597ddd023b43d541",
+    "mesh": "811788cf61a05cbdb11a6467956b68a0541593261ddb534a05b3d9e42438c25b",
     "mesh_decoder_parity": "035283567199669161f736224ea81a2ed8f6c742474884803b2ca2dd03341847",
-    "cached_object_parity": "654d5cb8830183aa8a561df89ae667b9a6883ee1b37b1bbec4be913413047f53",
-    "mesh_replacement": "3e4c82da1cb2edcbea11d5e8bb1442e6e0c906d290dbc93bb05ade1ddbd9de8f",
-    "resource_stream": "6f06de3e1d435bef2d21c4a6b5c24c89ee45d9e34ba433884f6679f5966372d5",
+    "cached_object_parity": "66edba4c3c51146ba7b31ad477c8b1f9c5d20b72cb406ef7f3ed7efb7710af7b",
+    "mesh_replacement": "a3f7246c2f20b5f8caf4617256e0b728dcb48da89053fe9410e39a2e27ea019e",
+    "resource_stream": "98c7714745c1fba6b76e628c914816c44d7fcea1d3fec122a24e6fa5de30a938",
     "resource_decoder_parity": "e785f6a6fb4182fee68ecdadc6a6132cb757d5d1df6a3e587f1bf813c0e62c78",
     "resource_context": "b1f5d2d379f267148451828414e5d0260e3d581ed710b45eb679aadc59695d40",
     "context_decoder_parity": "985a4d169332a015c36fa0b9ffde2af5f48d7854a1dcf19b81dd52b910a5471f",
     "parser_header": "228552f742abcff2d1cdbe65f652e6ca03ba8327282860742e0a11c214f6d960",
     "parser_decoder_parity": "789078024a6fabf0d8aa46a28d1f9e65cff1dc658b63ed3b223422329803b033",
-    "resource_parser": "23fdaf54c3e8621997e710836b61cf13f955852610dda9024c5a25d766ecb402",
+    "resource_parser": "964f85b8556788ef0a732101ef784b8e2808d8fe7b9d9b4a37e168945b571205",
     "resource_nodes": "faa8934887295877a35fac839269058c71fddc62ab94db7217e0e50c3a175fcf",
     "cysp_header": "3203022d15c174f36ec2486493b372365fe17e8e3fa1a940f2d136b9fef4fd41",
-    "parser_callgraph": "b0b9e7fcd687f73f8a8f8098a120ee11877674293b3ec0c0cc3a6a13ca68c481"
+    "parser_callgraph": "b0b9e7fcd687f73f8a8f8098a120ee11877674293b3ec0c0cc3a6a13ca68c481",
+    "model_input_decoder_parity": "2488bb43405ca7206adc8be56df76d7c2ebb611422547e900cd68543179e58e8",
+    "model_input": "c7dce4dd0b1fe30034267fff276490e37fd9ad2f1acc2c40fd7470ee0fb43d5d"
   },
   "new_matches": [
     {
@@ -703,16 +711,21 @@
       "address": "0x0041f670",
       "size": 61,
       "name": "ResourceContext::SetName"
+    },
+    {
+      "address": "0x00455900",
+      "size": 73,
+      "name": "EModel::SetName"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
   "continuation_added_functions": 57,
   "continuation_added_bytes": 6010,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "708e0c277b486bece38a93185dcc37d98796827ec02f177cd38d57c6a4eda455",
-  "comparison_functions_csv_sha256": "1df7618c6e5ca25b819b472fb85489830bd8660644056d76001c115669eaaf35",
+  "functions_csv_sha256": "a5470d84bb5050f00e87dffc256735cea9bf380343a0e9843cff7e7b3aaf3f0e",
+  "comparison_functions_csv_sha256": "708e0c277b486bece38a93185dcc37d98796827ec02f177cd38d57c6a4eda455",
   "comparison_precedes_csv_promotions": true,
-  "comparison_note": "Full comparison before one reviewed SetName map promotion; all3358 preceding addresses retained.",
+  "comparison_note": "One reviewed73-byte model-name promotion after full comparison; allocating stream helper remains unmatched.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -757,10 +770,10 @@
     "benchmark_scope": "Single unprofiled matching-phase run per backend, excluding input loading/builds; cold search cache."
   },
   "differential_reuse": {
-    "fresh_cases": 82,
-    "cached_cases": 6056,
-    "proof": "build/context-name/cached-object-parity.json",
-    "scope": "61unaffected objects identical except timestamp bytes; unaffected suites not rerun."
+    "fresh_cases": 1888,
+    "cached_cases": 4602,
+    "proof": "build/model-input/cached-object-parity.json",
+    "scope": "60unaffected objects identical apart from COFF timestamps; all suites using two changed objects rerun."
   },
   "original_parser_cases_passed": 44
 }

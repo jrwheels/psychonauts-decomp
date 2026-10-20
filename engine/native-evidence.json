@@ -3225,6 +3225,65 @@
         "Aliasing fixtures establish free-before-copy ordering, not safe dereference of freed memory.",
         "No actual allocation, resource parser or gameplay test."
       ]
+    },
+    "0x00455900": {
+      "signature": "void EModel::SetName(const char *name)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "Assembly derived; RTM compiled and bounded original/rebuilt differential verification",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-model-input.md",
+        "build/model-input/test_model_input.json",
+        "build/model-input/comparison-before-map.json"
+      ],
+      "verification_method": [
+        "Independent expected/original/rebuilt heap, call trace, return and ABI checks.",
+        "Full relocation-aware comparison; no previous matches lost."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names are provisional unless independently identified.",
+        "No real allocator, filesystem, asset parser or gameplay verification."
+      ]
+    },
+    "0x006a5de0": {
+      "signature": "char *EStream::ReadAllocatedString(int category)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Assembly derived; RTM compiled and bounded original/rebuilt differential verification",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-model-input.md",
+        "build/model-input/test_model_input.json",
+        "build/model-input/comparison-before-map.json"
+      ],
+      "verification_method": [
+        "Independent expected/original/rebuilt heap, call trace, return and ABI checks.",
+        "Full relocation-aware comparison; no previous matches lost."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names are provisional unless independently identified.",
+        "No real allocator, filesystem, asset parser or gameplay verification.",
+        "Four inline temporary displacements differ; canonical matching row remains unchanged."
+      ]
     }
   }
 }

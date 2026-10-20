@@ -1,5 +1,6 @@
 // File-backed resource input; stream class names are confirmed by RTTI.
 #include "diagnostic.h"
+#include "engine.h"
 #include <string.h>
 
 class EStream {
@@ -13,6 +14,7 @@ public:
     bool IsReading() { return m_flags == 0; }
     bool IsWriting() { return m_flags == 1; }
     void ReadString(char *data, int capacity);
+    char *ReadAllocatedString(int category);
     template <class T> void Transfer(T *data, int count)
     {
         Read(data, sizeof(T) * count);
@@ -141,4 +143,20 @@ ResourceListNode *ResourceList::GetFromBack(unsigned int index)
     while (index--)
         node = node->m_prev;
     return node;
+}
+
+// The category is forwarded into MemAlloc, whose RTM inline body ignores it.
+char *EStream::ReadAllocatedString(int category)
+{
+    int length;
+    char *data;
+    Read(&length, 4);
+    if (length <= 1) {
+        Transfer((char *)0, length);
+        return 0;
+    } else {
+        data = (char *)MemAlloc(length, category);
+        Transfer(data, length);
+        return data;
+    }
 }

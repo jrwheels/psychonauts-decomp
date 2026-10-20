@@ -1,19 +1,16 @@
 # Native reconstruction checkpoint
 
 Based on DrDecki upstream main `6959341ed94edeb17d77ad39c3b59ae5dd8f5011`.
-The contribution adds 107 native C++ matches / 12,428 mapped bytes to upstream's
-3,252 matches / 286,485 bytes: **3,359 / 10,930 functions and
-298,913 / 2,935,679 mapped bytes**. Existing upstream matching rows, names,
-addresses, sizes and provenance are preserved. The progress SVG is generated
-with the unchanged upstream `tools/progressmap.py`.
+The contribution adds108matched native bodies /12,501mapped bytes beyond that
+baseline: **3,360/10,930 functions and298,986/2,935,679mapped bytes**.
+All preceding matching rows, addresses and provenance are preserved.
 
-The latest strict build compiles all 62 sources and retains every previous
-match. All 29 native tooling tests and 454 fresh differential cases pass.
-The prior 5,672 unaffected cases remain applicable because all 59 other objects
-differ only in COFF timestamps: 6,126 total differential cases. Separately,
-44 synthetic original-parser fixtures pass; no rebuilt parser is claimed.
-[Verification metadata](native-verification.json) records the results,
-new addresses, toolchain and report hashes.
+Latest: [model input helpers](native-model-input.md). All62sources compile
+strictly;29tooling tests and1,888fresh differential cases pass.60unaffected
+objects preserve4,602prior cases:6,490applicable total. The allocating stream
+helper is behaviorally verified but remains unmatched at four temporary stack
+offsets; it is excluded from matching totals. Real I/O/gameplay and a linked
+playable engine remain outside this verification.
 
 ## Scope and integration
 

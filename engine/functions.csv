@@ -1173,7 +1173,7 @@ address,size,origin,name,status,object
 0x004556c0,156,pointer,,,
 0x00455760,292,pointer,,,
 0x00455890,106,pointer,,,
-0x00455900,73,pointer,,,
+0x00455900,73,pointer,EModel::SetName,matching,mesh
 0x00455950,36,pointer,,,
 0x00455980,19,pointer,,,
 0x004559a0,42,pointer,,,
