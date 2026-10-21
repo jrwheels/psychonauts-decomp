@@ -104,6 +104,34 @@ void *MeshResourceReader::LoadFile(const char *name, int flags)
     return ReadResource(&reader, flags);
 }
 
+// Pool headers and list names are provisional; offsets come from native calls.
+struct ResourceListPool {
+    ResourceListPool *m_next;
+    char opaque4[4];
+    void Release();
+};
+
+ResourceListPool *AllocateResourceListPool(ResourceListPool **head,
+                                         unsigned int count, unsigned int stride)
+{
+    void *pool = _aligned_malloc(count * stride + 8, 16);
+    ResourceListPool *memory = (ResourceListPool *)pool;
+    memory->m_next = *head;
+    *head = memory;
+    return memory;
+}
+
+void ResourceListPool::Release()
+{
+    ResourceListPool *pool = this;
+    while (pool) {
+        ResourceListPool *block = pool;
+        ResourceListPool *next = pool->m_next;
+        MemFree(block);
+        pool = next;
+    }
+}
+
 struct ResourceListNode {
     ResourceListNode *m_prev;
     ResourceListNode *m_next;
@@ -112,12 +140,25 @@ struct ResourceListNode {
 
 class ResourceList {
 public:
+    void AppendList(const ResourceList *source);
+    void PrependList(const ResourceList *source);
+    void RefillNodes();
+    ResourceListNode *InsertBefore(ResourceListNode *position, void *data);
+    void RemoveNode(ResourceListNode *position);
     void *PopFront();
     ResourceListNode *GetFromBack(unsigned int index);
     void ReleaseNode(ResourceListNode *node);
+    void Clear();
+    ResourceListNode *AllocateNode(ResourceListNode *next, ResourceListNode *prev);
+    ResourceListNode *PushBack(void *data);
+    ResourceListNode *PushFront(void *data);
+    void *PopBack();
+    ResourceListNode *InsertAfter(ResourceListNode *position, void *data);
 
     unsigned int m_count;
-    char pad4[0x0c];
+    ResourceListPool *m_pool;      // +0x04
+    unsigned int m_growth;         // +0x08
+    ResourceListNode *m_free;      // +0x0c
     ResourceListNode *m_last;       // +0x10
     ResourceListNode *m_first;      // +0x14
 };
@@ -143,6 +184,154 @@ ResourceListNode *ResourceList::GetFromBack(unsigned int index)
     while (index--)
         node = node->m_prev;
     return node;
+}
+
+ResourceListNode *ResourceList::AllocateNode(ResourceListNode *next, ResourceListNode *prev)
+{
+    if (!m_free) {
+        ResourceListPool *pool = AllocateResourceListPool(&m_pool, m_growth, sizeof(ResourceListNode));
+        ResourceListNode *freeNode = (ResourceListNode *)(pool + 1);
+        freeNode += m_growth - 1;
+        for (int i = m_growth - 1; i >= 0; --i, --freeNode) {
+            freeNode->m_prev = m_free;
+            m_free = freeNode;
+        }
+    }
+    ResourceListNode *node = m_free;
+    m_free = m_free->m_prev;
+    node->m_next = next;
+    node->m_prev = prev;
+    ++m_count;
+    node->m_data = 0;
+    return node;
+}
+
+void ResourceList::ReleaseNode(ResourceListNode *node)
+{
+    node->m_prev = m_free;
+    m_free = node;
+    --m_count;
+    if (!m_count)
+        Clear();
+}
+
+ResourceListNode *ResourceList::PushBack(void *data)
+{
+    ResourceListNode *node = AllocateNode(0, m_last);
+    node->m_data = data;
+    if (m_last)
+        m_last->m_next = node;
+    else
+        m_first = node;
+    m_last = node;
+    return node;
+}
+
+ResourceListNode *ResourceList::PushFront(void *data)
+{
+    ResourceListNode *node = AllocateNode(m_first, 0);
+    node->m_data = data;
+    if (m_first)
+        m_first->m_prev = node;
+    else
+        m_last = node;
+    m_first = node;
+    return node;
+}
+
+void *ResourceList::PopBack()
+{
+    ResourceListNode *last = m_last;
+    void *data = last->m_data;
+    m_last = last->m_prev;
+    if (m_last)
+        m_last->m_next = 0;
+    else
+        m_first = 0;
+    ReleaseNode(last);
+    return data;
+}
+
+ResourceListNode *ResourceList::InsertAfter(ResourceListNode *position, void *data)
+{
+    if (!position) {
+        return PushBack(data);
+    }
+    ResourceListNode *previous = position;
+    ResourceListNode *node = AllocateNode(previous->m_next, previous);
+    node->m_data = data;
+    if (previous->m_next)
+        previous->m_next->m_prev = node;
+    else
+        m_last = node;
+    previous->m_next = node;
+    return node;
+}
+
+ResourceListNode *ResourceList::InsertBefore(ResourceListNode *position, void *data)
+{
+    if (!position) {
+        return PushFront(data);
+    }
+    ResourceListNode *previous = position;
+    ResourceListNode *node = AllocateNode(previous, previous->m_prev);
+    node->m_data = data;
+    if (previous->m_prev)
+        previous->m_prev->m_next = node;
+    else
+        m_first = node;
+    previous->m_prev = node;
+    return node;
+}
+
+void ResourceList::RemoveNode(ResourceListNode *position)
+{
+    ResourceListNode *node = position;
+    if (node == m_last)
+        m_last = node->m_prev;
+    else
+        node->m_next->m_prev = node->m_prev;
+    if (node == m_first)
+        m_first = node->m_next;
+    else
+        node->m_prev->m_next = node->m_next;
+    ReleaseNode(node);
+}
+
+// Copy payload pointers, preserving source order and pre-insertion traversal.
+void ResourceList::AppendList(const ResourceList *source)
+{
+    ResourceListNode *node = source->m_first;
+    ResourceListNode *position = node;
+    while (position) {
+        ResourceListNode *current = position;
+        position = position->m_next;
+        PushBack(current->m_data);
+    }
+}
+
+void ResourceList::PrependList(const ResourceList *source)
+{
+    ResourceListNode *node = source->m_last;
+    ResourceListNode *position = node;
+    while (position) {
+        ResourceListNode *current = position;
+        position = position->m_prev;
+        PushFront(current->m_data);
+    }
+}
+
+void ResourceList::RefillNodes()
+{
+    if (!m_free) {
+        ResourceListPool *pool = AllocateResourceListPool(&m_pool, m_growth, sizeof(ResourceListNode));
+        ResourceListNode *freeNode = (ResourceListNode *)(pool + 1);
+        freeNode += m_growth - 1;
+        for (int i = m_growth - 1; i >= 0; --i, --freeNode) {
+            freeNode->m_prev = m_free;
+            m_free = freeNode;
+        }
+    }
 }
 
 // The category is forwarded into MemAlloc, whose RTM inline body ignores it.

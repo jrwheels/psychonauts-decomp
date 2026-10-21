@@ -210,10 +210,12 @@ bool EMeshEntity::LoadMesh(const char *name, int flags)
                 actual->GetAnimState()->SetSkeleton(actual->m_model->GetSkeletonData());
             }
         } else {
+            // SetMesh consumes 1 as its empty-mesh request, not an object pointer.
             actual = (ETriggerA8 *)1;
             success = false;
         }
     } else {
+        // Same empty-mesh sentinel on the null-name path; never dereference it.
         actual = (ETriggerA8 *)1;
         success = false;
     }

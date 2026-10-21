@@ -6,17 +6,17 @@
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
   "fresh_source_objects": 62,
-  "coff_function_records": 3380,
-  "matching_functions": 3360,
+  "coff_function_records": 3393,
+  "matching_functions": 3373,
   "total_mapped_functions": 10930,
-  "matched_bytes": 298986,
+  "matched_bytes": 300253,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 108,
-  "added_bytes": 12501,
-  "unit_tests_passed": 29,
-  "differential_cases_passed": 6490,
+  "added_functions": 121,
+  "added_bytes": 13768,
+  "unit_tests_passed": 83,
+  "differential_cases_passed": 7066,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -34,6 +34,18 @@
       "exit_code": 0,
       "cases": 717
     },
+    "test_mesh": {
+      "exit_code": 0,
+      "cases": 774
+    },
+    "test_mesh_replacement": {
+      "exit_code": 0,
+      "cases": 388
+    },
+    "test_model_input": {
+      "exit_code": 0,
+      "cases": 352
+    },
     "test_native_file": {
       "exit_code": 0,
       "cases": 371
@@ -45,6 +57,26 @@
     "test_package_accessor": {
       "exit_code": 0,
       "cases": 385
+    },
+    "test_resource_context": {
+      "exit_code": 0,
+      "cases": 82
+    },
+    "test_resource_list": {
+      "exit_code": 0,
+      "cases": 576
+    },
+    "test_resource_nodes": {
+      "exit_code": 0,
+      "cases": 10
+    },
+    "test_resource_parser": {
+      "exit_code": 0,
+      "cases": 108
+    },
+    "test_resource_stream": {
+      "exit_code": 0,
+      "cases": 266
     },
     "test_sound_camera_bindings": {
       "exit_code": 0,
@@ -81,34 +113,6 @@
     "test_sound_triggers": {
       "exit_code": 0,
       "cases": 356
-    },
-    "test_mesh": {
-      "exit_code": 0,
-      "cases": 774
-    },
-    "test_mesh_replacement": {
-      "exit_code": 0,
-      "cases": 388
-    },
-    "test_resource_stream": {
-      "exit_code": 0,
-      "cases": 266
-    },
-    "test_resource_context": {
-      "exit_code": 0,
-      "cases": 82
-    },
-    "test_resource_parser": {
-      "exit_code": 0,
-      "cases": 108
-    },
-    "test_resource_nodes": {
-      "exit_code": 0,
-      "cases": 10
-    },
-    "test_model_input": {
-      "exit_code": 0,
-      "cases": 352
     }
   },
   "limitations": [
@@ -117,64 +121,20 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "strict_audit": "build/audit/20261020T233225Z/summary.json",
-    "matching": "build/model-input/comparison-before-map.json",
-    "differential": "build/model-input/verification-summary.json",
-    "file_lifetime": "build/streaming-read/regressions/test_file_lifetime.json",
-    "native_file": "build/streaming-read/regressions/test_native_file.json",
-    "native_opener": "build/streaming-read/regressions/test_native_opener.json",
-    "map_update": "build/model-input/map-update.json",
-    "supplementary_objdiff": "build/native-opener/objdiff-review.json",
-    "rust_matching": "build/model-input/comparison-before-map.json",
-    "rust_benchmark": "build/rust-accelerator/benchmark.json",
-    "tooling_tests": "build/resource-parser/tooling-tests.log",
-    "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json",
-    "mesh": "build/model-input/test_mesh.json",
-    "mesh_decoder_parity": "build/mesh-replacement/decoder-parity.json",
-    "cached_object_parity": "build/model-input/cached-object-parity.json",
-    "mesh_replacement": "build/model-input/test_mesh_replacement.json",
-    "resource_stream": "build/model-input/test_resource_stream.json",
-    "resource_decoder_parity": "build/resource-stream/decoder-parity.json",
-    "resource_context": "build/context-name/behavior.json",
-    "context_decoder_parity": "build/context-name/decoder-parity.json",
-    "parser_header": "build/resource-context/parser-header.json",
-    "parser_decoder_parity": "build/resource-parser/decoder-parity.json",
-    "resource_parser": "build/model-input/test_resource_parser.json",
-    "resource_nodes": "build/resource-parser/node-behavior.json",
-    "cysp_header": "build/resource-parser/header-behavior.json",
-    "parser_callgraph": "build/resource-parser/callgraph.json",
-    "model_input_decoder_parity": "build/model-input/decoder-parity.json",
-    "model_input": "build/model-input/test_model_input.json"
+    "full_python": "build/publication/full-python/verification.json",
+    "full_rust": "build/publication/full-rust/verification.json",
+    "matching_python": "build/publication/full-python/comparison.json",
+    "matching_rust": "build/publication/full-rust/comparison.json",
+    "strict_audit": "build/audit/20261021T023338Z/summary.json",
+    "tooling": "build/publication/full-rust/tooling-summary.json"
   },
   "report_sha256": {
-    "strict_audit": "3b21fe0ee707f0621489001c8fe4efe3c2fb7ffb6f45a5ba320e5f04d25797c3",
-    "matching": "2ab9a00dc769518392071ab087926542d3c9aa1607725ba0069a95710639cceb",
-    "differential": "39877a8672aae3c158bafd6dc7875a87d46982e13a2b11a6000c42e18a1444dc",
-    "file_lifetime": "4341b685c311e78af5a5f46004d8333e238796dc2572d6ca428c6c3b78c86393",
-    "native_file": "96657b511b6257eab2ebe92739fc6bf7e88f2f3241ce208d5465818996834642",
-    "native_opener": "c406be0b35a723bd54f1e76a086502e2f6579f2dec8d8b350ab4432678ac9d71",
-    "map_update": "0494b93c533cf8bc2bc46d5afca43cabc9443fff106a766115602898856a72a9",
-    "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
-    "rust_matching": "2ab9a00dc769518392071ab087926542d3c9aa1607725ba0069a95710639cceb",
-    "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
-    "tooling_tests": "36f5226114ae44b937f79d3b699ec3e204fe517a9a8938608cd437e4b1167661",
-    "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38",
-    "mesh": "811788cf61a05cbdb11a6467956b68a0541593261ddb534a05b3d9e42438c25b",
-    "mesh_decoder_parity": "035283567199669161f736224ea81a2ed8f6c742474884803b2ca2dd03341847",
-    "cached_object_parity": "66edba4c3c51146ba7b31ad477c8b1f9c5d20b72cb406ef7f3ed7efb7710af7b",
-    "mesh_replacement": "a3f7246c2f20b5f8caf4617256e0b728dcb48da89053fe9410e39a2e27ea019e",
-    "resource_stream": "98c7714745c1fba6b76e628c914816c44d7fcea1d3fec122a24e6fa5de30a938",
-    "resource_decoder_parity": "e785f6a6fb4182fee68ecdadc6a6132cb757d5d1df6a3e587f1bf813c0e62c78",
-    "resource_context": "b1f5d2d379f267148451828414e5d0260e3d581ed710b45eb679aadc59695d40",
-    "context_decoder_parity": "985a4d169332a015c36fa0b9ffde2af5f48d7854a1dcf19b81dd52b910a5471f",
-    "parser_header": "228552f742abcff2d1cdbe65f652e6ca03ba8327282860742e0a11c214f6d960",
-    "parser_decoder_parity": "789078024a6fabf0d8aa46a28d1f9e65cff1dc658b63ed3b223422329803b033",
-    "resource_parser": "964f85b8556788ef0a732101ef784b8e2808d8fe7b9d9b4a37e168945b571205",
-    "resource_nodes": "faa8934887295877a35fac839269058c71fddc62ab94db7217e0e50c3a175fcf",
-    "cysp_header": "3203022d15c174f36ec2486493b372365fe17e8e3fa1a940f2d136b9fef4fd41",
-    "parser_callgraph": "b0b9e7fcd687f73f8a8f8098a120ee11877674293b3ec0c0cc3a6a13ca68c481",
-    "model_input_decoder_parity": "2488bb43405ca7206adc8be56df76d7c2ebb611422547e900cd68543179e58e8",
-    "model_input": "c7dce4dd0b1fe30034267fff276490e37fd9ad2f1acc2c40fd7470ee0fb43d5d"
+    "full_python": "0c4563f6de1e680c4720aa9a173d64eb39e4fda31aa24ca29f4d0423b5300757",
+    "full_rust": "9f09c45d980145ebda2f352c6f3ddefc3109de2c210df096f255bb9202036d6e",
+    "matching_python": "3b927972ae348b8792660ddc829566ce6c1108edbf0168333f7014eaa6849231",
+    "matching_rust": "b8a0660fc33694df7907cb475ad0af71b92edbd2db8ed904cdfd91ec9d8a7c31",
+    "strict_audit": "16a8ce461ee7f06acc99642b9f92c73fb1543946b76d8894e91f1f49086b3373",
+    "tooling": "8f6a7685dbba46dd6b5d65a2b5711cb953c60d7207c89cfc69fea0b22e31db0d"
   },
   "new_matches": [
     {
@@ -716,16 +676,81 @@
       "address": "0x00455900",
       "size": 73,
       "name": "EModel::SetName"
+    },
+    {
+      "address": "0x006a4fa0",
+      "size": 62,
+      "name": "AllocateResourceListPool"
+    },
+    {
+      "address": "0x006a4fe0",
+      "size": 66,
+      "name": "ResourceListPool::Release"
+    },
+    {
+      "address": "0x006a5190",
+      "size": 204,
+      "name": "ResourceList::AllocateNode"
+    },
+    {
+      "address": "0x006a5260",
+      "size": 62,
+      "name": "ResourceList::ReleaseNode"
+    },
+    {
+      "address": "0x006a52a0",
+      "size": 88,
+      "name": "ResourceList::PushBack"
+    },
+    {
+      "address": "0x006a5300",
+      "size": 87,
+      "name": "ResourceList::PushFront"
+    },
+    {
+      "address": "0x006a5400",
+      "size": 91,
+      "name": "ResourceList::PopBack"
+    },
+    {
+      "address": "0x006a54c0",
+      "size": 115,
+      "name": "ResourceList::InsertAfter"
+    },
+    {
+      "address": "0x006a5100",
+      "size": 136,
+      "name": "ResourceList::RefillNodes"
+    },
+    {
+      "address": "0x006a5360",
+      "size": 68,
+      "name": "ResourceList::AppendList"
+    },
+    {
+      "address": "0x006a53b0",
+      "size": 67,
+      "name": "ResourceList::PrependList"
+    },
+    {
+      "address": "0x006a5540",
+      "size": 112,
+      "name": "ResourceList::InsertBefore"
+    },
+    {
+      "address": "0x006a55b0",
+      "size": 109,
+      "name": "ResourceList::RemoveNode"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
-  "continuation_added_functions": 57,
-  "continuation_added_bytes": 6010,
+  "continuation_added_functions": 72,
+  "continuation_added_bytes": 7411,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "a5470d84bb5050f00e87dffc256735cea9bf380343a0e9843cff7e7b3aaf3f0e",
-  "comparison_functions_csv_sha256": "708e0c277b486bece38a93185dcc37d98796827ec02f177cd38d57c6a4eda455",
-  "comparison_precedes_csv_promotions": true,
-  "comparison_note": "One reviewed73-byte model-name promotion after full comparison; allocating stream helper remains unmatched.",
+  "functions_csv_sha256": "958a8ecd899fe429a9419578e2d0501bf1ea5b81af14c1cc96c4c0b02fa71c96",
+  "comparison_functions_csv_sha256": "958a8ecd899fe429a9419578e2d0501bf1ea5b81af14c1cc96c4c0b02fa71c96",
+  "comparison_precedes_csv_promotions": false,
+  "comparison_note": "Complete publication candidate: all3373checkpoint matches retained;13functions/1267bytes beyond public8154808, no new reconstruction during publication.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -770,10 +795,171 @@
     "benchmark_scope": "Single unprofiled matching-phase run per backend, excluding input loading/builds; cold search cache."
   },
   "differential_reuse": {
-    "fresh_cases": 1888,
-    "cached_cases": 4602,
-    "proof": "build/model-input/cached-object-parity.json",
-    "scope": "60unaffected objects identical apart from COFF timestamps; all suites using two changed objects rerun."
+    "fresh_cases": 7066,
+    "cached_cases": 0,
+    "proof": "build/publication/full-rust/verification.json",
+    "scope": "All24differential suites freshly run from62fresh RTM objects;74required synthetic tests plus9optional Rust;44original-only cases separate."
   },
-  "original_parser_cases_passed": 44
+  "original_parser_cases_passed": 44,
+  "workflow_verification": {
+    "source_base": "815480840e6fb7194b72f1771b1c26edff4a058a",
+    "candidate_uncommitted": true,
+    "promotion_ready": false,
+    "newly_reconstructed_functions": 0,
+    "publication_delta_functions": 13,
+    "publication_delta_bytes": 1267,
+    "reference_identity": "cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3",
+    "full_python_report": "build/publication/full-python/verification.json",
+    "full_rust_report": "build/publication/full-rust/verification.json",
+    "metrics": {
+      "python": {
+        "compile_seconds": 12.011372497014236,
+        "matching_seconds": 101.21268463297747,
+        "testing_seconds": 126.39564028696623,
+        "total_seconds": 240.2465409580036
+      },
+      "rust": {
+        "compile_seconds": 13.176813963014865,
+        "matching_seconds": 12.042205921025015,
+        "testing_seconds": 125.56264961196575,
+        "total_seconds": 151.29571695500636
+      }
+    }
+  },
+  "historical_verification_reports": {
+    "strict_audit": "build/audit/20261021T012941Z/summary.json",
+    "matching": "build/list-copy/final-comparison.json",
+    "differential": "build/list-copy/full-01/verification.json",
+    "file_lifetime": "build/list-copy/full-01/test_file_lifetime.json",
+    "native_file": "build/list-copy/full-01/test_native_file.json",
+    "native_opener": "build/list-copy/full-01/test_native_opener.json",
+    "map_update": "build/list-copy/map-update.json",
+    "supplementary_objdiff": "build/native-opener/objdiff-review.json",
+    "rust_matching": "build/list-copy/full-01/comparison.json",
+    "rust_benchmark": "build/rust-accelerator/benchmark.json",
+    "tooling_tests": "build/list-copy/full-01/tooling-tests.log",
+    "stream_read_decoder_parity": "build/streaming-read/decoder-parity.json",
+    "mesh": "build/list-copy/full-01/test_mesh.json",
+    "mesh_decoder_parity": "build/mesh-replacement/decoder-parity.json",
+    "cached_object_parity": "build/model-input/cached-object-parity.json",
+    "mesh_replacement": "build/list-copy/full-01/test_mesh_replacement.json",
+    "resource_stream": "build/list-copy/full-01/test_resource_stream.json",
+    "resource_decoder_parity": "build/resource-stream/decoder-parity.json",
+    "resource_context": "build/list-copy/full-01/test_resource_context.json",
+    "context_decoder_parity": "build/context-name/decoder-parity.json",
+    "parser_header": "build/list-copy/full-01/test_cysp_header.json",
+    "parser_decoder_parity": "build/resource-parser/decoder-parity.json",
+    "resource_parser": "build/list-copy/full-01/test_resource_parser.json",
+    "resource_nodes": "build/list-copy/full-01/test_resource_nodes.json",
+    "cysp_header": "build/resource-parser/header-behavior.json",
+    "parser_callgraph": "build/resource-parser/callgraph.json",
+    "model_input_decoder_parity": "build/model-input/decoder-parity.json",
+    "model_input": "build/list-copy/full-01/test_model_input.json",
+    "buffered_file": "build/list-copy/full-01/test_buffered_file.json",
+    "diagnostics": "build/list-copy/full-01/test_diagnostics.json",
+    "file_manager": "build/list-copy/full-01/test_file_manager.json",
+    "package_accessor": "build/list-copy/full-01/test_package_accessor.json",
+    "sound_camera_bindings": "build/list-copy/full-01/test_sound_camera_bindings.json",
+    "sound_categories": "build/list-copy/full-01/test_sound_categories.json",
+    "sound_controls": "build/list-copy/full-01/test_sound_controls.json",
+    "sound_flags": "build/list-copy/full-01/test_sound_flags.json",
+    "sound_handles": "build/list-copy/full-01/test_sound_handles.json",
+    "sound_levels": "build/list-copy/full-01/test_sound_levels.json",
+    "sound_mute": "build/list-copy/full-01/test_sound_mute.json",
+    "sound_names_stops": "build/list-copy/full-01/test_sound_names_stops.json",
+    "sound_triggers": "build/list-copy/full-01/test_sound_triggers.json",
+    "resource_list_decoder_parity": "build/resource-list/decoder-parity.json",
+    "resource_list_review": "build/resource-list/resume-review.json",
+    "resource_list": "build/list-copy/full-01/test_resource_list.json"
+  },
+  "historical_report_sha256": {
+    "strict_audit": "98237092020bc009b1e93f3146999a1367d71f1b6902d2f3b1cb9b93d64de4a5",
+    "matching": "3b927972ae348b8792660ddc829566ce6c1108edbf0168333f7014eaa6849231",
+    "differential": "a0acca7ed463d9b57eab7812cd06114bc3543b82440b370b81ffd69767bfbe28",
+    "file_lifetime": "ebc0ff22a38712325e303a1d00921e06ffcbaec7e37cf3a8fbc4c58dae7dc9e7",
+    "native_file": "ca6713ea0d1d3f07219e4a9d70dd16c72874026d6a4ab9bcb8058739ea43674f",
+    "native_opener": "fa6ad43c85dbf1be3dc915ae3e2df0c7c1d29f93117e9c33ad62f538ba17ac13",
+    "map_update": "7aa751566c5e231e3168a2f2553ce947dfdd9b302740506072dbc7f5adccfedd",
+    "supplementary_objdiff": "9ce6fc4706a81116c0d7210fb3e5dce2f0864a5c3e0694ed7c08f12cea0bd8f1",
+    "rust_matching": "996069d6059485094ded722affeb70e23ec1681b02bed056b75490d93dbd125a",
+    "rust_benchmark": "80c6a67a15dc2bda1d560d20bd934739f103496719588d2d4ea84203c8a8d22d",
+    "tooling_tests": "a08c21533cff873290d11089b7d49d44d2b53393bfb80f7f4dd54d0a8d02fd7d",
+    "stream_read_decoder_parity": "dfc6ca5fbd50441105fbaffec95813fa166993654548cbc1647d50d0aeb2fe38",
+    "mesh": "34d1c8a978a41936db353d8e6eaa8931e6aad4f1139385248bc5e9de9ced5263",
+    "mesh_decoder_parity": "035283567199669161f736224ea81a2ed8f6c742474884803b2ca2dd03341847",
+    "cached_object_parity": "66edba4c3c51146ba7b31ad477c8b1f9c5d20b72cb406ef7f3ed7efb7710af7b",
+    "mesh_replacement": "47923a4967a282e94a16fe3d879f7e034a23084b8054fa6450416d3d4ad4c562",
+    "resource_stream": "025eb8fa6d72eee20cb8ec397948547228283b7e19844f1fab4b37f3abbbe18f",
+    "resource_decoder_parity": "e785f6a6fb4182fee68ecdadc6a6132cb757d5d1df6a3e587f1bf813c0e62c78",
+    "resource_context": "282490814826c203be4890703255b1f655a2146dd4dda307cc8a54b2de32a78f",
+    "context_decoder_parity": "985a4d169332a015c36fa0b9ffde2af5f48d7854a1dcf19b81dd52b910a5471f",
+    "parser_header": "3203022d15c174f36ec2486493b372365fe17e8e3fa1a940f2d136b9fef4fd41",
+    "parser_decoder_parity": "789078024a6fabf0d8aa46a28d1f9e65cff1dc658b63ed3b223422329803b033",
+    "resource_parser": "2a96965748222176328e78580dbf04c866a3825c6d952b0c713d9988f88b5e69",
+    "resource_nodes": "bd12ae1834244d939b403781d2454786c82f0006cf56246813d00229b333ff98",
+    "cysp_header": "3203022d15c174f36ec2486493b372365fe17e8e3fa1a940f2d136b9fef4fd41",
+    "parser_callgraph": "b0b9e7fcd687f73f8a8f8098a120ee11877674293b3ec0c0cc3a6a13ca68c481",
+    "model_input_decoder_parity": "2488bb43405ca7206adc8be56df76d7c2ebb611422547e900cd68543179e58e8",
+    "model_input": "b23c19636308880ca5682502fbf09c44a73eccb453d3834238578c59c0c1958d",
+    "buffered_file": "e7f2c2f6d94941cb2597ca0b5af7c9ba16eb0ff9be466869b6f9c85002a5ca87",
+    "diagnostics": "44cb3a351f0afd5c5dfa6c214ad351035e00d958e93492fbc4e4e58dfd5c9469",
+    "file_manager": "8f056ed0e382ac9e79add6248227e80027b655202cffa081bcbb1c7aa8169b0b",
+    "package_accessor": "0d3be34ddbca357084b78afceeba2bbeca21f9ad5143864f82d7d9d09ac3c539",
+    "sound_camera_bindings": "b4700179dac9ad4ad5aa8326de4151841e8a2d50880bcd82509e50cd37cc214b",
+    "sound_categories": "9e36a007d77c41e285e30766fe0e112be3951be21f976694d11e9db68cb006d5",
+    "sound_controls": "400d070c8f3a8824226d3a1272f6640f2bdc22ba828c86a204f2c4fca102304c",
+    "sound_flags": "cf95908c595a3284d1bf93cdc1bef2e252dde3f637c767a3737c700bef67a5b6",
+    "sound_handles": "88d9dfdc5e38fe1477c943a729fc472fc656221a423418020b4e286a5d8c4969",
+    "sound_levels": "07ad5dc03b0c465bff12067d347cb0e9168df2f387eec4fe64b838a5333eb58f",
+    "sound_mute": "3db504a77d9a9fb035b2317ca93f809cd2d5197288263915e58dee52aa9bcfb4",
+    "sound_names_stops": "073221761044091cb2f906a3e945b395a80bda1b28c05f8a74ca5af985288197",
+    "sound_triggers": "0860fa05f09c3eac426272fa025c48b4ba32c9cecb8e2e1bce78349aa735d8ad",
+    "resource_list_decoder_parity": "d9e7d089761351a3c068f10b9936638cb72c7ece41226c5987e24669f446a357",
+    "resource_list_review": "1d30e9031a299f6d6ff37a1ee0196ed630e0ab409ce38d3812ac5af11e752a25",
+    "resource_list": "24aa315045c3ceee18da52329fa433c3dc6f8dfa75dcf20c77207f394e6fbafd"
+  },
+  "historical_workflow_verification": {
+    "source_base": "815480840e6fb7194b72f1771b1c26edff4a058a",
+    "local_uncommitted_changes": true,
+    "metrics": {
+      "compile_seconds": 13.136530806019437,
+      "matching_seconds": 12.011410830979003,
+      "testing_seconds": 122.59300854994217,
+      "total_seconds": 148.27056827300112
+    },
+    "promotion_ready": true,
+    "newly_verified_functions": 5,
+    "newly_verified_bytes": 492,
+    "reference_identity": "cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3",
+    "full_before_promotions_report": "build/list-copy/full-01/verification.json",
+    "final_post_promotions_report": "build/list-copy/final-comparison.json"
+  },
+  "required_python_tooling_tests_passed": 74,
+  "optional_rust_tests_passed": 9,
+  "publication_candidate_verification": {
+    "reference_build": "Steam Windows PE32, not2005retail",
+    "canonical_ranges_reconciled": 10930,
+    "all_verified_matching_addresses_preserved": true,
+    "python_rust_match_sets_equal": true,
+    "required_python_tests": 74,
+    "optional_rust_tests": 9,
+    "fresh_source_objects": 62,
+    "synthetic_matrix": {
+      "3.10.19": {
+        "numpy": "2.2.6",
+        "Pillow": "12.3.0",
+        "python_only_passed": 74,
+        "rust_additional_passed": 9
+      },
+      "3.13.5": {
+        "numpy": "2.5.4",
+        "Pillow": "12.3.0",
+        "python_only_passed": 74,
+        "rust_additional_passed": 9
+      }
+    },
+    "clean_clone_rehearsal": true,
+    "hosted_github_executed": false,
+    "linked_or_playable": false
+  }
 }

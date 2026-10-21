@@ -26,6 +26,7 @@ public:
 
 ContextListBase::ContextListBase(int mode)
 {
+    // Original 0x006a5039 stores 10 to a local; keep it for stack/code matching.
     int growth = 10;
     m_count = 0;
     m_first = 0;
@@ -102,8 +103,8 @@ ResourceContext::~ResourceContext()
     FreeFileName(m_name, 0x1a, 1);
 }
 
-// Releases the previous allocation before copying, even for an aliasing input.
-// Callers must supply a valid source lifetime; no self-assignment guard exists.
+// Original-behavior lifetime hazard: an input aliasing m_name is freed before
+// the copy reads it. Preserve the original sequence; callers must avoid aliases.
 void ResourceContext::SetName(const char *name)
 {
     if (m_name)

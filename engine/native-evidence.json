@@ -3283,6 +3283,566 @@
         "Names are provisional unless independently identified.",
         "No real allocator, filesystem, asset parser or gameplay verification.",
         "Four inline temporary displacements differ; canonical matching row remains unchanged."
+      ],
+      "workflow": {
+        "subsystem": "resource-stream",
+        "blockers": [
+          "Four inline temporary displacements differ after bounded declaration-scope and twelve-name probes."
+        ],
+        "next_action": "Revisit only with new inline allocator/transfer layout evidence.",
+        "deferred": true,
+        "attempts": []
+      }
+    },
+    "0x0041c670": {
+      "evidence": [
+        "docs/native-resource-context.md"
+      ],
+      "workflow": {
+        "subsystem": "resource-context",
+        "blockers": [
+          "Constructor frame 0x14 versus original 0x40; member/wrapper lifetimes unresolved."
+        ],
+        "next_action": "Recover member/wrapper lifetimes before retrying constructor.",
+        "deferred": true,
+        "attempts": []
+      }
+    },
+    "0x0041ffa0": {
+      "evidence": [
+        "docs/native-resource-parser.md"
+      ],
+      "workflow": {
+        "subsystem": "resource-context",
+        "blockers": [
+          "Array Clear frame/temporary offsets differ; shared-template experiment regressed matched destructor."
+        ],
+        "next_action": "Recover element wrapper lifetime without modifying shared templates speculatively.",
+        "deferred": true,
+        "attempts": []
+      }
+    },
+    "0x006a4fa0": {
+      "signature": "AllocateResourceListPool (provisional signature; machine ABI recorded)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "46fee574bc10e9eedabe379118cf32af1866eaa6b45f4f5f2e48cd24675b4e71",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a4fe0": {
+      "signature": "ResourceListPool::Release (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "71e28020131bcdc595973cfa2377b5a6b0fc4fc6530604383c63a76d94586d64",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a5190": {
+      "signature": "ResourceList::AllocateNode (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "42264f7176a1bbdf3fda0731907d6c808b81d9b8dd1ee1c7023ad09703adf5fc",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a5260": {
+      "signature": "ResourceList::ReleaseNode (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "01f9f8ea15febd7500b940351ee128c303d8e2343f7368f0bc4cacef1737e4ae",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a52a0": {
+      "signature": "ResourceList::PushBack (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "82c155b30c03bffd16d0e4344c3916bbc003b80711dfa84195c587856b73dc0b",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a5300": {
+      "signature": "ResourceList::PushFront (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "d268c66b3c70e94965cb51de55776a6e53de31fb5002e3d3e1470a8d1a3cc8c3",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a5400": {
+      "signature": "ResourceList::PopBack (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "516eb58564521ba728504d77d93d021db48e4fa7e81b4d68b577546942973e83",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a54c0": {
+      "signature": "ResourceList::InsertAfter (provisional signature; machine ABI recorded)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Observed offsets/ABI; exact RTM match and bounded original/rebuilt chain verification. Names remain provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-resource-list.md",
+        "build/resource-list/full-01/comparison.json",
+        "build/resource-list/full-01/test_resource_list.json",
+        "build/resource-list/map-update.json",
+        "build/resource-list/decoder-parity.json"
+      ],
+      "verification_method": [
+        "Strict 62-source RTM build and full relocation-aware matcher; all 3,360 previous matching addresses retained.",
+        "328 independent expected/original/rebuilt cases execute actual list/pool/Clear chains; only aligned allocation/free mocked.",
+        "Python and Rust target decoding agree; saved registers, stack cleanup, returned words and whole synthetic heaps checked."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Class/method/member names and high-level pointer types are provisional partial views, not recovered original declarations.",
+        "Pool header+4 remains opaque; resource payload ownership/serialized meaning is not established.",
+        "Zero/excessive growth and allocation failure are not proven safe; overflow requests are traced without actual large allocation.",
+        "No real allocator, physical I/O, resource parsing or gameplay test."
+      ],
+      "workflow": {
+        "subsystem": "resource-list",
+        "attempts": [
+          {
+            "method": "bounded-resource-list-batch-dev-and-full",
+            "fingerprint": "3b9e18c7e10c6a82bf87caab5e8a33a7b1079d4a207e3105d155879b1736a6a0",
+            "outcome": "matched"
+          }
+        ],
+        "blockers": [],
+        "next_action": "Use as a verified dependency for resource-reader and list-copy reconstruction."
+      }
+    },
+    "0x006a5100": {
+      "signature": "ResourceList::RefillNodes (provisional signature)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Assembly derived; RTM matched and bounded differential verification; names provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-list-copy.md",
+        "build/list-copy/full-01/verification.json",
+        "build/list-copy/full-01/test_resource_list.json",
+        "build/list-copy/map-update.json",
+        "build/list-copy/decoder-parity.json"
+      ],
+      "verification_method": [
+        "62 fresh RTM sources; full Rust matching and final Python matching identical; all 3368 prior matches retained.",
+        "576 list cases compare heap/allocation trace and independent expectations. Returning cases check ABI; multi-node self-copy tests compare 12-insertion prefixes only."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names/types and payload ownership provisional. Real allocation/resource loading/gameplay unverified.",
+        "Unchecked null/invalid inputs and allocation failure; multi-node self-copy does not terminate normally."
+      ]
+    },
+    "0x006a5360": {
+      "signature": "ResourceList::AppendList (provisional signature)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Assembly derived; RTM matched and bounded differential verification; names provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-list-copy.md",
+        "build/list-copy/full-01/verification.json",
+        "build/list-copy/full-01/test_resource_list.json",
+        "build/list-copy/map-update.json",
+        "build/list-copy/decoder-parity.json"
+      ],
+      "verification_method": [
+        "62 fresh RTM sources; full Rust matching and final Python matching identical; all 3368 prior matches retained.",
+        "576 list cases compare heap/allocation trace and independent expectations. Returning cases check ABI; multi-node self-copy tests compare 12-insertion prefixes only."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names/types and payload ownership provisional. Real allocation/resource loading/gameplay unverified.",
+        "Unchecked null/invalid inputs and allocation failure; multi-node self-copy does not terminate normally."
+      ]
+    },
+    "0x006a53b0": {
+      "signature": "ResourceList::PrependList (provisional signature)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Assembly derived; RTM matched and bounded differential verification; names provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-list-copy.md",
+        "build/list-copy/full-01/verification.json",
+        "build/list-copy/full-01/test_resource_list.json",
+        "build/list-copy/map-update.json",
+        "build/list-copy/decoder-parity.json"
+      ],
+      "verification_method": [
+        "62 fresh RTM sources; full Rust matching and final Python matching identical; all 3368 prior matches retained.",
+        "576 list cases compare heap/allocation trace and independent expectations. Returning cases check ABI; multi-node self-copy tests compare 12-insertion prefixes only."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names/types and payload ownership provisional. Real allocation/resource loading/gameplay unverified.",
+        "Unchecked null/invalid inputs and allocation failure; multi-node self-copy does not terminate normally."
+      ]
+    },
+    "0x006a5540": {
+      "signature": "ResourceList::InsertBefore (provisional signature)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Assembly derived; RTM matched and bounded differential verification; names provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-list-copy.md",
+        "build/list-copy/full-01/verification.json",
+        "build/list-copy/full-01/test_resource_list.json",
+        "build/list-copy/map-update.json",
+        "build/list-copy/decoder-parity.json"
+      ],
+      "verification_method": [
+        "62 fresh RTM sources; full Rust matching and final Python matching identical; all 3368 prior matches retained.",
+        "576 list cases compare heap/allocation trace and independent expectations. Returning cases check ABI; multi-node self-copy tests compare 12-insertion prefixes only."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names/types and payload ownership provisional. Real allocation/resource loading/gameplay unverified.",
+        "Unchecked null/invalid inputs and allocation failure; multi-node self-copy does not terminate normally."
+      ]
+    },
+    "0x006a55b0": {
+      "signature": "ResourceList::RemoveNode (provisional signature)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "Assembly derived; RTM matched and bounded differential verification; names provisional.",
+      "last_analysis_date": "2026-10-20",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-list-copy.md",
+        "build/list-copy/full-01/verification.json",
+        "build/list-copy/full-01/test_resource_list.json",
+        "build/list-copy/map-update.json",
+        "build/list-copy/decoder-parity.json"
+      ],
+      "verification_method": [
+        "62 fresh RTM sources; full Rust matching and final Python matching identical; all 3368 prior matches retained.",
+        "576 list cases compare heap/allocation trace and independent expectations. Returning cases check ABI; multi-node self-copy tests compare 12-insertion prefixes only."
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names/types and payload ownership provisional. Real allocation/resource loading/gameplay unverified.",
+        "Unchecked null/invalid inputs and allocation failure; multi-node self-copy does not terminate normally."
       ]
     }
   }

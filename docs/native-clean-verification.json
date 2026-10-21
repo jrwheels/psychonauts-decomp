@@ -1,0 +1,51 @@
+{
+  "source_commit": "815480840e6fb7194b72f1771b1c26edff4a058a",
+  "reference_sha1": "21e9b89c80347c8360a8ce4b17ce45e7cd1d4a07",
+  "reference_sha256": "cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3",
+  "compiler": "15.00.21022.08 x86",
+  "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
+  "fresh_source_objects": 62,
+  "tooling_tests_passed": 29,
+  "fresh_differential_suites": 23,
+  "fresh_differential_cases": 6490,
+  "original_only_cases": 44,
+  "matching_functions": 3360,
+  "matched_bytes": 298986,
+  "regressions": [],
+  "clean_tracked_checkout": true,
+  "strict_build_seconds": 14.670627969986526,
+  "tests_and_comparison_seconds": 130.2198625060846,
+  "privacy_scan": {
+    "reachable_commits": 31,
+    "reachable_blobs": 428,
+    "bytes_scanned": 25176510,
+    "secret_marker_hits": 0,
+    "binary_archive_signature_hits": 0,
+    "personal_home_path_hits": 0,
+    "ordinary_commit_email_hits": 0,
+    "inherited_lua_contact_header_hits": 5,
+    "heuristic": true
+  },
+  "reports": {
+    "matching": {
+      "path": "build/clean-review-20261020/comparison.json",
+      "sha256": "b4a2dff2745e45caa1c0125aeaaba9537b69b91234e73ca86aa6363a343af236"
+    },
+    "strict_audit": {
+      "path": "build/clean-review-20261020/strict-audit.json",
+      "sha256": "10972a095738354d82a62a911ec5bb85d3bfebac49aa2dc84d9884597e666dcf"
+    },
+    "tooling": {
+      "path": "build/clean-review-20261020/tooling.log",
+      "sha256": "5140d6ac97960a0cf924f41085d540d3fe8c1fdd4bde03ec5e71492e1b2a7f98"
+    },
+    "privacy": {
+      "path": "build/clean-review-20261020/privacy.json",
+      "sha256": "cd3b1e24a794413d116a976d01b482f130c03d1801efc9656b6bd17f10d84a48"
+    },
+    "summary": {
+      "path": "build/clean-review-20261020/review-summary.json",
+      "sha256": "444aa67c70bf01fd9f52b8e47fead84f0e43169465425e803de6d1ff67ac6439"
+    }
+  }
+}
