@@ -1,0 +1,5 @@
+# Original Psychonauts format research (no game data distributed).
+# NumPy 2.5 needs Python 3.12; exercise the older supported branch on 3.10/3.11.
+numpy==2.2.6; python_version < "3.12"
+numpy==2.5.4; python_version >= "3.12"
+Pillow==12.3.0

@@ -1,0 +1,14 @@
+{
+  "plb": {
+    "sha256": "fc6cff94611a1ca5fd9b1077601f2bf03ecdee14f56892dbbe90f52f2b2f16ce",
+    "url": "https://github.com/magcius/noclip.website/blob/main/src/psychonauts/plb.ts"
+  },
+  "ppf": {
+    "sha256": "eeb3e90ebedb5ac33d81f87ed5dbc727c33c4f23e44af1203a1d8282ed4ba214",
+    "url": "https://github.com/magcius/noclip.website/blob/main/src/psychonauts/ppf.ts"
+  },
+  "render": {
+    "sha256": "0334976841ccf198bc288905cd303f92fd4dba2c83d3369738237ec403d9719e",
+    "url": "https://github.com/magcius/noclip.website/blob/main/src/psychonauts/render.ts"
+  }
+}

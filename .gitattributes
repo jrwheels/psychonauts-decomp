@@ -1,0 +1,2 @@
+# Preserve the reviewed upstream package reader byte-for-byte, including its blank-line tabs.
+third_party/psypkg.py whitespace=-blank-at-eol
