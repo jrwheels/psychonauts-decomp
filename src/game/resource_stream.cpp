@@ -14,6 +14,7 @@ public:
     bool IsReading() { return m_flags == 0; }
     bool IsWriting() { return m_flags == 1; }
     void ReadString(char *data, int capacity);
+    void ReadString2b(char *data, int capacity);
     char *ReadAllocatedString(int category);
     template <class T> void Transfer(T *data, int count)
     {
@@ -33,6 +34,23 @@ void EStream::ReadString(char *data, int capacity)
         length = size + 1;
     }
     Read(&length, 4);
+    if (length && length < capacity) {
+        Transfer(data, length);
+    } else {
+        Transfer((char *)0, length);
+        if (IsReading())
+            *data = 0;
+    }
+}
+
+void EStream::ReadString2b(char *data, int capacity)
+{
+    unsigned short length;
+    if (IsWriting()) {
+        int size = strlen(data);
+        length = size + 1;
+    }
+    Read(&length, 2);
     if (length && length < capacity) {
         Transfer(data, length);
     } else {

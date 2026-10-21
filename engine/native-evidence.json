@@ -3844,6 +3844,106 @@
         "Names/types and payload ownership provisional. Real allocation/resource loading/gameplay unverified.",
         "Unchecked null/invalid inputs and allocation failure; multi-node self-copy does not terminate normally."
       ]
+    },
+    "0x006a5c30": {
+      "signature": "void EStream::ReadString2b(char *data, int capacity)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_stream.cpp",
+      "confidence": "assembly-derived partial views; unique full-object RTM match and independent differential verification",
+      "last_analysis_date": "2026-10-21",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-pack-loading.md",
+        "build/pack-strings/full-string/verification.json",
+        "build/pack-strings/dev-002/test_stream_string2b.json",
+        "build/pack-strings/string-map-review.json"
+      ],
+      "verification_method": [
+        "VC++2008 RTM with unchanged flags; 209 mapped bytes plus only alignment padding, no relocations; unique selection from all 62 fresh source objects",
+        "356 original/rebuilt/independent-expected fixtures cover signed capacities, ushort narrowing/wrap, short headers/payloads and controlled null-pointer faults; virtual transfer mocked",
+        "Astralathe 0649071db7481ba8814c01c5717bdf6364dcda2b identified the signature; C++ recovered from the pinned executable and existing four-byte helper"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "No allocation or terminator validation in this helper; underlying virtual transfer internals remain outside these fixtures.",
+        "Partial headers use explicitly poisoned fixture stack bytes; no claim of defined portable C++ behavior for indeterminate lengths."
+      ]
+    },
+    "0x00454f70": {
+      "signature": "void EMeshManager::Destroy(ETriggerA8 *mesh)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/mesh.cpp",
+      "confidence": "assembly-derived partial views; unique full-object RTM match and independent differential verification",
+      "last_analysis_date": "2026-10-21",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-pack-loading.md",
+        "build/pack-strings/full-unload/verification.json",
+        "build/pack-strings/dev-unload/test_mesh_unload.json",
+        "build/pack-strings/final-map-review.json"
+      ],
+      "verification_method": [
+        "273 mapped bytes and cdecl cleanup relocation to 0x0040eea0 uniquely agree across the complete object set",
+        "768 original/rebuilt/independent-expected fixtures extend the external audit: all six predicates, null/-1/non-null links, low/high bits, exact call order, full heap and saved-register/ret4 ABI",
+        "All 3374 preceding matches retained; full strict build, all tooling checks and all differential suites pass"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Offset-based MeshLifetimeView/owner views are partial; high bits are not asserted to be reference counts or full container layouts.",
+        "Global cleanup and virtual endpoints are mocked; cleanup helper name and slot+8 semantics remain provisional.",
+        "Real allocation/deletion, invalid object pointers and gameplay are not established."
+      ]
+    },
+    "0x00455200": {
+      "signature": "proposed void EMeshManager::ReadPackFile(EFileReader *reader)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": null,
+      "confidence": "native dataflow and pinned external signatures; private compiled candidates are unmatched",
+      "last_analysis_date": "2026-10-21",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": false,
+        "compiled": false,
+        "behaviorally_verified": false,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-pack-loading.md",
+        ".local/probe/meshpack-probes.json",
+        ".local/probe/meshpack-name-probes.json"
+      ],
+      "verification_method": [
+        "Pinned original assembly and record-width/call-graph inspection; fifteen ordinary C++ scope/name variants retained privately, no matching promotion"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Canonical source has no reconstructed body; private probes compile but have not received original/rebuilt differential verification.",
+        "Native header/count/index/result/name/type/size slots differ from the attempted scope layouts; branch displacements and extent follow those differences.",
+        "Original body does not validate the initial magic; payload seek and cache insertion ownership remain native external boundaries."
+      ],
+      "workflow": {
+        "subsystem": "resource",
+        "deferred": true,
+        "blockers": [
+          "Bounded fifteen-variant C++ scope/local-name series failed to reproduce the native per-record local layout (267-285 object bytes versus 279 mapped bytes)."
+        ],
+        "next_action": "Recover per-record lexical/type evidence from the related animation/stub readers before another mesh-pack layout probe."
+      }
     }
   }
 }

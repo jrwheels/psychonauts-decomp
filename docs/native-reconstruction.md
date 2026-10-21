@@ -12,17 +12,23 @@ RTM x86 `15.00.21022.08`, flags `/Od /Oy /Ob1 /Oi /MD /GS-`.
 
 | Measurement | Current local result |
 | --- | ---: |
-| Matching functions | 3,373 / 10,930 |
-| Matching mapped bytes | 300,253 / 2,935,679 (10.23%) |
-| Additions over upstream `6959341` | 121 functions / 13,768 bytes |
+| Matching functions | 3,375 / 10,930 |
+| Matching mapped bytes | 300,735 / 2,935,679 (10.24%) |
+| Additions over upstream `6959341` | 123 functions / 14,250 bytes |
 | Fresh C/C++ source objects | 62 |
 | Required synthetic tooling tests | 74 passed; 9 additional Rust tests passed when requested |
-| Fresh original/rebuilt differential cases | 7,066 across 24 suites |
+| Fresh original/rebuilt differential cases | 8,190 across 26 suites |
 | Separate original-only CYSP cases | 44 |
 | Lost previously matching addresses | 0 |
 
-The publication candidate is based on fork main `8154808` (3,360 functions /
-298,986 bytes) and adds 13 verified resource-list bodies /1,267 bytes. The older
+The [local pack-loading continuation](native-pack-loading.md) adds the 209-byte
+two-byte string helper and 273-byte mesh unload body after full verification.
+The 279-byte mesh-pack reader remains deferred on local-layout evidence.
+
+The initial native publication was based on fork main `8154808` (3,360 functions /
+298,986 bytes) and added 13 verified resource-list bodies /1,267 bytes. The local
+integration on contributor-folder base `f1d0b46` adds the two pack-loading
+dependencies /482 bytes and passes fresh complete verification. The older
 clean reproduction is recorded in [clean review](native-clean-review.md). Both
 [resource-list](native-resource-list.md) and [copy/lifetime](native-list-copy.md)
 work are included; historical counts/timings in those documents describe their
@@ -108,6 +114,7 @@ milestones are separate. Generated proposals do not alter either automatically.
 | Mesh/runtime skeleton | [Lookup](native-mesh-lookup.md), [replacement and IDs](native-mesh-replacement.md) |
 | Resource input and lifetimes | [Streams](native-resource-stream.md), [contexts](native-resource-context.md) |
 | CYSP dependencies and owners | [Parser investigation](native-resource-parser.md), [format distinctions](model-format-findings.md) |
+| Pack-loading dependencies | [Two-byte strings, mesh unload and pack-reader blocker](native-pack-loading.md) |
 | Recent bounded helpers | [Context name](native-context-name.md), [model input](native-model-input.md), [resource lists/pools](native-resource-list.md) |
 | Tooling/data | [Function database](function-database.md), [Lua map](lua-api-map.md), [matching acceleration](../contribute/docs/matching-acceleration.md) |
 

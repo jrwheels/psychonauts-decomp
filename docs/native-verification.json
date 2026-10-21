@@ -6,17 +6,17 @@
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
   "fresh_source_objects": 62,
-  "coff_function_records": 3393,
-  "matching_functions": 3373,
+  "coff_function_records": 3395,
+  "matching_functions": 3375,
   "total_mapped_functions": 10930,
-  "matched_bytes": 300253,
+  "matched_bytes": 300735,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 121,
-  "added_bytes": 13768,
+  "added_functions": 123,
+  "added_bytes": 14250,
   "unit_tests_passed": 83,
-  "differential_cases_passed": 7066,
+  "differential_cases_passed": 8190,
   "differential_suites": {
     "test_buffered_file": {
       "exit_code": 0,
@@ -41,6 +41,10 @@
     "test_mesh_replacement": {
       "exit_code": 0,
       "cases": 388
+    },
+    "test_mesh_unload": {
+      "exit_code": 0,
+      "cases": 768
     },
     "test_model_input": {
       "exit_code": 0,
@@ -111,6 +115,10 @@
       "cases": 266
     },
     "test_sound_triggers": {
+      "exit_code": 0,
+      "cases": 356
+    },
+    "test_stream_string2b": {
       "exit_code": 0,
       "cases": 356
     }
@@ -747,10 +755,10 @@
   "continuation_added_functions": 72,
   "continuation_added_bytes": 7411,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "958a8ecd899fe429a9419578e2d0501bf1ea5b81af14c1cc96c4c0b02fa71c96",
-  "comparison_functions_csv_sha256": "958a8ecd899fe429a9419578e2d0501bf1ea5b81af14c1cc96c4c0b02fa71c96",
+  "functions_csv_sha256": "bde7c95d565544a3f4599462b17165d73545b89f5f122615910e49904fff1f22",
+  "comparison_functions_csv_sha256": "bde7c95d565544a3f4599462b17165d73545b89f5f122615910e49904fff1f22",
   "comparison_precedes_csv_promotions": false,
-  "comparison_note": "Complete publication candidate: all3373checkpoint matches retained;13functions/1267bytes beyond public8154808, no new reconstruction during publication.",
+  "comparison_note": "Contributor-folder integration on published f1d0b46: post-promotion full Python and Rust matching agree; all 3373 published matches survive, with the two verified additions (+482 bytes). Historical pre-promotion reports remain recorded below.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -960,6 +968,111 @@
     },
     "clean_clone_rehearsal": true,
     "hosted_github_executed": false,
+    "linked_or_playable": false
+  },
+  "pack_strings_continuation": {
+    "base": "bf6104ac0b481e22ff917d6394f64eabda34f3d6",
+    "added_functions": 2,
+    "added_bytes": 482,
+    "previous_matching_functions": 3373,
+    "previous_matching_bytes": 300253,
+    "original_only_cases": 44,
+    "required_python_tooling_tests": 74,
+    "optional_rust_tests": 9,
+    "new_cases": {
+      "test_stream_string2b": 356,
+      "test_mesh_unload": 768
+    },
+    "blocked": [
+      "0x00455200"
+    ],
+    "report_sha256": {
+      "build/pack-strings/full-string/verification.json": "1d76f6629f87b37feddf50ead13512a35e6934b1c4ec6778e8a8376a85530e63",
+      "build/pack-strings/full-unload/verification.json": "556a494a97ef6fd235176c22406585cde1f61748b045cee134d94bb83e206529",
+      "build/pack-strings/full-unload/comparison.json": "bf138efca9aaf783f70893f8784e6a6da3b6e5740da57d1cecc1ad7107b29b46",
+      "build/pack-strings/final-map-review.json": "debc090e4874b07df4d4de5f0f928b87f70d8ddd498165470646c8c807f24713",
+      "build/pack-strings/post-promotion-python.json": "e45ead3b63f2710d6bc815069618356dc640a6c2d1f009b836cb3661e5aadfab",
+      "build/pack-strings/final-tooling.json": "8f6a7685dbba46dd6b5d65a2b5711cb953c60d7207c89cfc69fea0b22e31db0d",
+      "build/pack-strings/final-consistency.json": "9fff33995c9a85b2faa84bb60a2232d7f3d50b2da2a70b9699116eff2b3771fe"
+    },
+    "python_rust_match_sets_equal": true,
+    "post_promotion_regressions": [],
+    "post_promotion_new_addresses": [],
+    "all_verified_source_test_inputs_unchanged": true,
+    "unchanged_object_code_data_and_relocations": 60,
+    "object_metadata_note": "COFF .debug$S contains different checkout/output paths; raw files differ even after timestamp masking. Code, data, and decoded relocations are compared without modifying objects.",
+    "changed_objects": [
+      "build/game/mesh.obj",
+      "build/game/resource_stream.obj"
+    ],
+    "published_files_preserved": 266
+  },
+  "contributor_folder_integration": {
+    "base": "f1d0b46a9449e7ea7d6ce49ec057448a1b6e0bfd",
+    "native_origin": "bf6104ac0b481e22ff917d6394f64eabda34f3d6",
+    "source_behavior_changed": false,
+    "contributor_infrastructure_changed": false,
+    "strict_build_sources": 62,
+    "retained_published_matches": 3373,
+    "new_matches": {
+      "0x006a5c30": 209,
+      "0x00454f70": 273
+    },
+    "blocked_unmatched": {
+      "0x00455200": 279
+    },
+    "matching_functions": 3375,
+    "matching_bytes": 300735,
+    "regressions": [],
+    "canonical_addresses_and_sizes_unchanged": true,
+    "python_rust_matches_equal": true,
+    "fresh_differential_suites": {
+      "test_buffered_file": 453,
+      "test_diagnostics": 192,
+      "test_file_lifetime": 329,
+      "test_file_manager": 717,
+      "test_mesh": 774,
+      "test_mesh_replacement": 388,
+      "test_mesh_unload": 768,
+      "test_model_input": 352,
+      "test_native_file": 371,
+      "test_native_opener": 732,
+      "test_package_accessor": 385,
+      "test_resource_context": 82,
+      "test_resource_list": 576,
+      "test_resource_nodes": 10,
+      "test_resource_parser": 108,
+      "test_resource_stream": 266,
+      "test_sound_camera_bindings": 30,
+      "test_sound_categories": 28,
+      "test_sound_controls": 59,
+      "test_sound_flags": 340,
+      "test_sound_handles": 126,
+      "test_sound_levels": 55,
+      "test_sound_mute": 71,
+      "test_sound_names_stops": 266,
+      "test_sound_triggers": 356,
+      "test_stream_string2b": 356
+    },
+    "fresh_differential_cases": 8190,
+    "fresh_original_only_cases": 44,
+    "required_tests": 74,
+    "additional_rust_tests": 9,
+    "python_only_required_tests": 74,
+    "report_sha256": {
+      "build/integration/full/verification.json": "5d9208b79971cda3192859ba9fd13c046631d0bfb588ca09bed09fb4ffbb3244",
+      "build/integration/full/comparison.json": "c4ab4d69b158bcab27b5abb4e25e3691e60de477906bc1a5ce38aa1b4871184f",
+      "build/integration/full/tooling-summary.json": "8f6a7685dbba46dd6b5d65a2b5711cb953c60d7207c89cfc69fea0b22e31db0d",
+      "build/integration/python-matching.json": "e45ead3b63f2710d6bc815069618356dc640a6c2d1f009b836cb3661e5aadfab",
+      "build/integration/python-tooling.json": "828dbc4e16649f18f6744a7c2cd7e51374de0edd618cd205e3cbeea4f426d351",
+      "build/integration/map-review.json": "a7ad00df25e848f568caf8b358f58eda998e81de64d710ac74f5048d6a7593d8",
+      "build/integration/publication-worktree.json": "555edaf35265e80fe30e8a4ff74d6a053b2f19fec9c6ce1885a42686443cc189",
+      "build/integration/publication-base.json": "98a7a717c86246bda4afb4f269ac68914e031268a59f551af353fb3ca7e061a4",
+      "build/integration/publication-history.json": "0bcac86dfa19436e39d5b61d9f4657d3739869741e7cc9c9eaa82b6ed8eec563"
+    },
+    "rust_library_sha256": "9de750a6b1af8708ffe4dcf7c295cb8a20c8ca18efb84f50cc05479cfe1ea29d",
+    "rust_library_note": "Reused hash-verified checkpoint accelerator with unchanged source; all Rust tests and matching rerun. Host rustc unavailable.",
+    "hosted_ci_executed": false,
     "linked_or_playable": false
   }
 }

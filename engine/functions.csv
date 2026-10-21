@@ -1160,7 +1160,7 @@ address,size,origin,name,status,object
 0x00454e10,151,gap,,,
 0x00454eb0,78,pointer,EMeshManager::Create,matching,mesh.obj
 0x00454f00,101,pointer,,,
-0x00454f70,273,pointer,,,
+0x00454f70,273,pointer,EMeshManager::Destroy,matching,mesh.obj
 0x00455090,365,pointer,,,
 0x00455200,279,pointer,,,
 0x00455320,198,pointer,,,
@@ -8445,7 +8445,7 @@ address,size,origin,name,status,object
 0x006a59e0,45,gap,,,
 0x006a5a10,323,pointer,,,
 0x006a5b60,208,gap,,,
-0x006a5c30,209,pointer,,,
+0x006a5c30,209,pointer,EStream::ReadString2b,matching,resource_stream.obj
 0x006a5d10,203,pointer,EStream::ReadString,matching,resource_stream.obj
 0x006a5de0,131,pointer,,,
 0x006a5e70,94,gap,,,

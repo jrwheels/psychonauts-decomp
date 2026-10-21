@@ -1,8 +1,8 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-30.86%25%20(3373%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.23%25-red)
+![Engine](https://img.shields.io/badge/Engine-30.88%25%20(3375%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.24%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -20,7 +20,7 @@ acquired original compiler for native matching. The engine is not linked or play
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3373 / 10930 functions (30.86 %), 10.23 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3375 / 10930 functions (30.88 %), 10.24 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 

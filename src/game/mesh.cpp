@@ -273,3 +273,51 @@ void EModel::SetName(const char *name)
     if (name)
         m_name = CopyFileName(name, 7);
 }
+
+// Partial lifetime-only views, derived from the six observed native predicates.
+// These offsets do not establish full layouts or reference-count semantics.
+struct MeshOwnerLifetimeView {
+    char pad0[0x80];
+    unsigned int m_unknown80;
+    char pad84[0xa0 - 0x84];
+    unsigned int m_unknowna0;
+};
+class MeshLifetimeView {
+public:
+    virtual ~MeshLifetimeView();
+    virtual void Vf04();
+    virtual void Vf08();
+    bool IsNullLink() { return m_link == 0; }
+    bool IsSentinel() { return m_link == (MeshLifetimeView *)-1; }
+    bool IsUnknown60Zero() { return m_unknown60 == 0; }
+    char pad4[4];
+    MeshLifetimeView *m_link;
+    char padc[0x18 - 0x0c];
+    MeshOwnerLifetimeView *m_owner;
+    char pad1c[0x3c - 0x1c];
+    unsigned int m_low3c : 5;
+    unsigned int m_high3c : 27;
+    char pad40[8];
+    unsigned int m_low48 : 5;
+    unsigned int m_high48 : 27;
+    char pad4c[0x60 - 0x4c];
+    unsigned int m_unknown60;
+};
+void DetachMeshForUnload(ETriggerA8 *mesh);
+void EMeshManager::Destroy(ETriggerA8 *mesh)
+{
+    if (!((MeshLifetimeView *)mesh)->IsSentinel() &&
+        !((MeshLifetimeView *)mesh)->m_high3c &&
+        !((MeshLifetimeView *)mesh)->m_high48 &&
+        !((MeshLifetimeView *)mesh)->m_owner->m_unknown80 &&
+        ((MeshLifetimeView *)mesh)->IsUnknown60Zero() &&
+        !((MeshLifetimeView *)mesh)->m_owner->m_unknowna0) {
+        delete (MeshLifetimeView *)mesh;
+    } else {
+        DetachMeshForUnload(mesh);
+        ((MeshLifetimeView *)mesh)->Vf08();
+        if (!((MeshLifetimeView *)mesh)->IsNullLink() &&
+            !((MeshLifetimeView *)mesh)->IsSentinel())
+            delete (MeshLifetimeView *)mesh;
+    }
+}
