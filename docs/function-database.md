@@ -88,4 +88,4 @@ counts and durations are not invented. The fingerprint combines the pinned
 binary/function bytes, caller observations, source hashes and declared context.
 `native_workflow.py record-attempt` validates and backs up evidence before
 appending; it never sets reconstruction/compiled/behavior/matching milestones.
-See [workflow commands and limitations](native-workflow.md).
+See [workflow commands and limitations](../contribute/docs/native-workflow.md).

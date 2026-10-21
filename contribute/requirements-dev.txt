@@ -1,6 +1,6 @@
 # Synthetic tooling and private native differential verification.
--r requirements.txt
+-r ../requirements.txt
 unicorn==2.1.4
 
 # Required for the included synthetic reference-format tests.
--r requirements-reference.txt
+-r ../requirements-reference.txt

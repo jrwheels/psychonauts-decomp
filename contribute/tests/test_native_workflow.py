@@ -4,7 +4,8 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'contribute/tools'))
 from native_workflow import rank, plan, record_attempt, validate_cache, safe_output, sha, fingerprint
 from native_index import validate_evidence, REFERENCE_SHA256
 

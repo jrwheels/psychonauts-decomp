@@ -1,7 +1,7 @@
 # AI-assisted native reconstruction
 
 Use this guide with Codex or another coding agent after reading
-[CONTRIBUTING](../CONTRIBUTING.md). The contributor owns the result and must review
+[CONTRIBUTING](../README.md). The contributor owns the result and must review
 it. AI output is a hypothesis until supported by original assembly and verification.
 Codex recognizes repository `AGENTS.md` guidance; see the
 [official workflow documentation](https://developers.openai.com/cookbook/examples/codex/iterating-development-workflows-with-codex).
@@ -16,7 +16,7 @@ Continue this existing reconstruction from base commit [COMMIT].
 Claim/issue: [ID]. Reference SHA-1: 21e9b89c80347c8360a8ce4b17ce45e7cd1d4a07;
 SHA-256: cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3.
 Targets: [canonical addresses, sizes]. Subsystem purpose: [reason].
-Read AGENTS.md, CONTRIBUTING.md, relevant source, function map and evidence.
+Read AGENTS.md, contribute/README.md, relevant source, function map and evidence.
 Inspect worktree status and preserve all pre-existing work before edits.
 Use privately configured REFERENCE and VC; never print their personal paths.
 Inspect bounded original assembly, callers and dependencies before naming behavior.

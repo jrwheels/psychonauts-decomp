@@ -19,7 +19,7 @@ The included tests construct synthetic bytes/numbers; they never open installed 
 | glb_skin.py / glb_preview.py | CPU skin inspection and simple textured preview; not the game's renderer |
 | third_party/psypkg.py | Attributed index reader; supported integration uses read_index only, not mount/unpack |
 
-Install `requirements-reference.txt` for these tools. `requirements-dev.txt` includes
+Install `requirements-reference.txt` for these tools. `contribute/requirements-dev.txt` includes
 it so public synthetic tests cannot silently skip this coverage. NumPy 2.2.6 is pinned
 for Python 3.10/3.11; 2.5.4 for Python 3.12+, with Pillow 12.3.0. Both matrix Python
 versions must be tested after changing numerical dependencies.

@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools'))
+
 from native_index import ROOT, REFERENCE_SHA256, load_reference, validate_evidence
 
 

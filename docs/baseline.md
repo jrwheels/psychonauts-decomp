@@ -1,5 +1,5 @@
 > Historical technical evidence, not the current setup/checkpoint. Use
-> [CONTRIBUTING](../CONTRIBUTING.md) and [current native status](native-reconstruction.md).
+> [CONTRIBUTING](../contribute/README.md) and [current native status](native-reconstruction.md).
 > Original local report references identify private evidence, not required downloads.
 
 # Established matching baseline

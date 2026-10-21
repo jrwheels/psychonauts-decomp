@@ -7,7 +7,8 @@ import tempfile
 from types import SimpleNamespace
 import unittest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'contribute/tools'))
 from native_verify import (compare_target, compiler_flags, dev_test_view, digest,
                            parse_target, private_path, reviewed_plan, source_path,
                            validate_suites, validate_case_report, input_hashes, REFERENCE_SHA256)
@@ -115,8 +116,15 @@ class VerifyTests(unittest.TestCase):
             for name in ('functions.csv','native-evidence.json'):(root/'engine'/name).write_text('{}')
             vendor=root/'third_party/reader.py';vendor.write_text('original')
             requirements=root/'requirements-reference.txt';requirements.write_text('package==1')
+            (root/'contribute/tools').mkdir(parents=True)
+            helper=root/'contribute/tools/helper.py';helper.write_text('original')
+            contributor_requirements=root/'contribute/requirements-dev.txt'
+            contributor_requirements.write_text('package==1')
             before=input_hashes(root)
             vendor.write_text('changed');requirements.write_text('package==2')
+            helper.write_text('changed');contributor_requirements.write_text('package==2')
             after=input_hashes(root)
             self.assertNotEqual(before['third_party/reader.py'],after['third_party/reader.py'])
             self.assertNotEqual(before['requirements-reference.txt'],after['requirements-reference.txt'])
+            self.assertNotEqual(before['contribute/tools/helper.py'],after['contribute/tools/helper.py'])
+            self.assertNotEqual(before['contribute/requirements-dev.txt'],after['contribute/requirements-dev.txt'])

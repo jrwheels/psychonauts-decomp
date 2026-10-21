@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 import unittest
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def flatten(suite):
@@ -76,7 +76,9 @@ def main():
     else:
         # Ambient configuration or an existing library never enables optional coverage.
         os.environ.pop('PSY_RUST_TARGETS', None)
-    suite = unittest.defaultTestLoader.discover(str(ROOT/'tests'))
+    suite = unittest.TestSuite(
+        unittest.TestLoader().discover(str(directory))
+        for directory in (ROOT/'tests', ROOT/'contribute/tests'))
     required, rust = partition(suite)
     result = run_groups(required, rust, bool(args.rust_targets), sys.stderr)
     if args.rust_targets:

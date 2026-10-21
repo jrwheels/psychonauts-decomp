@@ -4,7 +4,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'contribute/tools'))
 from publication_check import inspect, scan, safe_candidate
 
 

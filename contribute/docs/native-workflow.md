@@ -24,9 +24,9 @@ Use the existing Python environment, exact owned reference and toolchain.
 Put working Wine and winepath on PATH. All generated outputs below are ignored.
 
 ```sh
-python3 -B tools/native_workflow.py rank "$REFERENCE" \
+python3 -B contribute/tools/native_workflow.py rank "$REFERENCE" \
   --subsystem mesh --out build/workflow/ranking.json
-python3 -B tools/native_workflow.py plan "$REFERENCE" \
+python3 -B contribute/tools/native_workflow.py plan "$REFERENCE" \
   --subsystem mesh --out build/workflow/plan.json
 ```
 
@@ -58,7 +58,7 @@ Target byte compatibility, decoded relocations, unresolved/conflicting symbols
 and byte differences are reported. It does not establish unique global matches.
 
 ```sh
-python3 -B tools/native_verify.py dev "$REFERENCE" "$VC" \
+python3 -B contribute/tools/native_verify.py dev "$REFERENCE" "$VC" \
   --source src/game/mesh.cpp \
   --target '0x00455900=EModel::SetName' \
   --suite test_model_input --out build/workflow/dev-001
@@ -72,14 +72,14 @@ this development result always remains ineligible for promotion.
 The reviewed plan can supply the same arguments:
 
 ```sh
-python3 -B tools/native_verify.py dev "$REFERENCE" "$VC" \
+python3 -B contribute/tools/native_verify.py dev "$REFERENCE" "$VC" \
   --plan build/workflow/plan.json --batch 0 --out build/workflow/dev-002
 ```
 
 At a batch boundary, run full verification:
 
 ```sh
-python3 -B tools/native_verify.py full "$REFERENCE" "$VC" \
+python3 -B contribute/tools/native_verify.py full "$REFERENCE" "$VC" \
   --rust-targets build/rust/reloc_targets.so \
   --target '0x00455900=EModel::SetName' --out build/workflow/full-001
 ```
@@ -113,7 +113,7 @@ version 1 or existing milestone meanings. Attempts store method, input
 fingerprint, outcome and elapsed seconds only when measured.
 
 ```sh
-python3 -B tools/native_workflow.py record-attempt "$REFERENCE" \
+python3 -B contribute/tools/native_workflow.py record-attempt "$REFERENCE" \
   --address 0x006a5de0 --method inline-layout-probe --outcome blocked \
   --blocker 'Four temporary displacements still differ' \
   --next-action 'Wait for neighboring inline-layout evidence' \
@@ -147,7 +147,7 @@ seconds for 434 affected cases. Compiler identity/path setup is included only
 in total time. A cold rank/index refresh took 17.67 seconds and a warm cached
 plan took 1.92 seconds. These runs do different work; they are not an equal-work
 speedup benchmark. Full-run measurements and limitations are in
-[native reconstruction status](native-reconstruction.md).
+[native reconstruction status](../../docs/native-reconstruction.md).
 
 The complete new verification command took 138.96 seconds: 14.46 seconds for
 the strict build, 12.01 seconds for matching and 111.98 seconds for testing. It

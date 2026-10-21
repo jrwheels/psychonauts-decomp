@@ -1,5 +1,5 @@
 > Historical verification record; the complete publication candidate includes this work.
-> Current coverage/results are in [native status](native-reconstruction.md) and [publication scope](publication-scope.md).
+> Current coverage/results are in [native status](native-reconstruction.md) and [publication scope](../contribute/docs/publication-scope.md).
 
 # Clean native verification and published-history review
 

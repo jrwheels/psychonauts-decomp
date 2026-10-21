@@ -17,6 +17,8 @@ import subprocess
 import sys
 import time
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools'))
+
 from coff import ObjFile
 from native_index import ROOT, REFERENCE_SHA256, load_reference
 from objmatch import Exe, demangle, targets
@@ -64,9 +66,10 @@ def compiler_flags(root=ROOT):
 
 def input_hashes(root=ROOT):
     paths = [root/'engine/functions.csv', root/'engine/native-evidence.json']
-    paths += [p for directory in ('src', 'tools', 'tests', 'third_party') for p in (root/directory).rglob('*')
+    paths += [p for directory in ('src', 'tools', 'tests', 'third_party', 'contribute') for p in (root/directory).rglob('*')
               if p.is_file() and '__pycache__' not in p.parts and p.suffix in ('.py', '.rs', '.sh', '.h', '.cpp', '.c')]
     paths += list(root.glob('requirements*.txt'))
+    paths += list((root/'contribute').glob('requirements*.txt'))
     return {str(p.relative_to(root)): digest(p) for p in sorted(set(paths))}
 
 
@@ -306,7 +309,7 @@ def main():
                 if not any(int(x['address'], 16) == address and x['symbol'] == symbol
                            for x in comparison['matches']):
                     raise ValueError('requested target is not selected by full matcher: '+symbol)
-            test_command = [sys.executable, '-B', ROOT/'tools/run_tooling_tests.py',
+            test_command = [sys.executable, '-B', ROOT/'contribute/tools/run_tooling_tests.py',
                             '--report', out/'tooling-summary.json']
             if args.rust_targets:
                 test_command += ['--rust-targets', args.rust_targets.resolve()]

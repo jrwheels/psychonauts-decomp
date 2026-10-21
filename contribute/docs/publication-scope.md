@@ -84,7 +84,7 @@ classifications are preserved in the private review checkpoint.
 
 ## Reproduction and remaining boundaries
 
-Use CONTRIBUTING.md and the exact owned executable/original RTM compiler. Fresh
+Use contribute/README.md and the exact owned executable/original RTM compiler. Fresh
 public dependencies, synthetic tests, full strict build, all-address regressions
 and native differential suites are required before approval. Rust remains optional
 and coverage is reported separately. Detailed results are in native-verification.json.

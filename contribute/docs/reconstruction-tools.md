@@ -1,8 +1,9 @@
 # Reconstruction tool support and safety
 
 All paths below are repository-relative. Use a writable checkout and Python
-manifests from CONTRIBUTING.md. General utilities stay in `tools/`; tooling unit
-tests stay in `tests/`. The existing native differential suites intentionally remain
+manifests from contribute/README.md. General utilities stay in the root `tools/`; their unit
+tests stay in the root `tests/`. Contributor orchestration lives in
+`contribute/tools/`, with its checks in `contribute/tests/`. The existing native differential suites intentionally remain
 `tools/test_*.py`: verifier discovery, cross-suite imports and isolated object views
 rely on those paths. A move needs demonstrated benefit and full compatibility tests.
 
@@ -24,7 +25,7 @@ rely on those paths. A move needs demonstrated benefit and full compatibility te
 | reloc_targets.rs / rust_targets.py | Optional host acceleration | Build a trusted local shared library; Python remains the oracle; no engine compiler change |
 | benchmark_matcher.py | Backend equivalence/performance investigation | Expensive optional private reports; unnecessary for each reconstruction batch |
 
-Public CI needs neither the game nor Microsoft's compiler. It runs `tests/`, which
+Public CI needs neither the game nor Microsoft's compiler. It runs `tests/` and `contribute/tests/`, which
 uses synthetic PE/COFF/byte fixtures, fake failing compilers and temporary Git repos.
 It does not run native `tools/test_*.py` or certify engine equivalence.
 
@@ -52,7 +53,7 @@ masked-error pipeline; use strictbuild and a checkout path without spaces.
 
 ## Preserved original-format research
 
-The separate [reference-format guide](reference-formats.md) documents the original
+The separate [reference-format guide](../../docs/reference-formats.md) documents the original
 Psychonauts parsers, inventory/export/preview utilities, synthetic fixtures and
 vendored attribution recovered from the older root checkout. They require
 `requirements-reference.txt`, included by the development manifest. They are not

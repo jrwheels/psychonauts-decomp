@@ -15,12 +15,6 @@ This repository contains reconstruction source and tooling, but no original game
 binaries or assets. You need your own copy of the supported game and a separately
 acquired original compiler for native matching. The engine is not linked or playable.
 
-## Contributing
-
-Start with [CONTRIBUTING.md](CONTRIBUTING.md), the [AI contributor guide](docs/ai-contributors.md),
-and the [reconstruction tool guide](docs/reconstruction-tools.md). Public tooling
-tests use synthetic fixtures; native matching requires your own reference/compiler.
-
 ## Progress
 
 | Part | Matching | Notes |
@@ -234,11 +228,17 @@ The rest of the engine will follow the usual setup for MSVC games: a Ghidra proj
 
 | Path | Contents |
 | --- | --- |
+| `contribute/` | Contributor setup, AI instructions, workflow helpers and their tests |
 | `tools/` | Script decompiler, repacker, installer, diff tool, and the tools for the executable: `peinfo.py`, `funclist.py`, `build.sh`, `objmatch.py`, `progressmap.py` |
 | `src/lua/` | Lua 4.0 runtime as used by the engine |
 | `src/game/` | Engine code in C++, so far the script functions and the classes they use |
 | `engine/` | Function list of `Psychonauts.exe`, with names for the functions that match |
 | `psyluac/` | Lua 4.0 compiler patched to produce Psychonauts bytecode |
+
+## Contributing
+
+See [contribute/](contribute/README.md) for setup, AI-assisted work, verification
+and review.
 
 ## Related
 
@@ -267,9 +267,6 @@ file lifetime, I/O and timestamp methods with 371 additional differential cases.
 The [native opener and streaming-file continuation](docs/native-file-streaming.md)
 now includes Streaming Read at 0x006a7730, with 732 differential cases.
 
-[Optional Rust relocation decoding](docs/matching-acceleration.md) accelerates
-the existing matching workflow; the engine build remains VC++ 2008 C++.
-
 The [native mesh and skeleton lookup](docs/native-mesh-lookup.md) adds four
 matched helpers and 774 differential cases along the character-loading path.
 
@@ -289,19 +286,15 @@ The [model input continuation](docs/native-model-input.md) adds model-name
 ownership and behavior-tested stream allocation; unmatched code is reported
 separately from matching totals.
 
-[Native workflow](docs/native-workflow.md) documents focused target ranking,
-resumable batch plans, attempt/blocker records and development/full verification.
 The [clean review](docs/native-clean-review.md) freshly reproduced the published
 matching totals and all 6,490 differential cases.
 
 The [resource-list continuation](docs/native-resource-list.md) adds eight
 verified native bodies / 775 bytes and 328 new differential cases, preserving
-all prior matches. See the [publication scope](docs/publication-scope.md) for
-the exact candidate/base distinction and verification results.
+all prior matches.
 
 The [list-copy continuation](docs/native-list-copy.md) adds five matches /492 bytes;
-all 7,066 differential cases pass. Required Python and optional Rust tooling
-coverage are reported separately in the current verification summary.
+all 7,066 differential cases pass.
 
 The [original-format reference tools](docs/reference-formats.md) preserve useful
 mesh/rig/animation/collision research and synthetic tests without distributing

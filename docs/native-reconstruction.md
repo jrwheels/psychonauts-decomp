@@ -27,7 +27,7 @@ clean reproduction is recorded in [clean review](native-clean-review.md). Both
 [resource-list](native-resource-list.md) and [copy/lifetime](native-list-copy.md)
 work are included; historical counts/timings in those documents describe their
 original checkpoints. Required Python coverage and optional Rust are separate.
-See [publication scope](publication-scope.md) and `native-verification.json` for
+See [publication scope](../contribute/docs/publication-scope.md) and `native-verification.json` for
 fresh candidate verification. All current matches must survive; matching remains
 object-level and no linking/gameplay result is implied.
 
@@ -73,7 +73,7 @@ These blockers are now machine-readable in the optional evidence workflow.
 
 ## Continue and reproduce
 
-Start with [the native workflow](native-workflow.md): rank a focused dependency
+Start with [the native workflow](../contribute/docs/native-workflow.md): rank a focused dependency
 neighborhood, review a small/medium/complex batch, compile affected objects,
 check targets, then run relevant tests. Development compatibility never marks a
 function globally matching. Full strict build and all-object regression checks
@@ -85,14 +85,14 @@ The original manual reproduction commands remain available:
 python3 -B tools/strictbuild.py "$VC"
 python3 -B tools/checkbaseline.py "$REFERENCE" engine/functions.csv \
   build/game/*.obj build/lua/*.obj --report build/reproduction/comparison.json
-python3 -B tools/run_tooling_tests.py
+python3 -B contribute/tools/run_tooling_tests.py
 for suite in tools/test_*.py; do
   python3 -B "$suite" "$REFERENCE" \
     --report "build/reproduction/$(basename "$suite" .py).json" || exit 1
 done
 ```
 
-Install requirements-dev.txt (including the numerical reference-test dependencies)
+Install contribute/requirements-dev.txt (including the numerical reference-test dependencies)
 and put working Wine/winepath on PATH. The tooling runner omits optional Rust
 explicitly unless requested, and rejects every required skip or failure. Binaries, compiler media, object files, logs, generated
 plans and disassembly remain ignored. The canonical CSV and independent evidence
@@ -109,7 +109,7 @@ milestones are separate. Generated proposals do not alter either automatically.
 | Resource input and lifetimes | [Streams](native-resource-stream.md), [contexts](native-resource-context.md) |
 | CYSP dependencies and owners | [Parser investigation](native-resource-parser.md), [format distinctions](model-format-findings.md) |
 | Recent bounded helpers | [Context name](native-context-name.md), [model input](native-model-input.md), [resource lists/pools](native-resource-list.md) |
-| Tooling/data | [Function database](function-database.md), [Lua map](lua-api-map.md), [matching acceleration](matching-acceleration.md) |
+| Tooling/data | [Function database](function-database.md), [Lua map](lua-api-map.md), [matching acceleration](../contribute/docs/matching-acceleration.md) |
 
 The next engine work remains the resource-loading and mesh dependency path.
 Measure verified bytes and useful dependency edges as well as function count.

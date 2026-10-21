@@ -8,11 +8,11 @@ DBs, object files, local reports, credentials and transcripts outside public Git
 Original reconstruction source and synthetic tests still require attribution review.
 
 ```sh
-python -B tools/publication_check.py --worktree
-python -B tools/publication_check.py --paths-from build/public-files.txt
-python -B tools/publication_check.py --staged
-python -B tools/publication_check.py --tree HEAD
-python -B tools/publication_check.py --history BASE..HEAD
+python -B contribute/tools/publication_check.py --worktree
+python -B contribute/tools/publication_check.py --paths-from build/public-files.txt
+python -B contribute/tools/publication_check.py --staged
+python -B contribute/tools/publication_check.py --tree HEAD
+python -B contribute/tools/publication_check.py --history BASE..HEAD
 ```
 
 No mode changes Git/files. `--staged` (default) scans the entire index blobs, not
