@@ -1,8 +1,8 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-30.74%25%20(3360%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.18%25-red)
+![Engine](https://img.shields.io/badge/Engine-30.86%25%20(3373%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.23%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -11,14 +11,22 @@ The game is split into two very different parts:
 - **The engine** (`Psychonauts.exe`): C++, 32 bit x86. Rendering, physics, audio, loading, the Lua runtime. **Started:** the Lua runtime matches completely. Of the C++ part the glue around the script functions is done and the script functions themselves are in progress.
 - **The scripts**: Lua 4.0 with some Double Fine changes. Raz, enemies, bosses, cutscenes, every level script. **Done:** every function decompiles to source that recompiles to the exact same bytes.
 
-This repository does **not** contain any game assets or game code. You need your own copy of the game.
+This repository contains reconstruction source and tooling, but no original game
+binaries or assets. You need your own copy of the supported game and a separately
+acquired original compiler for native matching. The engine is not linked or playable.
+
+## Contributing
+
+Start with [CONTRIBUTING.md](CONTRIBUTING.md), the [AI contributor guide](docs/ai-contributors.md),
+and the [reconstruction tool guide](docs/reconstruction-tools.md). Public tooling
+tests use synthetic fixtures; native matching requires your own reference/compiler.
 
 ## Progress
 
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3360 / 10930 functions (30.74 %), 10.18 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3373 / 10930 functions (30.86 %), 10.23 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -247,8 +255,8 @@ Psychonauts belongs to Double Fine Productions. This project is not affiliated w
 
 ## Native reconstruction verification
 
-The Steam Windows reference now matches **3,360 functions / 298,986 mapped
-bytes**, including 108 additional native bodies / 12,501 bytes beyond upstream
+The Steam Windows reference now matches **3,373 functions / 300,253 mapped
+bytes**, including 121 additional native bodies / 13,768 bytes beyond upstream
 `6959341`. See [native reconstruction](docs/native-reconstruction.md) for the
 strict build, read-only comparison, isolated differential tests, and limitations.
 This is object-level progress; no linked or playable engine is claimed.
@@ -280,3 +288,25 @@ matches /527 bytes and records native header, dependency and runtime-owner paths
 The [model input continuation](docs/native-model-input.md) adds model-name
 ownership and behavior-tested stream allocation; unmatched code is reported
 separately from matching totals.
+
+[Native workflow](docs/native-workflow.md) documents focused target ranking,
+resumable batch plans, attempt/blocker records and development/full verification.
+The [clean review](docs/native-clean-review.md) freshly reproduced the published
+matching totals and all 6,490 differential cases.
+
+The [resource-list continuation](docs/native-resource-list.md) adds eight
+verified native bodies / 775 bytes and 328 new differential cases, preserving
+all prior matches. See the [publication scope](docs/publication-scope.md) for
+the exact candidate/base distinction and verification results.
+
+The [list-copy continuation](docs/native-list-copy.md) adds five matches /492 bytes;
+all 7,066 differential cases pass. Required Python and optional Rust tooling
+coverage are reported separately in the current verification summary.
+
+The [original-format reference tools](docs/reference-formats.md) preserve useful
+mesh/rig/animation/collision research and synthetic tests without distributing
+proprietary inputs or outputs. The upstream script-completion figures above are
+inherited project results; this publication review does not rerun every script.
+
+[Prioritized external research leads](docs/research-leads.md) describe a later
+bounded compatibility audit; supplied leads are distinct from verified native findings.

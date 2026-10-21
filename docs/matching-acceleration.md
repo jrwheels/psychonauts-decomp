@@ -82,3 +82,15 @@ This compares against the original and cached Python paths and checks every
 decoded candidate outside the timed runs. It never writes functions.csv.
 Ordinary decompilation iterations only need the fast comparison and affected
 tests. Exact local reports and hashes are recorded in native-verification.json.
+
+## Contributor coverage reporting
+
+Use `python -B tools/run_tooling_tests.py` for required Python-only synthetic
+coverage, or add `--rust-targets build/rust/reloc_targets.so` to require the optional
+Rust tests too. Ambient library files do not enable Rust coverage in this runner.
+`native_verify.py full` uses the same separation and always runs all required
+Python tooling and native differential suites. Required skips/failures, and skips
+or failures in explicitly requested Rust tests, reject verification. The normal
+Rust build command requires an installed host Rust compiler and native linker;
+minimal Steam Deck installations may need a separately configured development
+container/toolchain. A private linker shim is not a portable project dependency.

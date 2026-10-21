@@ -63,3 +63,29 @@ does not pretend to validate the truth of prose evidence. Run
 The database does not claim that all 10,930 functions have been analyzed or
 that their original names/signatures are known. Curated counts and inherited
 matching counts must be reported separately.
+
+## Optional reconstruction workflow fields
+
+Evidence schema version 1 accepts an additive `workflow` object. Existing
+milestones, verification methods and curated confidence remain independent.
+The index exposes this object without promoting or changing canonical CSV rows.
+
+```json
+{
+  "workflow": {
+    "subsystem": "resource-stream",
+    "attempts": [],
+    "blockers": ["Inline temporary displacements remain unresolved"],
+    "next_action": "Recover neighboring inline-layout evidence",
+    "deferred": true
+  }
+}
+```
+
+Attempts, when actually made, store `method`, a 64-character input `fingerprint`,
+`outcome`, and optional measured `elapsed_seconds`. Historical unknown attempt
+counts and durations are not invented. The fingerprint combines the pinned
+binary/function bytes, caller observations, source hashes and declared context.
+`native_workflow.py record-attempt` validates and backs up evidence before
+appending; it never sets reconstruction/compiled/behavior/matching milestones.
+See [workflow commands and limitations](native-workflow.md).

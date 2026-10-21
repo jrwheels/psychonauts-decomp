@@ -1,0 +1,53 @@
+name: Public tooling
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.13']
+        backend: [python, rust]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            requirements-reference.txt
+      - name: Install public dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Review publication tree and reachable history
+        run: |
+          python -B tools/publication_check.py --tree HEAD
+          python -B tools/publication_check.py --history HEAD
+      - name: Build optional host accelerator
+        if: matrix.backend == 'rust'
+        run: |
+          mkdir -p build/rust
+          rustc --version
+          rustc --edition=2021 --crate-type=cdylib --crate-name=reloc_targets -O -C panic=abort tools/reloc_targets.rs -o build/rust/reloc_targets.so
+      - name: Required synthetic coverage with separate optional results
+        env:
+          BACKEND: ${{ matrix.backend }}
+        run: |
+          if [ "$BACKEND" = rust ]; then
+            python -B tools/run_tooling_tests.py --rust-targets build/rust/reloc_targets.so --report build/public-tooling.json
+          else
+            python -B tools/run_tooling_tests.py --report build/public-tooling.json
+          fi

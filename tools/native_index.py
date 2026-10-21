@@ -208,6 +208,7 @@ def function_records(pe, rows, registrations, evidence, cached_observations=None
                         "evidence": ["engine/functions.csv"] + note.get("evidence", []),
                         "verification_method": note.get("verification_method", []),
                         "unresolved": note.get("unresolved", []),
+                        "workflow": note.get("workflow", {}),
                         "last_analysis_date": note.get("last_analysis_date")})
     by_start = {r["va"]: r for r in records}
     for row in records:
@@ -231,6 +232,28 @@ def validate_evidence(evidence, starts):
             raise ValueError("verified properties require evidence")
         if states.get("binary_matched") and not note.get("verification_method"):
             raise ValueError("binary match requires an explicit comparison method")
+        workflow = note.get("workflow", {})
+        if not isinstance(workflow, dict):
+            raise ValueError("workflow must be an object")
+        for field in ("subsystem", "next_action"):
+            if field in workflow and (not isinstance(workflow[field], str) or not workflow[field].strip()):
+                raise ValueError("workflow text must be nonempty")
+        if "deferred" in workflow and type(workflow["deferred"]) is not bool:
+            raise ValueError("workflow deferred must be boolean")
+        blockers = workflow.get("blockers", [])
+        if not isinstance(blockers, list) or any(not isinstance(x, str) or not x.strip() for x in blockers):
+            raise ValueError("workflow blockers must be nonempty strings")
+        attempts = workflow.get("attempts", [])
+        if not isinstance(attempts, list):
+            raise ValueError("workflow attempts must be a list")
+        for attempt in attempts:
+            if not isinstance(attempt, dict) or any(not isinstance(attempt.get(k), str) or not attempt[k].strip() for k in ("method", "fingerprint", "outcome")):
+                raise ValueError("invalid workflow attempt")
+            if len(attempt["fingerprint"]) != 64 or any(c not in "0123456789abcdef" for c in attempt["fingerprint"]):
+                raise ValueError("invalid workflow fingerprint")
+            elapsed = attempt.get("elapsed_seconds")
+            if elapsed is not None and (type(elapsed) not in (int, float) or not __import__("math").isfinite(elapsed) or elapsed < 0):
+                raise ValueError("invalid workflow elapsed seconds")
         source = note.get("source")
         if source and (Path(source).is_absolute() or ".." in Path(source).parts or not (ROOT / source).is_file()):
             raise ValueError("source must identify an existing repository file")

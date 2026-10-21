@@ -12,3 +12,42 @@ build/
 # Private references, toolchains, analysis, and Python environments
 .local/
 .venv
+
+# Additional private compiler/reference and generated artifact guards
+*.exe
+*.dll
+*.obj
+*.o
+*.lib
+*.pdb
+*.so
+*.iso
+*.msi
+*.cab
+*.dmp
+*.sqlite
+*.pyc
+.env
+.env.*
+!.env.example
+
+# Owned format inputs and private session/modding work are never public inputs
+*.plb
+*.jan
+*.apf
+*.pba
+*.tga
+*.zpkg
+*.glb
+*.gltf
+*.fbx
+*.blend
+*.fbmod
+*.fbproject
+*.dds
+*.log
+*.jsonl
+/docs/session-state.json
+/tools/export_chat_log.py
+/tools/studio_*
+/third_party/reskate-research/
