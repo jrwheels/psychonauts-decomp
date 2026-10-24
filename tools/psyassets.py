@@ -126,7 +126,8 @@ def joint(r, version, parent=None, depth=0):
     if not all(math.isfinite(v) for v in position+rotation):raise ValueError("nonfinite bind transform")
     unknown=r.u16() if version>294 else 0
     children=[joint(r,version,ident,depth+1) for _ in range(r.u32())]
-    return dict(offset=offset,id=ident,joint_index=ident&4095,skeleton_index=ident>>12,
+    return dict(offset=offset,id=ident,serialized_id=ident,
+                serialized_id_low12=ident&4095,serialized_id_high4=ident>>12,
                 name=name,position=position,rotation=rotation,unknown=unknown,parent=parent,children=children)
 
 
@@ -134,8 +135,19 @@ def skeleton(r, version):
     start=r.pos;name=r.string();count=r.u32();root=joint(r,version)
     def flatten(j):return [j]+[v for c in j['children'] for v in flatten(c)]
     joints=flatten(root)
-    if len(joints)!=count or len({j['id'] for j in joints})!=count:
-        raise ValueError('skeleton joint count/IDs disagree')
+    if len(joints)!=count:
+        raise ValueError('skeleton joint count disagrees')
+    # 0x49a040 assigns byte indices before 0x492010 consumes serialized IDs.
+    # Preserve serialized labels separately; do not interpret their bit fields
+    # as runtime indices. The exporter still validates palette label mapping.
+    for index,j in enumerate(joints):
+        j.update(runtime_index=index,runtime_index_u8=index&255,
+                 runtime_parent_index=None,runtime_next_sibling_index=None)
+    for j in joints:
+        for child in j['children']:
+            child['runtime_parent_index']=j['runtime_index_u8']
+        for child,sibling in zip(j['children'],j['children'][1:]):
+            child['runtime_next_sibling_index']=sibling['runtime_index_u8']
     return dict(offset=start,name=name,joint_count=count,root=root)
 
 

@@ -1,8 +1,6 @@
 # Pack-loading dependencies — 2026-10-21
 
-Reconstruction originated from published `bf6104ac0b481e22ff917d6394f64eabda34f3d6`.
-The two bodies and their tests are integrated without changes on contributor-folder
-base `f1d0b46a9449e7ea7d6ce49ec057448a1b6e0bfd`.
+Local continuation of published `bf6104ac0b481e22ff917d6394f64eabda34f3d6`.
 Reference: Steam Windows PE32 SHA-1
 `21e9b89c80347c8360a8ce4b17ce45e7cd1d4a07`, SHA-256
 `cec69da17e9a5a385f88b8667f9370bf25198a12604a4c251459f68ca077a7e3`.
@@ -72,8 +70,8 @@ wrapper class for that behavior. Different local placements also change branch
 displacements and extent. No private body is counted as a reconstruction or
 behavioral equivalence result, and no failed body was added to canonical source.
 
-Probe sources, logs and reports remain under `.local/probe/meshpack-*` in the
-original private reconstruction worktree; integration does not move or publish them. Recover per-record lexical/type evidence from animation/stub readers
+Probe sources, logs and reports remain under `.local/probe/meshpack-*` in this
+worktree. Recover per-record lexical/type evidence from animation/stub readers
 before retrying the same layout experiment. No broad search or altered flags.
 
 ## Mesh-unload fallback
@@ -137,30 +135,3 @@ Next prioritize typed cache/dispatcher interfaces and animation-stub reader
 0x00495e60 before another mesh-pack layout attempt; alternatively inspect cleanup
 0x0040eea0 and mesh virtual slot +0x08 for stronger lifetime evidence. Preserve
 existing constructor/allocated-string blockers unless new evidence changes them.
-
-
-## Contributor-folder integration — 2026-10-21
-
-A separate local integration on published `f1d0b46` carries only the two verified
-functions, their map/evidence changes and these tests/docs. The contributor subtree,
-relocated commands/imports, requirements and CI remain unchanged. Original source,
-research probes and the separate ReSkate project remain untouched.
-
-Fresh `contribute/tools/native_verify.py full` verification compiles all 62 sources
-with the same RTM compiler/flags, retains all 3,373 published matches, uniquely
-selects the two additions and reproduces 3,375 matches /300,735 bytes. All 26
-original/rebuilt suites run, including string2b (356) and mesh unload (768): 8,190
-differential cases plus 44 original-only cases pass. Required tooling coverage is
-74 tests; the additional nine Rust tests pass separately. Python-only full matching
-agrees exactly with Rust-assisted matching, and required Python-only coverage passes.
-No contributor-path repairs or game-behavior changes were needed.
-
-Current private reports are `build/integration/full/verification.json`,
-`build/integration/full/comparison.json`, `build/integration/python-matching.json`
-and `build/integration/python-tooling.json`. Publication checks cover the candidate
-worktree, published base and reachable history. Canonical 10,930 addresses/sizes
-are unchanged. These are object-level and mocked-behavior results, not a linked
-or playable engine. The verified cached Rust library was reused with its recorded
-hash and unchanged source because the host Rust compiler is unavailable; its nine
-synthetic tests and complete match pass were freshly executed. Hosted CI and a
-clean external environment were not exercised by this local integration.

@@ -1,0 +1,15 @@
+{
+  "scope": "bounded model-export correctness and representative survey",
+  "source_platform": "Steam Windows PC",
+  "format": "glTF 2.0 GLB",
+  "categories": {
+    "static_props": {"tested": ["OneUp", "BoydChalk"], "source_geometry_checked": true, "blender_import_checked": ["OneUp"], "rendering": "base textures; original shader incomplete"},
+    "rigged_characters": {"tested": ["Boyd_LOD1", "Boyd_LOD2", "BoydMilkCrate_LOD1", "censorlevel2", "bv_censorlevel2"], "original_clip_samples": 684, "synthetic_deformation_samples": 594, "runtime_palette_scope": "tested single-skeleton labels equal preorder; other encodings unresolved"},
+    "environment": {"tested": ["SACU visual scene", "SACU collision"], "blender_import_checked": true, "complete_level": false, "limits": ["dynamic script placement", "lighting/material fidelity", "navigation/visibility tail"]}
+  },
+  "coverage": {"unique_character_payloads_scanned": 264, "payloads_parsed": 262, "skeletons_parsed": 207, "joints_parsed": 11392, "identity_sentinels": 2, "note": "Parsing coverage is not export coverage. Full-library successful export percentage is unmeasured."},
+  "validation": {"unit_tests": 94, "deliverable_glbs": 9, "gltf_errors": 0, "gltf_warnings": 0, "original_reader_cases": 8, "negative_controls_rejected": 5, "accepted_boyd_files_preserved": 259},
+  "portability": {"Blender": "import and sampled deformation verified", "Godot": "untested", "Unity": "untested", "Unreal": "untested"},
+  "unsupported": ["affector type 91", "affector type 50", "descending-time Boyd JAN", "unproven multi-skeleton palette encodings"],
+  "evidence": "model-export-correctness.md"
+}

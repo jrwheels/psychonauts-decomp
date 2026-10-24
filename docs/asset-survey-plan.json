@@ -1,0 +1,59 @@
+{
+  "scope": "Ten source targets: three props, three unrelated characters, three serialized environments, one known unsupported control. No Boyd exports. LOD1 only. Optional one compatible original skeletal clip per character.",
+  "targets": [
+    {
+      "label": "AsylumHeater",
+      "archive": "ASCO.ppf",
+      "model": "levels/as_asylum/props/as_heater.plb"
+    },
+    {
+      "label": "LobotoTrophy",
+      "archive": "ASCO.ppf",
+      "model": "levels/as_asylum/props/as_lobotodisguise_trophy.plb"
+    },
+    {
+      "label": "AsylumBucket",
+      "archive": "ASCO.ppf",
+      "model": "levels/as_asylum/props/as_bucket.plb"
+    },
+    {
+      "label": "Crow",
+      "archive": "ASCO.ppf",
+      "model": "characters/crow.plb",
+      "lod_mask": 1,
+      "animation": true
+    },
+    {
+      "label": "Gloria",
+      "archive": "ASGR.ppf",
+      "model": "characters/gloria.plb",
+      "lod_mask": 1,
+      "animation": true
+    },
+    {
+      "label": "Lungfish",
+      "archive": "ASGR.ppf",
+      "model": "characters/lungfish.plb",
+      "lod_mask": 1,
+      "animation": true
+    },
+    {
+      "label": "Bunkhouse",
+      "archive": "CABU.ppf"
+    },
+    {
+      "label": "Lodge",
+      "archive": "CALI.ppf"
+    },
+    {
+      "label": "Campgrounds",
+      "archive": "CAMA.ppf"
+    },
+    {
+      "label": "UnsupportedShield",
+      "archive": "LOCB.ppf",
+      "model": "characters/ultracoachshield.plb",
+      "expected_unsupported": "affector type 50"
+    }
+  ]
+}

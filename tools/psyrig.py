@@ -12,6 +12,10 @@ def qmul(a,b):
 
 
 def bind_quaternion(degrees):
+    # RuntimeBone::ReadInput (Steam 0x492010) bypasses Euler conversion only
+    # when all three serialized values equal -1; partial sentinels are Euler.
+    if list(degrees)==[-1,-1,-1]:
+        return np.array([0.,0.,0.,1.])
     # Z Y X product supported by 63 invariant Boyd animation channels.
     q=np.array([0.,0.,0.,1.])
     for axis in [2,1,0]:
@@ -37,6 +41,7 @@ def bind_globals(joints):
 
 
 def vertex_skin(skin, ids):
+    if len(set(ids))!=len(ids):raise ValueError('ambiguous serialized palette labels')
     records=np.frombuffer(skin['weights'],dtype=np.dtype([('p','<u4'),('w','<f4',(2,))]))
     p=records['p'];w=records['w'].copy()
     if np.any(p>>24) or np.any(p&255):raise ValueError('unsupported third/fourth influence')

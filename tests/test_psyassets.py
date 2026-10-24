@@ -23,11 +23,11 @@ class AssetDecoderTests(unittest.TestCase):
 
     def test_triangle_strip_parity_and_degenerates(self):
         f={'flags':0x1000000,'indices':struct.pack('<6H',0,1,2,2,3,4)}
-        self.assertEqual(triangles(f).tolist(),[[0,1,2],[3,2,4]])
+        self.assertEqual(triangles(f).tolist(),[[0,2,1],[3,4,2]])
 
-    def test_triangle_list_keeps_orientation(self):
+    def test_triangle_list_converts_clockwise_to_gltf(self):
         f={'flags':0,'indices':struct.pack('<6H',2,1,0,1,1,2)}
-        self.assertEqual(triangles(f).tolist(),[[2,1,0]])
+        self.assertEqual(triangles(f).tolist(),[[2,0,1]])
 
     def test_packed_normal_axis_signs(self):
         packed=[1023,1023<<11,511<<22,1025,1025<<11,513<<22]

@@ -3944,6 +3944,705 @@
         ],
         "next_action": "Recover per-record lexical/type evidence from the related animation/stub readers before another mesh-pack layout probe."
       }
+    },
+    "0x006a6510": {
+      "signature": "void *ResourceCache::Lookup(const char *name, void *fallback)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_cache.cpp",
+      "confidence": "assembly derived; full RTM object matching and mocked differential verification",
+      "last_analysis_date": "2026-10-22",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-cache-lookup.md",
+        "build/cache-lookup/full-01/verification.json",
+        "build/cache-lookup/full-01/test_resource_cache.json",
+        "build/cache-lookup/map-review.json"
+      ],
+      "verification_method": [
+        "63 fresh RTM source objects; unchanged original flags",
+        "Full-object unique matching; all 3375 prior addresses preserved",
+        "512 original/rebuilt/independent-expected fixtures; Find mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and original template value type remain provisional.",
+        "Find, hashing, invalid handles and indices, allocation, physical I/O and gameplay excluded.",
+        "Offset-only cache view is not a complete allocatable class."
+      ]
+    },
+    "0x004962c0": {
+      "signature": "void AnimationStub::ReadHeader(EFileReader *reader)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/animation_stub.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_animation_header.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x00496430": {
+      "signature": "void AnimationStub::RecalculateBytes()",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/animation_stub.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_animation_header.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x00498f50": {
+      "signature": "void AnimationArray<AnimationTrackSet>::Resize(unsigned int count, bool exact)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/animation_stub.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_animation_resize.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x006a65d0": {
+      "signature": "bool ResourceCache::TryGet(const char *name, void **output)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_cache.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_resource_cache_management.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x006a6630": {
+      "signature": "void ResourceCache::Unlink(unsigned int handle, unsigned int bucket)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_cache.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_resource_cache_management.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x006a6780": {
+      "signature": "unsigned int ResourceCacheHash(const unsigned char *name)",
+      "calling_convention": "cdecl",
+      "parent": null,
+      "source": "src/game/resource_cache.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_resource_cache_management.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x006a6850": {
+      "signature": "void ResourceCache::Release(unsigned int handle)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/resource_cache.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_resource_cache_management.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x004011f0": {
+      "signature": "RTM compiler-generated reverse destructor iterator",
+      "calling_convention": "stdcall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiler-generated RTM support, explicitly separate from reconstructed engine source",
+      "compiler_generated": true,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": false,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_vector_iterators.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x00401820": {
+      "signature": "RTM compiler-generated forward constructor iterator",
+      "calling_convention": "stdcall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiler-generated RTM support, explicitly separate from reconstructed engine source",
+      "compiler_generated": true,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": false,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_vector_iterators.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x00491a10": {
+      "signature": "BoneInfo::BoneInfo()",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_skeleton_construction.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x00491b00": {
+      "signature": "RuntimeBone::RuntimeBone()",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_skeleton_construction.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x00499ac0": {
+      "signature": "SkeletonData::SkeletonData()",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_skeleton_construction.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x0049a040": {
+      "signature": "bool Skeleton::ReadInput(EStream *stream, unsigned int version)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "unique full-object RTM match; independent bounded original/rebuilt/expected fixtures; provisional names",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/verification.json",
+        "build/campaign/full-03/test_skeleton_input.json",
+        "build/campaign/post-promotion-python.json"
+      ],
+      "verification_method": [
+        "Strict full build of66 original-RTM source objects with unchanged flags",
+        "Full-object relocation-aware unique matching; all3376 campaign-baseline matches retained",
+        "Fresh independent expected/original/rebuilt fixture memory/traces/ABI; identified dependencies mocked"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and broader engine semantics remain provisional.",
+        "Actual resource I/O, recursive topology, transforms, allocation failure integration and gameplay are not established."
+      ]
+    },
+    "0x006a66a0": {
+      "signature": "ResourceCache::Find",
+      "source": "src/game/resource_cache.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_resource_cache_management.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "8 nonrelocation byte differences in named-local slots"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x006a6560": {
+      "signature": "ResourceCache::Remove",
+      "source": "src/game/resource_cache.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_resource_cache_management.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "5 nonrelocation byte differences in named-local slots"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x0041f450": {
+      "signature": "SwapResourceArrays",
+      "source": "src/game/resource_array.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_resource_array_swap.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "4 nonrelocation byte differences in the retained array-02 local layout"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x004991c0": {
+      "signature": "AnimationArray<AnimationTrack>::Resize",
+      "source": "src/game/animation_stub.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_animation_resize.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "Development bytes compatible; multiple full-object candidates unresolved without matching caller"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x00499920": {
+      "signature": "AnimationArray<unsigned char>::Resize",
+      "source": "src/game/animation_stub.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_animation_resize.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "Development bytes compatible; multiple full-object candidates unresolved without matching caller"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x00491a90": {
+      "signature": "BoneInfo::~BoneInfo",
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_skeleton_construction.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "Development bytes compatible; full-object uniqueness unresolved"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x00491cb0": {
+      "signature": "RuntimeBone::~RuntimeBone",
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-23",
+      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/full-03/test_skeleton_construction.json",
+        "build/campaign/full-03/comparison.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "Development bytes compatible; repeated empty destructor remains ambiguous"
+        ],
+        "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
+      }
+    },
+    "0x006a61c0": {
+      "last_analysis_date": "2026-10-23",
+      "confidence": "private compiling hypothesis, not integrated or behaviorally verified",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": false,
+        "compiled": true,
+        "behaviorally_verified": false,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/cache-next-03/targets.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "18 nonrelocation byte differences; named/inlined locals"
+        ],
+        "next_action": "Inspect neighboring typed source/API and preserved probe evidence; do not repeat unchanged layout probes."
+      }
+    },
+    "0x006a63a0": {
+      "last_analysis_date": "2026-10-23",
+      "confidence": "private compiling hypothesis, not integrated or behaviorally verified",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": false,
+        "compiled": true,
+        "behaviorally_verified": false,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/cache-next-03/targets.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "11 nonrelocation byte differences; named locals"
+        ],
+        "next_action": "Inspect neighboring typed source/API and preserved probe evidence; do not repeat unchanged layout probes."
+      }
+    },
+    "0x00495e60": {
+      "last_analysis_date": "2026-10-23",
+      "confidence": "private compiling hypothesis, not integrated or behaviorally verified",
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": false,
+        "compiled": true,
+        "behaviorally_verified": false,
+        "binary_matched": false
+      },
+      "evidence": [
+        "docs/native-campaign-20261023.md",
+        "build/campaign/animation-next-02/targets.json"
+      ],
+      "workflow": {
+        "subsystem": "resource/animation dependency campaign",
+        "deferred": true,
+        "blockers": [
+          "caller frame, byte access and local placement disagree"
+        ],
+        "next_action": "Inspect neighboring typed source/API and preserved probe evidence; do not repeat unchanged layout probes."
+      }
     }
   }
 }

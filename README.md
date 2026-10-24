@@ -1,8 +1,8 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-30.88%25%20(3375%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.24%25-red)
+![Engine](https://img.shields.io/badge/Engine-31.01%25%20(3389%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.33%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -20,7 +20,7 @@ acquired original compiler for native matching. The engine is not linked or play
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3375 / 10930 functions (30.88 %), 10.24 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3389 / 10930 functions (31.01 %), 10.33 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -303,3 +303,18 @@ inherited project results; this publication review does not rerun every script.
 
 [Prioritized external research leads](docs/research-leads.md) describe a later
 bounded compatibility audit; supplied leads are distinct from verified native findings.
+
+## Fork development workspace
+
+This fork retains native verification tools and original-format extraction
+research separately from the lean upstream source contribution. The current
+verified native map contains 3,389 functions /303,359 bytes. See
+[the native campaign](docs/native-campaign-20261023.md),
+[export correctness](docs/model-export-correctness.md) and
+[the asset survey](docs/asset-survey.md). Portable GLB tools cover tested props,
+characters and serialized environment snapshots; decoder coverage does not imply
+whole-library export success or complete original rendering fidelity.
+
+Game archives, extracted assets, compiler files, private reports and unfinished
+experiments stay local and ignored. Tests and documentation belong in this fork;
+the upstream source-only branch intentionally excludes them.

@@ -43,7 +43,9 @@ def triangles(f):
         tris[1::2]=tris[1::2][:,[1,0,2]]
     else:tris=idx.reshape(-1,3)
     keep=(tris[:,0]!=tris[:,1])&(tris[:,1]!=tris[:,2])&(tris[:,0]!=tris[:,2])
-    return np.ascontiguousarray(tris[keep],dtype='<u4')
+    # Original PC visual streams use clockwise front faces (noclip render.ts).
+    # glTF uses counterclockwise front faces. Keep positions/normals unchanged.
+    return np.ascontiguousarray(tris[keep][:,[0,2,1]],dtype='<u4')
 
 
 def normals(raw):
@@ -124,7 +126,11 @@ class Exporter:
             for j in joints:
                 # Joints and skinned mesh are siblings: mesh remains identity.
                 node=self.node(j['name'],parent if j['parent'] is None else nodes[j['parent']],
-                    {'original_joint_id':j['id'],'source_offset':j['offset'],'bind_euler_degrees':j['rotation']})
+                    {'original_joint_id':j['id'],'source_offset':j['offset'],'bind_euler_degrees':j['rotation'],
+                     'runtime_index':j['runtime_index'],'runtime_index_u8':j['runtime_index_u8'],
+                     'runtime_parent_index':j['runtime_parent_index'],
+                     'runtime_next_sibling_index':j['runtime_next_sibling_index'],
+                     'rotation_identity_sentinel':j['rotation']==[-1,-1,-1]})
                 self.g['nodes'][node].update(translation=j['position'],rotation=bind_quaternion(j['rotation']).tolist())
                 nodes[j['id']]=node
             inverse=np.array([np.linalg.inv(globals_[v]).T.reshape(16) for v in ids],dtype='<f4')
@@ -269,11 +275,14 @@ class Exporter:
         self.domain(self.data['domain'])
         if not self.stats['triangles']:raise ValueError('no supported triangle geometry; refusing empty export')
         self.g['buffers']=[{'byteLength':len(self.binary)}]
+        # Optional glTF arrays have minItems=1. Textureless props legitimately
+        # have no images/textures; omit those properties rather than emitting [].
+        self.g={k:v for k,v in self.g.items() if not isinstance(v,list) or v}
         js=json.dumps(self.g,separators=(',',':'),allow_nan=False).encode();js+=b' '*((-len(js))%4)
         blob=bytes(self.binary);blob+=b'\0'*((-len(blob))%4)
         self.output.write_bytes(struct.pack('<III',0x46546c67,2,12+8+len(js)+8+len(blob))+
                                 struct.pack('<II',len(js),0x4e4f534a)+js+struct.pack('<II',len(blob),0x004e4942)+blob)
-        self.stats.update(rigs=self.rig_reports,lod_mask=self.lod_mask,animations=len(self.g.get('animations',[])),images=len(self.g['images']),nodes=len(self.g['nodes']),scene_trailing_bytes=self.data['trailing_bytes'],
+        self.stats.update(rigs=self.rig_reports,lod_mask=self.lod_mask,animations=len(self.g.get('animations',[])),images=len(self.g.get('images',[])),nodes=len(self.g['nodes']),scene_trailing_bytes=self.data['trailing_bytes'],
                           placement_policy='identity, compatible with noclip; source TRS retained as extras',
                           limitations=['dynamic/script object instantiation unresolved','lightmaps retained but not combined',
                                        'collision exported separately; physics behavior not reconstructed','navigation/visibility tail undecoded'])

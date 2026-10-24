@@ -1,0 +1,215 @@
+{
+  "scope": "50 PPF, 50 APF, 1 PKG from owned Steam PC installation; embedded APF chunks included. PPF locale-0/shared textures only. PPF script groups, sound/video banks and other installations outside scope.",
+  "identity": "Content hashes for original payloads; encoded image metadata+surface bytes for PPF textures; canonical metadata for derived skeleton/collision/material resources. Archive occurrences and named families retained privately. LODs do not multiply source assets.",
+  "validation_scope": "Export and validation counts are unique resources from this batch only; exclude accepted prior Boyd/survey assets. Source checks + Khronos, with Blender results separately noted. Texture export/validation means selected base mip/frame; material validation means retained parameters/references, not original shader fidelity.",
+  "coverage": {
+    "animation_events": {
+      "records": 1141,
+      "unique_assets": 320,
+      "parsed": 319,
+      "parse_failed": 1,
+      "parse_not_attempted": 0,
+      "exported": 0,
+      "validated": 0,
+      "failure_groups": {
+        "event name/key count": 1
+      }
+    },
+    "animation_references": {
+      "records": 8301,
+      "unique_assets": 2731,
+      "parsed": 2731,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 0,
+      "validated": 0,
+      "failure_groups": {}
+    },
+    "collision_meshes": {
+      "records": 920,
+      "unique_assets": 535,
+      "parsed": 535,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 3,
+      "validated": 3,
+      "failure_groups": {}
+    },
+    "environment_scenes": {
+      "records": 49,
+      "unique_assets": 49,
+      "parsed": 49,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 3,
+      "validated": 3,
+      "failure_groups": {}
+    },
+    "facial_animations": {
+      "records": 10928,
+      "unique_assets": 7767,
+      "parsed": 1873,
+      "parse_failed": 5894,
+      "parse_not_attempted": 0,
+      "exported": 0,
+      "validated": 0,
+      "failure_groups": {
+        "PBA version": 5877,
+        "PBA trailing bytes": 17
+      }
+    },
+    "materials": {
+      "records": 31979,
+      "unique_assets": 9219,
+      "parsed": 9219,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 425,
+      "validated": 425,
+      "failure_groups": {}
+    },
+    "other_resources": {
+      "records": 377,
+      "unique_assets": 375,
+      "parsed": 0,
+      "parse_failed": 0,
+      "parse_not_attempted": 375,
+      "exported": 0,
+      "validated": 0,
+      "failure_groups": {}
+    },
+    "skeletal_animations": {
+      "records": 3975,
+      "unique_assets": 3934,
+      "parsed": 3916,
+      "parse_failed": 18,
+      "parse_not_attempted": 0,
+      "exported": 3,
+      "validated": 3,
+      "failure_groups": {
+        "non-increasing key times": 12,
+        "truncated/unknown record layout": 1,
+        "animation version 1": 2,
+        "animation version 100": 3
+      }
+    },
+    "skeletal_models": {
+      "records": 2290,
+      "unique_assets": 447,
+      "parsed": 447,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 3,
+      "validated": 3,
+      "failure_groups": {}
+    },
+    "skeletons": {
+      "records": 2348,
+      "unique_assets": 341,
+      "parsed": 341,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 3,
+      "validated": 3,
+      "failure_groups": {}
+    },
+    "static_models": {
+      "records": 2985,
+      "unique_assets": 1216,
+      "parsed": 1216,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 3,
+      "validated": 3,
+      "failure_groups": {}
+    },
+    "textures": {
+      "records": 16789,
+      "unique_assets": 6052,
+      "parsed": 5784,
+      "parse_failed": 268,
+      "parse_not_attempted": 0,
+      "exported": 272,
+      "validated": 272,
+      "failure_groups": {
+        "multi-frame/volume texture": 258,
+        "unsupported/truncated texture surface": 10
+      }
+    },
+    "textures_dds": {
+      "records": 589,
+      "unique_assets": 588,
+      "parsed": 588,
+      "parse_failed": 0,
+      "parse_not_attempted": 0,
+      "exported": 0,
+      "validated": 0,
+      "failure_groups": {}
+    },
+    "unparsed_models": {
+      "records": 48,
+      "unique_assets": 31,
+      "parsed": 0,
+      "parse_failed": 31,
+      "parse_not_attempted": 0,
+      "exported": 0,
+      "validated": 0,
+      "failure_groups": {
+        "skin influence count": 11,
+        "affector type 91": 1,
+        "truncated/unknown record layout": 7,
+        "affector type 30": 2,
+        "affector type 50": 1,
+        "affector type 110": 1,
+        "affector type 4": 1,
+        "scene version 305": 3,
+        "scene version 304": 2,
+        "scene version 303": 1,
+        "scene version 315": 1
+      }
+    }
+  },
+  "survey": {
+    "planned_targets": 10,
+    "supported_visual_exports": 9,
+    "unsupported_control": 1,
+    "collision_exports": 3,
+    "deliverable_glbs": 12,
+    "diagnostic_glbs": 3,
+    "gltf_errors": 0,
+    "gltf_warnings": 0,
+    "blender_original_clip_samples": 27,
+    "blender_synthetic_samples": 324,
+    "static_visual_imports": 6,
+    "collision_exact_face_imports": 2,
+    "collision_duplicate_suppression": {
+      "Campgrounds": 475
+    },
+    "original_reader_fidelity_claimed": false
+  },
+  "limits": [
+    "multi-skeleton palette interpretation unproven",
+    "first-frame/mip textures only in GLB",
+    "original shader/lightmap blending incomplete",
+    "nonidentity runtime placement and dynamic script instantiation unverified",
+    "Godot/Unity/Unreal untested",
+    "parser acceptance does not establish complete resource semantics"
+  ],
+  "roadmap": [
+    {
+      "priority": 1,
+      "task": "Recover PBA version 101 from independent original records",
+      "opportunity": "5877 unique facial-animation payloads currently rejected at version gate; do not bypass gate or assume version100 layout"
+    },
+    {
+      "priority": 2,
+      "task": "Expand texture/surface and model variant support through bounded fixtures",
+      "opportunity": "258 animated/volume texture variants plus 10 surface-layout failures; 11 model payloads reject skin influence count; target common cases before isolated affectors"
+    },
+    {
+      "priority": 3,
+      "task": "Validate environment placement and material composition",
+      "opportunity": "49 serialized scenes parse; tested maps retain nonidentity transforms and scripts but do not reconstruct runtime placement/lightmap rendering"
+    }
+  ]
+}
