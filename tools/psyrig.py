@@ -64,8 +64,11 @@ def joint_name(name):
 
 
 def compatible_hierarchy(a,b):
-    aa,bb=flatten(a),flatten(b)
-    return len(aa)==len(bb) and len({joint_name(j['name']) for j in aa})==len(aa) and all(
-        joint_name(x['name'])==joint_name(y['name']) and
-        [joint_name(c['name']) for c in x['children']]==[joint_name(c['name']) for c in y['children']]
-        for x,y in zip(aa,bb))
+    # Serialized trees have ordered children. Pair by the complete ordinal path,
+    # then require the name at every path; never resolve a bone by name alone.
+    # Repeated leaf names under different branches do not make this ambiguous.
+    def signature(root,path=()):
+        yield path,joint_name(root['name'])
+        for i,child in enumerate(root['children']):
+            yield from signature(child,path+(i,))
+    return list(signature(a))==list(signature(b))

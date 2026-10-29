@@ -64,7 +64,7 @@ for path in sorted((package/subdir).glob('*.glb')):
     owners=[arm,ob]+([ob.data.shape_keys] if ob.data.shape_keys else []);clips=[]
     source_positions=np.concatenate([access(p['attributes']['POSITION']) for p in g['meshes'][0]['primitives']])
     tolerance=float(np.ptp(source_positions,axis=0).max())*.001
-    for ai,a in enumerate(g['animations']):
+    for ai,a in enumerate(g.get('animations',[])):
         for owner in owners:
             if owner.animation_data:
                 owner.animation_data.action=None
@@ -97,8 +97,16 @@ for path in sorted((package/subdir).glob('*.glb')):
     for pb in arm.pose.bones:pb.matrix_basis=Matrix.Identity(4)
     for key in (ob.data.shape_keys.key_blocks if ob.data.shape_keys else []):key.value=0
     bpy.context.scene.frame_set(0)
+    bpy.context.view_layer.update()
+    ev=ob.evaluated_get(bpy.context.evaluated_depsgraph_get());me=ev.to_mesh()
+    actual=np.array([list(ev.matrix_world@v.co) for v in me.vertices]);ev.to_mesh_clear()
+    parts=pose(g,access);expected=np.concatenate([parts[(0,pi)] for pi in range(len(g['meshes'][0]['primitives']))])
+    expected=expected[:,[0,2,1]];expected[:,1]*=-1
+    bind_error=float(np.max(np.abs(actual-expected)))
+    if bind_error>tolerance:raise ValueError('independent bind-pose discrepancy %g'%bind_error)
     bpy.ops.wm.save_as_mainfile(filepath=str(package/subdir/(path.stem+'.blend')))
     report['models'].append({'file':path.name,'bones':len(arm.data.bones),'vertices':len(ob.data.vertices),'faces':len(ob.data.polygons),
-        'morph_targets':len(ob.data.shape_keys.key_blocks)-1 if ob.data.shape_keys else 0,'position_tolerance':tolerance,'source_duplicate_faces_suppressed_by_blender':suppressed_duplicate_faces,'slerp_keys_added_for_blender':added,'clips':clips,'result':'independent import and sampled playback passed'})
+        'morph_targets':len(ob.data.shape_keys.key_blocks)-1 if ob.data.shape_keys else 0,'position_tolerance':tolerance,'source_duplicate_faces_suppressed_by_blender':suppressed_duplicate_faces,'slerp_keys_added_for_blender':added,'clips':clips,'bind_pose_error':bind_error,'result':'independent import and bind pose passed'})
+(package/'validation').mkdir(exist_ok=True)
 (package/('validation/blender-import'+('-'+subdir if subdir!='models' else '')+'.json')).write_text(json.dumps(report,indent=2)+'\n')
 print('ALL BLENDER IMPORT/PLAYBACK CHECKS PASSED')

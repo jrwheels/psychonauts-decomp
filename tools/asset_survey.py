@@ -18,7 +18,7 @@ from asset_manifest import ROOT,digest,derived,material_view,mesh_walk,encoded_t
 from psyassets import read_archive,scene,normalize
 from psyexport import Exporter,export_collision,pixels
 from psyrig import flatten,compatible_hierarchy
-from psyanim import jan
+from psyanim import apf,jan
 from glb_skin import read
 from check_model_export import check
 
@@ -44,11 +44,68 @@ def compatible_clip(manifest,game,joints):
     return None,None
 
 
+def referenced_clip(manifest,game,joints,name,archive=None):
+    """Resolve an exact original APF path; never substitute a compatible clip.
+
+    The path documents an original named association, not runtime ownership.
+    Re-read the APF record and hash-bound JAN rather than trusting index labels.
+    """
+    refs=[a for a in manifest['assets'] if a['category']=='animation_references' and
+          any(normalize(o['name'])==normalize(name) and
+              (archive is None or o['archive']==archive) for o in a['occurrences'])]
+    locations={(a['details']['pkg_offset'],a['details']['pkg_size']) for a in refs}
+    if len(locations)!=1:raise ValueError('named APF path must identify one original payload')
+    offset,size=next(iter(locations))
+    candidates=[a for a in manifest['assets'] if a['category']=='skeletal_animations' and
+                a['parse_status']=='parsed' and any(o['offset']==offset and o['size']==size for o in a['occurrences'])]
+    if len(candidates)!=1:raise ValueError('named APF reference has no unique parsed JAN')
+    asset=candidates[0]
+    occurrence=next(o for a in refs for o in a['occurrences'] if normalize(o['name'])==normalize(name) and
+                    (archive is None or o['archive']==archive))
+    packs=game/'WorkResource/PCLevelPackFiles';path=packs/occurrence['archive']
+    if path.resolve().parent!=packs.resolve():raise ValueError('unsafe APF archive path')
+    apf_raw=path.read_bytes();stub=apf(apf_raw)[occurrence['record']]
+    if (normalize(stub['name']),stub['pkg_offset'],stub['pkg_size'])!=(normalize(name),offset,size):
+        raise ValueError('original APF record differs from inventory')
+    if stub['position_channel'] is not None:raise ValueError('named clip root motion is not supported')
+    pkg_record=next(o for o in asset['occurrences'] if o['offset']==offset and o['size']==size)
+    pkg=game/pkg_record['archive']
+    if pkg.resolve().parent!=game.resolve():raise ValueError('unsafe JAN package path')
+    with pkg.open('rb') as f:f.seek(offset);raw=f.read(size)
+    if digest(raw)!=asset['sha256']:raise ValueError('named JAN payload differs from inventory')
+    animation=jan(raw)
+    if animation['header']['joints']!=stub['header']['joints']:
+        raise ValueError('named APF/JAN joint-count disagreement')
+    if not compatible_hierarchy(joints[0],animation['root']):
+        raise ValueError('named clip hierarchy is incompatible with model')
+    source=dict(apf=occurrence['archive'],apf_record=occurrence['record'],apf_sha256=digest(apf_raw),
+                original_path=stub['name'],archive=pkg_record['archive'],pkg_offset=offset,pkg_size=size,
+                sha256=asset['sha256'],frame_rate=30,events_and_blends_exported=False,
+                association='exact original APF named reference; character attribution from path, not runtime binding')
+    return asset,dict(name=stub['name'],data=animation,source=source)
+
+
 def check_keys(glb,clip):
     g,access=read(glb);animation=g['animations'][0]
+    if len(g['skins'])!=1:raise ValueError('key verifier requires one source skin')
+    skin=g['skins'][0];joint_set=set(skin['joints'])
+    parents={child:i for i,node in enumerate(g['nodes']) for child in node.get('children',[])}
+    roots=[i for i in skin['joints'] if parents.get(i) not in joint_set]
+    if 'target_root_id' in clip:
+        roots=[i for i in skin['joints'] if g['nodes'][i].get('extras',{}).get('original_joint_id')==clip['target_root_id']]
+    if len(roots)!=1:raise ValueError('source skin root is ambiguous')
+    def ordered(node):
+        yield node
+        for child in g['nodes'][node].get('children',[]):
+            if child in joint_set:yield from ordered(child)
+    expected_nodes=list(ordered(roots[0]));source_joints=flatten(clip['data']['root'])
+    if len(expected_nodes)!=len(source_joints):raise ValueError('source/export joint-tree count differs')
+    source_ordinals={id(j):i for i,j in enumerate(source_joints)}
     channels=[(j,c) for j in flatten(clip['data']['root']) for c in j['channels']]
     assert len(channels)==len(animation['channels']);keys=0
     for (j,c),target in zip(channels,animation['channels']):
+        if target['target']['node']!=expected_nodes[source_ordinals[id(j)]]:
+            raise ValueError('animation channel targets the wrong indexed joint path')
         sampler=animation['samplers'][target['sampler']]
         assert g['nodes'][target['target']['node']]['name'].rsplit('|',1)[-1]==j['name'].rsplit('|',1)[-1]
         assert target['target']['path']=={0:'translation',1:'rotation',2:'scale',3:'rotation'}[c['type']]
@@ -96,7 +153,10 @@ def survey(game,manifest,plan,out,validator):
             clip_asset=clip=None
             if target.get('animation'):
                 joint_list=[j for m in all_meshes for sk in m['skeletons'] for j in flatten(sk['root'])]
-                clip_asset,clip=compatible_clip(manifest,game,joint_list)
+                if target.get('animation_path'):
+                    clip_asset,clip=referenced_clip(manifest,game,joint_list,target['animation_path'],target.get('animation_archive'))
+                    row['animation_association']=clip['source']
+                else:clip_asset,clip=compatible_clip(manifest,game,joint_list)
                 row['animation']=clip_asset['id'] if clip_asset else None
                 row['animation_scope']='skeletal keys only; no APF root-motion-only references, facial companions or events'
             s['source']=dict(archive=target['archive'],model=model,record_sha256=sha)

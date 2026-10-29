@@ -128,15 +128,44 @@ def check(archive,model,glb,lod_mask):
                              'no original-game rendering or shader equivalence'])
 
 
+def check_collision(archive,model,glb):
+    a=read_archive(archive,model is None)
+    if model is None:raw=a['scene_data']
+    else:
+        records=[m for m in a['models'] if normalize(m['name'])==normalize(model)]
+        if len(records)!=1:raise ValueError('model must identify one collision owner')
+        raw=records[0]['data']
+    source=scene(raw);g,access=read(glb);rows=[]
+    for m in meshes(source['domain']):
+        c=m['collision']
+        if not c or not c['record_words']:continue
+        offset=c['offset'];count=struct.unpack_from('<I',raw,offset)[0]
+        # Read original record bytes, not the parser's decoded triangle words.
+        expected=[struct.unpack_from('<3H',raw,offset+4+i*20+4) for i in range(count)]
+        at=offset+4+20*count;n=struct.unpack_from('<I',raw,at)[0]
+        positions=[struct.unpack_from('<3f',raw,at+4+12*i) for i in range(n)]
+        gm=g['meshes'][len(rows)];assert len(gm['primitives'])==1
+        p=gm['primitives'][0]
+        np.testing.assert_array_equal(access(p['indices']).reshape(-1,3),expected)
+        np.testing.assert_array_equal(access(p['attributes']['POSITION']),positions)
+        rows.append(dict(source_offset=offset,vertices=n,triangles=count))
+    assert rows and len(rows)==len(g['meshes'])
+    return dict(status='passed',kind='collision',model=model,checks=rows,
+                archive_sha256=hashlib.sha256(Path(archive).read_bytes()).hexdigest(),
+                record_sha256=hashlib.sha256(raw).hexdigest(),glb_sha256=hashlib.sha256(Path(glb).read_bytes()).hexdigest(),
+                limitations=['raw positions/indices only','surface/nav metadata retained separately','no physics or runtime placement proof'])
+
+
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('archive',type=Path);ap.add_argument('glb',type=Path)
     ap.add_argument('--model',help='MPAK model identifier; omitted for the main scene')
     ap.add_argument('--lod-mask',type=int);ap.add_argument('--report',type=Path,required=True)
+    ap.add_argument('--collision',action='store_true',help='check raw collision geometry instead of visual streams')
     args=ap.parse_args();root=Path(__file__).resolve().parents[1]
     if not any(args.report.resolve().is_relative_to(root/d) for d in ('.local','build')):
         ap.error('report must remain private')
-    result=check(args.archive,args.model,args.glb,args.lod_mask)
+    result=check_collision(args.archive,args.model,args.glb) if args.collision else check(args.archive,args.model,args.glb,args.lod_mask)
     args.report.parent.mkdir(parents=True,exist_ok=True)
     args.report.write_text(json.dumps(result,indent=2)+'\n')
     print(args.model,'passed',sum(r['vertices'] for r in result['checks']),'vertices')
