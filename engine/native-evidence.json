@@ -4524,21 +4524,21 @@
       }
     },
     "0x00491a90": {
-      "signature": "BoneInfo::~BoneInfo",
+      "signature": "BoneInfo::~BoneInfo()",
       "source": "src/game/skeleton_input.cpp",
-      "last_analysis_date": "2026-10-23",
-      "confidence": "compiled and bounded behavior verified; NOT counted as matching",
+      "last_analysis_date": "2026-10-29",
+      "confidence": "unique full-object RTM match; bounded independent expected/original/rebuilt fixtures; names provisional",
       "milestones": {
         "analyzed": true,
         "reconstructed": true,
         "compiled": true,
         "behaviorally_verified": true,
-        "binary_matched": false
+        "binary_matched": true
       },
       "evidence": [
-        "docs/native-campaign-20261023.md",
-        "build/campaign/full-03/test_skeleton_construction.json",
-        "build/campaign/full-03/comparison.json"
+        "docs/native-skeleton-helpers.md",
+        "build/advance-20261029/full-02/verification.json",
+        "build/advance-20261029/full-02/test_skeleton_construction.json"
       ],
       "workflow": {
         "subsystem": "resource/animation dependency campaign",
@@ -4547,7 +4547,20 @@
           "Development bytes compatible; full-object uniqueness unresolved"
         ],
         "next_action": "Recover typed caller or inline-local evidence before another bounded compiler probe."
-      }
+      },
+      "calling_convention": "thiscall",
+      "parent": null,
+      "compiler_generated": false,
+      "verification_method": [
+        "Fresh strict original-compiler build of 66 source objects with unchanged flags",
+        "Full-object unique matching preserves all 3389 prior addresses",
+        "Independent expected/original/rebuilt memory, call-order and ABI checks"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names remain provisional; no linked engine or gameplay claim.",
+        "String allocation/free/copy helpers are mocked; alias tests do not dereference freed memory."
+      ]
     },
     "0x00491cb0": {
       "signature": "RuntimeBone::~RuntimeBone",
@@ -4643,6 +4656,200 @@
         ],
         "next_action": "Inspect neighboring typed source/API and preserved probe evidence; do not repeat unchanged layout probes."
       }
+    },
+    "0x00491ab0": {
+      "signature": "void BoneInfo::SetName(const char *value)",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-29",
+      "confidence": "unique full-object RTM match; bounded independent expected/original/rebuilt fixtures; names provisional",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-skeleton-helpers.md",
+        "build/advance-20261029/full-02/verification.json",
+        "build/advance-20261029/full-02/test_skeleton_helpers.json"
+      ],
+      "verification_method": [
+        "Fresh strict original-compiler build of 66 source objects with unchanged flags",
+        "Full-object unique matching preserves all 3389 prior addresses",
+        "Independent expected/original/rebuilt memory, call-order and ABI checks"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names remain provisional; no linked engine or gameplay claim.",
+        "String allocation/free/copy helpers are mocked; alias tests do not dereference freed memory."
+      ]
+    },
+    "0x00492720": {
+      "signature": "RuntimeBone *RuntimeBone::GetParent()",
+      "calling_convention": "thiscall",
+      "parent": null,
+      "source": "src/game/skeleton_input.cpp",
+      "last_analysis_date": "2026-10-29",
+      "confidence": "unique full-object RTM match; bounded independent expected/original/rebuilt fixtures; names provisional",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-skeleton-helpers.md",
+        "build/advance-20261029/full-02/verification.json",
+        "build/advance-20261029/full-02/test_skeleton_helpers.json"
+      ],
+      "verification_method": [
+        "Fresh strict original-compiler build of 66 source objects with unchanged flags",
+        "Full-object unique matching preserves all 3389 prior addresses",
+        "Independent expected/original/rebuilt memory, call-order and ABI checks"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "No bounds checking is present in the original helper; returned pointer validity depends on the caller.",
+        "Runtime record indices do not establish serialized joint IDs."
+      ]
+    },
+    "0x005cb1e0": {
+      "signature": "void EScriptObject::SetState(lua_State *L)",
+      "calling_convention": "thiscall",
+      "parent": "APISetState_impl@0x005be880",
+      "source": "src/game/script_state.cpp",
+      "last_analysis_date": "2026-11-10",
+      "confidence": "unique fresh full-object RTM match; integrated independent expected/original/rebuilt fixtures; names provisional",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-script-state.md",
+        "build/native-boyd-20261110/full-01/verification.json",
+        "build/native-boyd-20261110/full-01/test_script_state.json",
+        ".local/native-boyd-20261110/map-review.json"
+      ],
+      "verification_method": [
+        "Fresh strict RTM build of all 67 source objects with unchanged flags",
+        "Full-object matching retains all 3392 previous addresses and uniquely selects exactly the four requested bodies",
+        "1709 independent expected/original/rebuilt fixtures execute the four-body call chain with mocked Lua API endpoints"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and numeric thread status meanings remain provisional.",
+        "Real Lua table/error-longjmp, coroutine/scheduler, ActionFile, blending, navigation, dialogue/lipsync and gameplay remain unverified.",
+        "GetThread retains unchecked token behavior; Release only clears one active bit and does not delete a thread."
+      ]
+    },
+    "0x005cdef0": {
+      "signature": "EScriptThread *EScriptManager::GetThread(unsigned char index)",
+      "calling_convention": "thiscall",
+      "parent": "EScriptObject::SetState@0x005cb1e0",
+      "source": "src/game/script_state.cpp",
+      "last_analysis_date": "2026-11-10",
+      "confidence": "unique fresh full-object RTM match; integrated independent expected/original/rebuilt fixtures; names provisional",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-script-state.md",
+        "build/native-boyd-20261110/full-01/verification.json",
+        "build/native-boyd-20261110/full-01/test_script_state.json",
+        ".local/native-boyd-20261110/map-review.json"
+      ],
+      "verification_method": [
+        "Fresh strict RTM build of all 67 source objects with unchanged flags",
+        "Full-object matching retains all 3392 previous addresses and uniquely selects exactly the four requested bodies",
+        "1709 independent expected/original/rebuilt fixtures execute the four-body call chain with mocked Lua API endpoints"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and numeric thread status meanings remain provisional.",
+        "Real Lua table/error-longjmp, coroutine/scheduler, ActionFile, blending, navigation, dialogue/lipsync and gameplay remain unverified.",
+        "GetThread retains unchecked token behavior; Release only clears one active bit and does not delete a thread."
+      ]
+    },
+    "0x005ca870": {
+      "signature": "void EScriptThread::Reset()",
+      "calling_convention": "thiscall",
+      "parent": "EScriptObject::SetState@0x005cb1e0",
+      "source": "src/game/script_state.cpp",
+      "last_analysis_date": "2026-11-10",
+      "confidence": "unique fresh full-object RTM match; integrated independent expected/original/rebuilt fixtures; names provisional",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-script-state.md",
+        "build/native-boyd-20261110/full-01/verification.json",
+        "build/native-boyd-20261110/full-01/test_script_state.json",
+        ".local/native-boyd-20261110/map-review.json"
+      ],
+      "verification_method": [
+        "Fresh strict RTM build of all 67 source objects with unchanged flags",
+        "Full-object matching retains all 3392 previous addresses and uniquely selects exactly the four requested bodies",
+        "1709 independent expected/original/rebuilt fixtures execute the four-body call chain with mocked Lua API endpoints"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and numeric thread status meanings remain provisional.",
+        "Real Lua table/error-longjmp, coroutine/scheduler, ActionFile, blending, navigation, dialogue/lipsync and gameplay remain unverified.",
+        "GetThread retains unchecked token behavior; Release only clears one active bit and does not delete a thread."
+      ]
+    },
+    "0x005ce220": {
+      "signature": "void EScriptManager::ReleaseThread(EScriptThread *thread)",
+      "calling_convention": "thiscall",
+      "parent": "EScriptObject::SetState@0x005cb1e0",
+      "source": "src/game/script_state.cpp",
+      "last_analysis_date": "2026-11-10",
+      "confidence": "unique fresh full-object RTM match; integrated independent expected/original/rebuilt fixtures; names provisional",
+      "compiler_generated": false,
+      "milestones": {
+        "analyzed": true,
+        "reconstructed": true,
+        "compiled": true,
+        "behaviorally_verified": true,
+        "binary_matched": true
+      },
+      "evidence": [
+        "docs/native-script-state.md",
+        "build/native-boyd-20261110/full-01/verification.json",
+        "build/native-boyd-20261110/full-01/test_script_state.json",
+        ".local/native-boyd-20261110/map-review.json"
+      ],
+      "verification_method": [
+        "Fresh strict RTM build of all 67 source objects with unchanged flags",
+        "Full-object matching retains all 3392 previous addresses and uniquely selects exactly the four requested bodies",
+        "1709 independent expected/original/rebuilt fixtures execute the four-body call chain with mocked Lua API endpoints"
+      ],
+      "vtable_relationships": [],
+      "unresolved": [
+        "Names and numeric thread status meanings remain provisional.",
+        "Real Lua table/error-longjmp, coroutine/scheduler, ActionFile, blending, navigation, dialogue/lipsync and gameplay remain unverified.",
+        "GetThread retains unchecked token behavior; Release only clears one active bit and does not delete a thread."
+      ]
     }
   }
 }

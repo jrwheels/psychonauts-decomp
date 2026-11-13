@@ -5,18 +5,18 @@
   "compiler": "15.00.21022.08 x86",
   "flags": "/Od /Oy /Ob1 /Oi /MD /GS-",
   "strict_build_success": true,
-  "fresh_source_objects": 66,
-  "coff_function_records": 3419,
-  "matching_functions": 3389,
+  "fresh_source_objects": 67,
+  "coff_function_records": 3426,
+  "matching_functions": 3396,
   "total_mapped_functions": 10930,
-  "matched_bytes": 303359,
+  "matched_bytes": 304109,
   "total_mapped_bytes": 2935679,
   "regressions": [],
   "upstream_matching_rows_preserved": true,
-  "added_functions": 137,
-  "added_bytes": 16874,
-  "unit_tests_passed": 83,
-  "differential_cases_passed": 12124,
+  "added_functions": 144,
+  "added_bytes": 17624,
+  "unit_tests_passed": 102,
+  "differential_cases_passed": 15697,
   "differential_suites": {
     "test_animation_header": {
       "exit_code": 0,
@@ -70,6 +70,10 @@
       "exit_code": 0,
       "cases": 385
     },
+    "test_recursive_joint": {
+      "exit_code": 0,
+      "cases": 512
+    },
     "test_resource_array_swap": {
       "exit_code": 0,
       "cases": 1280
@@ -105,6 +109,10 @@
     "test_skeleton_construction": {
       "exit_code": 0,
       "cases": 352
+    },
+    "test_skeleton_helpers": {
+      "exit_code": 0,
+      "cases": 1352
     },
     "test_skeleton_input": {
       "exit_code": 0,
@@ -153,6 +161,10 @@
     "test_vector_iterators": {
       "exit_code": 0,
       "cases": 140
+    },
+    "test_script_state": {
+      "exit_code": 0,
+      "cases": 1709
     }
   },
   "limitations": [
@@ -161,20 +173,20 @@
     "Historical local reports are not distributed. Regenerate them with docs/native-reconstruction.md."
   ],
   "verification_reports": {
-    "full_python": "build/publication/full-python/verification.json",
-    "full_rust": "build/publication/full-rust/verification.json",
-    "matching_python": "build/publication/full-python/comparison.json",
-    "matching_rust": "build/publication/full-rust/comparison.json",
-    "strict_audit": "build/audit/20261021T023338Z/summary.json",
-    "tooling": "build/publication/full-rust/tooling-summary.json"
+    "baseline_python": "build/advance-20261029/baseline-02/verification.json",
+    "full_rust": "build/advance-20261029/full-02/verification.json",
+    "matching_rust": "build/advance-20261029/full-02/comparison.json",
+    "strict_audit": "build/audit/20261029T184038Z/summary.json",
+    "tooling": "build/advance-20261029/full-02/tooling-summary.json",
+    "post_promotion": "build/advance-20261029/post-promotion.json"
   },
   "report_sha256": {
-    "full_python": "0c4563f6de1e680c4720aa9a173d64eb39e4fda31aa24ca29f4d0423b5300757",
-    "full_rust": "9f09c45d980145ebda2f352c6f3ddefc3109de2c210df096f255bb9202036d6e",
-    "matching_python": "3b927972ae348b8792660ddc829566ce6c1108edbf0168333f7014eaa6849231",
-    "matching_rust": "b8a0660fc33694df7907cb475ad0af71b92edbd2db8ed904cdfd91ec9d8a7c31",
-    "strict_audit": "16a8ce461ee7f06acc99642b9f92c73fb1543946b76d8894e91f1f49086b3373",
-    "tooling": "8f6a7685dbba46dd6b5d65a2b5711cb953c60d7207c89cfc69fea0b22e31db0d"
+    "baseline_python": "ed1877aa93146e1a2c51547f38ec96d1f4cadedbcc5a28acd3ec399b7de45980",
+    "full_rust": "1d834ce0d4f84befa0edd92bee0059452ae43d99a7819fa817ea7333bc168367",
+    "matching_rust": "614f7f38e377f5c383144a74463dec6a2f8baef2c053a7fbfbafb4e3bd3aee5d",
+    "strict_audit": "7b3a44d4625c43c30b7f326486011dd58f3039b7e15c9d099fd9210df9b6e0fb",
+    "tooling": "db90a6d1c462f9a994cacff44948b7b4a9c8f0069301314f42772410d9f0fc19",
+    "post_promotion": "85f23e8d98cae41b5ba8f9b43bd49074ad14f15ed172e71671ac1d0b5caa8301"
   },
   "new_matches": [
     {
@@ -781,16 +793,31 @@
       "address": "0x006a55b0",
       "size": 109,
       "name": "ResourceList::RemoveNode"
+    },
+    {
+      "address": "0x00491a90",
+      "size": 21,
+      "name": "BoneInfo::~BoneInfo"
+    },
+    {
+      "address": "0x00491ab0",
+      "size": 77,
+      "name": "BoneInfo::SetName"
+    },
+    {
+      "address": "0x00492720",
+      "size": 85,
+      "name": "RuntimeBone::GetParent"
     }
   ],
   "previous_fork_commit": "d2c558313646326b7d71d5fc86967ef8d0aeccf6",
   "continuation_added_functions": 72,
   "continuation_added_bytes": 7411,
   "file_lifetime_cases_passed": 329,
-  "functions_csv_sha256": "bde7c95d565544a3f4599462b17165d73545b89f5f122615910e49904fff1f22",
-  "comparison_functions_csv_sha256": "49cee2c93965aed16d758db684d200e9c9b57bfa8dd23e5dee48577135753d73",
+  "functions_csv_sha256": "6bfc464093438430b3ff2d1202d6c20e639e3e8b7f8392986f8d022c19e70305",
+  "comparison_functions_csv_sha256": "6c6166e3f7fcc1790a15cc3a7881a902ee12834036bdc1531780a69b6b925615",
   "comparison_precedes_csv_promotions": true,
-  "comparison_note": "Local pack-loading continuation of published bf6104a: +2 functions/482 bytes; two fresh full verifications preceded individual row promotions. Post-promotion Python comparison is stored separately.",
+  "comparison_note": "Full-02 verified all three explicitly requested addresses before three individually reviewed CSV promotions.",
   "native_file_cases_passed": 371,
   "native_file_added_functions": 11,
   "native_file_added_bytes": 838,
@@ -910,7 +937,15 @@
     "sound_triggers": "build/list-copy/full-01/test_sound_triggers.json",
     "resource_list_decoder_parity": "build/resource-list/decoder-parity.json",
     "resource_list_review": "build/resource-list/resume-review.json",
-    "resource_list": "build/list-copy/full-01/test_resource_list.json"
+    "resource_list": "build/list-copy/full-01/test_resource_list.json",
+    "before_skeleton_helpers_20261029": {
+      "full_python": "build/publication/full-python/verification.json",
+      "full_rust": "build/publication/full-rust/verification.json",
+      "matching_python": "build/publication/full-python/comparison.json",
+      "matching_rust": "build/publication/full-rust/comparison.json",
+      "strict_audit": "build/audit/20261021T023338Z/summary.json",
+      "tooling": "build/publication/full-rust/tooling-summary.json"
+    }
   },
   "historical_report_sha256": {
     "strict_audit": "98237092020bc009b1e93f3146999a1367d71f1b6902d2f3b1cb9b93d64de4a5",
@@ -956,7 +991,15 @@
     "sound_triggers": "0860fa05f09c3eac426272fa025c48b4ba32c9cecb8e2e1bce78349aa735d8ad",
     "resource_list_decoder_parity": "d9e7d089761351a3c068f10b9936638cb72c7ece41226c5987e24669f446a357",
     "resource_list_review": "1d30e9031a299f6d6ff37a1ee0196ed630e0ab409ce38d3812ac5af11e752a25",
-    "resource_list": "24aa315045c3ceee18da52329fa433c3dc6f8dfa75dcf20c77207f394e6fbafd"
+    "resource_list": "24aa315045c3ceee18da52329fa433c3dc6f8dfa75dcf20c77207f394e6fbafd",
+    "before_skeleton_helpers_20261029": {
+      "full_python": "0c4563f6de1e680c4720aa9a173d64eb39e4fda31aa24ca29f4d0423b5300757",
+      "full_rust": "9f09c45d980145ebda2f352c6f3ddefc3109de2c210df096f255bb9202036d6e",
+      "matching_python": "3b927972ae348b8792660ddc829566ce6c1108edbf0168333f7014eaa6849231",
+      "matching_rust": "b8a0660fc33694df7907cb475ad0af71b92edbd2db8ed904cdfd91ec9d8a7c31",
+      "strict_audit": "16a8ce461ee7f06acc99642b9f92c73fb1543946b76d8894e91f1f49086b3373",
+      "tooling": "8f6a7685dbba46dd6b5d65a2b5711cb953c60d7207c89cfc69fea0b22e31db0d"
+    }
   },
   "historical_workflow_verification": {
     "source_base": "815480840e6fb7194b72f1771b1c26edff4a058a",
@@ -974,8 +1017,8 @@
     "full_before_promotions_report": "build/list-copy/full-01/verification.json",
     "final_post_promotions_report": "build/list-copy/final-comparison.json"
   },
-  "required_python_tooling_tests_passed": 74,
-  "optional_rust_tests_passed": 9,
+  "required_python_tooling_tests_passed": 102,
+  "optional_rust_tests_passed": 0,
   "publication_candidate_verification": {
     "reference_build": "Steam Windows PE32, not2005retail",
     "canonical_ranges_reconciled": 10930,
@@ -1130,5 +1173,155 @@
     "earlier_mesh_stream_sources_and_suites_preserved": true,
     "publication_check_files": 283,
     "publication_check_findings": []
+  },
+  "skeleton_helpers_20261029": {
+    "baseline_functions": 3389,
+    "baseline_bytes": 303359,
+    "new_source_bodies": 2,
+    "new_source_bytes": 162,
+    "existing_destructor_newly_disambiguated_bytes": 21,
+    "matching_gain_functions": 3,
+    "matching_gain_bytes": 183,
+    "new_differential_cases": 1352,
+    "preexisting_recursive_cases_reverified": 512,
+    "full_differential_cases": 13988,
+    "full_differential_suites": 36,
+    "original_only_cases": 44,
+    "required_tooling_tests": 91,
+    "optional_rust_tests": 9,
+    "source": "src/game/skeleton_input.cpp",
+    "test": "tools/test_skeleton_helpers.py",
+    "regressions": [],
+    "publication": "not committed or pushed",
+    "post_promotion_new_addresses": [],
+    "post_promotion_regressions": []
+  },
+  "checkpoint_20261110": {
+    "matching_functions": 3396,
+    "matched_bytes": 304109,
+    "fresh_source_objects": 67,
+    "required_tooling_tests": 102,
+    "differential_cases": 15697,
+    "differential_suites": 37,
+    "original_only_cases": 44,
+    "regressions": [],
+    "optional_rust": "not requested",
+    "full_report_sha256": "d60af5d62dd002802a037f92b85ffb51d5cc02a08a73379e3f5e01f4eed2ffa6",
+    "source_inputs": {
+      "src/game/animation_stub.cpp": "1c32a9f95b57281243d47869566644fb8b6e7b4a64a3c672c352d1f5ad3acd30",
+      "src/game/animmanager_lua.cpp": "d7554d2c273aa484e377898c69a9666b085f8e483d9c236c13b88efdb59e16c2",
+      "src/game/braintank_lua.cpp": "0a1af6ed044a280d533c676ef3e1534bb92a3a10a2b4acb0f5c5b70fa3da5def",
+      "src/game/bubble_lua.cpp": "d9b1bf91a32b420e28440f843680c8b37e45e76d6a8e93303d2e203c6b8993d9",
+      "src/game/buffered_file.cpp": "fc1245af7861f17fc700328db6c3002b9187321e8fa3b9226f351f797dc75910",
+      "src/game/camera_lua.cpp": "bfa399cd91584e5d25ea209516cd4b35d47b32d75e24fba7c2f1a716d2b32bbb",
+      "src/game/collision_lua.cpp": "2e39483445651e86427e7f20b0ea9381234dc93f66f554a0f1c97e6d435d1eda",
+      "src/game/debugmenu_lua.cpp": "e5d52f9c157116d72783e5097d7b2b0c671dbf61546846558cfee6c53f3376df",
+      "src/game/diagnostic.cpp": "d6812dbc55ff5552aca5be2e8166cbda80d869470a21f553c32d34a7973a97ab",
+      "src/game/diagnostic.h": "5e541189bd5a111c6f1c1cd1dc3609d312d45c12c29ec93b260271713c8ec766",
+      "src/game/dialog_lua.cpp": "073c0c8a58c864de79679f900dbe570f1bce6911ecc24c79f5ac22443c8b58f2",
+      "src/game/engine.h": "9a7944b117304325b271f3a7f1946c8ebc2b31fa7931158d7ff6898256984a0e",
+      "src/game/file_manager.cpp": "595563abff0d8b5dbcaaafbef8b1260c8e3993df2bebe6bc25e1e537164ff23b",
+      "src/game/file_memory.cpp": "173ca6d369187890e63b8e3de5736eab831ec7ee172eeea6bce0577e04d9d56e",
+      "src/game/freeze_lua.cpp": "b9555dde1547af00f4b34d38a73d10a1a46344f57d10260d1c6c4728b5c93565",
+      "src/game/input_lua.cpp": "6dfde397da81de70673dca66061a32e8b566dcf3a29023a4ee823b1cfe9060cb",
+      "src/game/ladder_lua.cpp": "0f48b9c0f436a2b375c445fd35637a2cec210e4df827d5a1267e40c337c4ad29",
+      "src/game/linecollision_lua.cpp": "d3d0e9e2cb5020f334760e2e1a01b20a40d465353b0a6b87d5a3ba07bda13b7e",
+      "src/game/luafunc.cpp": "bcaf0315297c8f6f2d163789746e785863b30b2bfb0e99088d81dafa9cce90fc",
+      "src/game/luafunc.h": "16d70faf30b433a80ea30c0129f7178bdfcecdf7cc66e357a4e0f84370544519",
+      "src/game/mesh.cpp": "33dfe636849a10bdecf643dc0b27f54a5ec725147178662644d0c88c0b4e55bb",
+      "src/game/mmgravity_lua.cpp": "9b45b86604786562358f17e56125452ab925d7c946f65ab3996f006577abdb40",
+      "src/game/mover_lua.cpp": "4bc873213cec7966dd415112ea7bfddba6906e25722ed01a1cc6c99494afded0",
+      "src/game/native_file.cpp": "d62c31fd426f928f9a9aeb67305e5209e813452e490f0a20d7d81c5c9c4b0465",
+      "src/game/navigation_lua.cpp": "81b8e82469c2c4bc6b6c89ed2a97af540208fbc3212ac64ef008f8207891088d",
+      "src/game/particles_lua.cpp": "addc8cc0e115674615a161509e30778439d8dccbab28d2aa3b6d83d3c3bdec39",
+      "src/game/playercontrol_lua.cpp": "bfedcfc19ae38031a3be4d7002eeabefd61b298565186ddb75786496a9d41f4d",
+      "src/game/powers_lua.cpp": "3e4da6a734ee5cb791c9c683e718051f92fe6b03ad8b43c06cab77f27b56e44d",
+      "src/game/render_lua.cpp": "b11482cac913b687613e290bdbc0b63671b152cf0fff00242121700a5763da08",
+      "src/game/resource_array.cpp": "7d4ed366efdd90a49f3353bd084a44e116666901d7226d56d2a602cf385b7406",
+      "src/game/resource_cache.cpp": "2a6d546f3f099082a0aafde978a1cc9c339950d9e48ce9f2bd8250de0f3d3a38",
+      "src/game/resource_context.cpp": "cf56845d3f8fe6cc08f109f780e784f9a7007135e559a59cbcd7ebee49ce4a3d",
+      "src/game/resource_node.cpp": "4a604f3a8efa9f3de784e167b58c71c100e73b8bdbe0fa657d0ff1cc2493b303",
+      "src/game/resource_stream.cpp": "4bc7bf72fba3548065c7d5b8ed7b0bd3b80e2771163c9c07be7b50ab7a52b369",
+      "src/game/rope_lua.cpp": "d807c6751a043b05a063e92bc9f97ae7c2ca76d996513d080a2686419339021b",
+      "src/game/savegame_lua.cpp": "afad1664589f333d2ce9f63cf20e3daae308ef218708a8d4eda22aee117b5a55",
+      "src/game/script_lua.cpp": "f8a5aae46c07e8f9ac1a8f8ae48ea05970cbf4d9ff731433bf9b6f7e58273bb4",
+      "src/game/script_state.cpp": "05f421a7c6dc4bdc8db5f48fd6da27b8c22b6c2bfcf76a3853df553aa58fd98b",
+      "src/game/skeleton_input.cpp": "e7d9f7cd58a39fa8520dde6a8208c33c4c0aaf373b52abd042b3683379f64644",
+      "src/game/sound_lua.cpp": "0c2b9a7bc1b9433b774e05ec5afcc0f20368e14d88d0d69a9f516490cc6e4889",
+      "src/game/splinepath_lua.cpp": "1b74dbc922d8d2795d00a714a2d05543b329f995d81ecc00885835f71da22837",
+      "src/game/superjump_lua.cpp": "73cbc23d60b240192f7b9e65b84858a38a5cd7efc2526c559a09037b4d79a88f",
+      "src/game/tightrope_lua.cpp": "ab106d58461fd809401a97672e426a10d7131250bdeafb5ab0dcd72c6100c4d7",
+      "src/game/trampoline_lua.cpp": "429d858ea7d8cdee86545e199f5976b532ed66e3624480db46e1330ed2acc9ba",
+      "src/game/trapeze_lua.cpp": "36a269ad468a2864efe963a33999c25adfe7d7ed4bb57cfe3076595975a4bf68",
+      "src/game/trigger_lua.cpp": "c66b9e0236f19936ae4875e9e7a016931e2c0b6c74a085037ceb1038844ebd00",
+      "src/game/water_lua.cpp": "42b1c58b3aea9156eb84ee3c7237c1d5b286791035889c466d2da871154d91f5",
+      "src/game/win32.h": "98a4daa9bd9a0fd8ad633e7a0a5bc3509a6978518c54f0fd181b31644086ae75",
+      "src/lua/lapi.c": "f15bab35f1eb56e909f4a8c23e4de355beeaa8ed529bf5c3fe7c8a4338e970b7",
+      "src/lua/lapi.h": "225b261977c83f438862069f21cc0a4fa6395edf22918d81ab6aa21e79a325ae",
+      "src/lua/lauxlib.c": "3dc05646be703801561f1e6ef0ca3832d4a6be53fca0231430987a50d1994a1e",
+      "src/lua/lauxlib.h": "9c4dc6a6cee2b8d80c8e8573f3c7f0a7eafea531fe2e6be5fe6e78c26636a3d7",
+      "src/lua/lbaselib.c": "9904d2b9090ac4788400aa0dbcd26053b6970cbe5b55ab77f5c466c521de0bb2",
+      "src/lua/lcode.c": "133eb07a458d4ae8ca5bb1e65cb5a5793fcf9a57dd3aad581229aae09ed9ca40",
+      "src/lua/lcode.h": "71169a0566560a2ec51917ed899ebca3393f2488eabe5293b6e1afd78802bc5e",
+      "src/lua/ldblib.c": "6e779085133342e23e7937111fdca85ed11473c650eea431555efb37d4275df6",
+      "src/lua/ldebug.c": "8e78c741b922eeb2e496904492a2bd2221351427e6ebaea0813fab5b0619b047",
+      "src/lua/ldebug.h": "531d63d4f3729e80e123707c2a97ba08ca735ba3569751846f67d1619d3fe301",
+      "src/lua/ldo.c": "f3de6d0d5a40647b57e2de6eebe16486108d138fa8b6b8b84adea683c951a434",
+      "src/lua/ldo.h": "562ab0da32295bd71e49fd91c06d762c6bb152e2399801197e014eb49697bcec",
+      "src/lua/lfunc.c": "262e3e5ef17affc68c11fac01ad5b5a02e3afa31b3fb41c91b10df876e5e072d",
+      "src/lua/lfunc.h": "80c05efca4c94750f2e8e815669b59ed75b84b19933d24285509dd58f2ac0d06",
+      "src/lua/lgc.c": "e9cc81211320b74cc17d5216e35a69221bbe7de98ad51cdb5b30ef832be05b73",
+      "src/lua/lgc.h": "fff148438dcea9068ea834c7d1f71cb7bf5adb64bdd70ca5d31008b76491e756",
+      "src/lua/liolib.c": "8cf0aaa3d26d45595a288f9bd3ce710090fbb559858a3de1784f82f724cf78a1",
+      "src/lua/llex.c": "02989de7693d6872a423af0df13d6c9035ccbb8ad9b3cfe3663971a6cca56084",
+      "src/lua/llex.h": "73aee22a5c454465ac4e2970e4618ddbca9a47370173513f13022e94e5d38eeb",
+      "src/lua/llimits.h": "6e7993eb7d655edeb2e8ab5ca63e583f25532d9f255eb8880ef3a3d48b97f9c0",
+      "src/lua/lmathlib.c": "bb4eb821e0a9abf28c342b27decab682ca862e7298d1ed5d438cb52760cf56b7",
+      "src/lua/lmem.c": "f5bd0557bdbb3cd503f82e71eb4a312cce555bc97144605c18d53619f287c299",
+      "src/lua/lmem.h": "bce05aca9ee990c1d7715706c41d0bfd977dcd235e8ef5756e80ab05a11a173c",
+      "src/lua/lobject.c": "4c9b5f82509d0f7e3cd790ed1466a589e9baad4e3bd77d9ceb8ef950b5d7fc49",
+      "src/lua/lobject.h": "994b54b1f9c6eeef281c69a950b54c0d31749999b3aa5ccb4695104500383021",
+      "src/lua/lopcodes.h": "d495b534244d24b5138821b629da2c4b297ebae696229a971c3c57b66cee4271",
+      "src/lua/lparser.c": "00277b29985f2897eae08ac491606cd3b5d2bb29cb2d056e3ad6f98ece77769b",
+      "src/lua/lparser.h": "76e1c4e4b44bb1e14984cba9440238f997fc7334ff53d64ff700684cfb1c7017",
+      "src/lua/lstate.c": "51bb99ab8f6278569d9bb0d208a0605b28e9625485df91728719523626b67027",
+      "src/lua/lstate.h": "2dba9154957404c72511562a7e63b5b91de42e3afe2e4e4f16a71453001ac042",
+      "src/lua/lstring.c": "9b1f680bd5c824e9b5b95eaa8b3bc617d006da62e612b901a8db3790aeb300d6",
+      "src/lua/lstring.h": "4feb6e39dc41d847173929885e1a895d380253b468ab2b093b05768555b1c1c8",
+      "src/lua/lstrlib.c": "fe867e6642a66ddf622706df128c82474863f78e0841d3c4ca3b838fb8bbbd8f",
+      "src/lua/ltable.c": "7c3ecc31eda64927971f225b377c79f9f64d0c32043035ebc7f10c8dc6b6a332",
+      "src/lua/ltable.h": "1ead881d6ebb24925fbbc6744169f58f0d376df6e718627e4d77e088d538017b",
+      "src/lua/ltm.c": "1a8d6575e79d5c146d1572bf7d6bb78661719b29c12462f994ee2db3a4390e34",
+      "src/lua/ltm.h": "936a7554d5cd4c2450c9fb3240004108bd9cb7ad2e428120c2c82d8e0ba53459",
+      "src/lua/lua.h": "b6609819df38ab13c4e2e9d4075fc900c95c2e9101b8291c9baf4953a136eb0d",
+      "src/lua/luadebug.h": "c039bd07a93654ffe9ef0f59de46393e773a19b413efa4b7d6a225db2e8cf72a",
+      "src/lua/lualib.h": "4dde9c616be6ce7de5e29ca108583cef963cf73020c0a3ab487ef7f2387b92d8",
+      "src/lua/lundump.c": "7f37de96c114de2bd37de63340487926b2004b9667295f1dd2b865b78505c157",
+      "src/lua/lundump.h": "5ab39d5cc7d768835cea8d1dc075be7a729e2de6bf6c2bd0b054928c9283e89f",
+      "src/lua/lvm.c": "e5abe2106df88a3b76ca96ec18d031d771c5cd0b14409aada3769087e03ad81e",
+      "src/lua/lvm.h": "eb14a1a21b5571b764ac0dd315ee681dd16b85ce5fd5f1a8c13744c03329a01b",
+      "src/lua/lzio.c": "015c1f2b6f46a536f3b911e4ae1156e1f0fa21367a63d053675fed1551a8bf16",
+      "src/lua/lzio.h": "be259449bd1fb99b1cb9b5dbfcc5a0f6afbf27e22836e76429f4aa8cd4c29e07"
+    },
+    "note": "Current totals describe this checkpoint. Older detailed report fields retain their historical provenance. Original full report remains private. Fork integration checked every source hash; no fresh native compilation claimed."
+  },
+  "preceding_skeleton_summary": {
+    "fresh_source_objects": 66,
+    "coff_function_records": 3422,
+    "matching_functions": 3392,
+    "matched_bytes": 303542,
+    "added_functions": 140,
+    "added_bytes": 17057,
+    "unit_tests_passed": 100,
+    "differential_cases_passed": 13988,
+    "required_python_tooling_tests_passed": 91,
+    "optional_rust_tests_passed": 9
+  },
+  "fork_integration_20261112": {
+    "required_tooling_passed": 110,
+    "required_skips": 0,
+    "reused_hash_verified_object_differential_cases": 3573,
+    "fresh_compile": false,
+    "optional_rust": "not requested"
   }
 }

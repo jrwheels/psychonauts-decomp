@@ -1,8 +1,13 @@
 # Psychonauts
 
+Current native checkpoint (12 November 2026): **3,396 matching functions /304,109
+mapped bytes**. See [current fork handoff](docs/fork-development.md) and
+[Windows continuation](docs/windows-continuation.md). Historical totals below
+describe earlier checkpoints. This update contains pure native decomp work.
+
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-31.01%25%20(3389%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.33%25-red)
+![Engine](https://img.shields.io/badge/Engine-31.07%25%20(3396%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-10.36%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 

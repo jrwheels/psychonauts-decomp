@@ -392,13 +392,16 @@ public:
     bool m_1c_3 : 1;
     bool m_1c_4 : 1;
     bool m_paused : 1;
-    char pad1d[0x20 - 0x1d];
+    char pad1d[0x1f - 0x1d];
+    unsigned char m_threadIndex; // 0x1f: one-based script-thread token
     short m_ref;            // 0x20 lua_ref of the script table
 };
 
 // owns the Lua state and all script objects, embedded in GameApp
 class EScriptManager {
 public:
+    struct EScriptThread *GetThread(unsigned char index);
+    void ReleaseThread(struct EScriptThread *thread);
     EScriptObject *FindById(int id);
     EScriptObject *FindByName(const char *name);
     void Yield(lua_State *L);
@@ -427,6 +430,19 @@ public:
 
     char pad0[8];
     lua_State *m_L;         // 0x08
+    char pad0c[0x138 - 0x0c];
+    struct EScriptThread *m_threads[64]; // 0x138
+    unsigned int m_threadUsed[2];      // 0x238
+
+    bool ThreadIsUsed(unsigned int index) const {
+        return (m_threadUsed[index >> 5] & (1u << (index & 31))) ? 1 : 0;
+    }
+    unsigned int &ThreadUseWord(unsigned int index) {
+        return m_threadUsed[index >> 5];
+    }
+    void ClearThreadUsed(unsigned int index) {
+        ThreadUseWord(index) &= ~(1u << (index & 31));
+    }
 };
 
 

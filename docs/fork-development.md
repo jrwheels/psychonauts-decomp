@@ -1,33 +1,42 @@
 # Fork development checkpoint
 
-The lean upstream contribution and this fork have separate scopes.
+Current publication checkout: branch `development/verified-native-and-assets`;
+public destination: `jrwheels/psychonauts-decomp`, `main`. The branch name is
+historical; this update contains pure native decomp work. The canonical research
+checkout and its active native worktree remain selected by the private native
+pointer. Existing dirty research worktrees and recovery evidence are preserved.
 
-- Upstream source-only branch: reviewed 3,375 engine functions /300,735 bytes,
-  based on upstream `6959341`; only src/game and the two engine progress files.
-- This fork: 3,389 functions /303,359 bytes, preserving every published match.
-  The 14 additional unique canonical matches add 2,624 bytes; this includes the
-  previously local cache lookup and the later dependency campaign. Compiler-
-  generated support matches are distinguished in the campaign report.
-- Fresh full native verification: 66 compiling sources, zero regressions,
-  12,124 differential cases and 44 separate original-only cases. Required native
-  tooling passed; optional Rust tests were not requested in this reproduction.
-- After integrating asset tooling and near-match diagnostics, 105 required
-  synthetic tooling tests pass without skips. The compiler, native source/map
-  inputs and differential suites remain identical to the fresh native run.
+As of 12 November 2026: **3,396 matching functions /304,109 mapped bytes**,
+up from the fork's 3,389 /303,359. All seven new matching rows were reviewed;
+all previous published matching rows remain unchanged. See
+[native status](native-reconstruction.md), [skeleton helpers](native-skeleton-helpers.md)
+and [script state](native-script-state.md).
 
-The fork retains the contributor infrastructure, tests, diagnostic classifier,
-source-format tools, export correctness fixes, bounded survey and documentation.
-The published contributor-directory layout is retained. Asset tooling is backed
-by the earlier documented original-data and Blender checks; no new asset exports
-or gameplay tests were performed merely for publication.
+The recorded full checkpoint rebuilt 67 sources, preserved every previous match,
+passed 102 required tooling tests, and passed 15,697 differential cases across
+37 suites plus 44 separate original-only cases. Rust was not requested.
+Publication integration passes **110 required tooling tests without skips** and
+re-executes **3,573 differential cases** (script state, skeleton helpers and
+recursive reader) against hash-verified existing objects, with no fresh compile.
+Private integration reports: `build/windows-handoff-20261112/`.
 
-Incomplete recursive-joint compiler experiments, private diagnostic inputs,
-original executables/assets, compiler files, detailed reports and the paused
-untested resumable export runner remain preserved locally. They are not promoted
-as verified engine reconstructions or public-ready tools. An unmatched but
-behavior-tested helper remains unmatched in the canonical map.
+This publication integration independently checked every native source against
+that report's SHA-256 inputs; it does not claim a new native compile.
+The sanitized source manifest and report digest are in
+[native-verification.json](native-verification.json), `checkpoint_20261110`.
 
-Future priority remains practical, reusable extraction: independent format
-validation, GLB geometry/rigs/material relationships, bounded multi-asset surveys
-and clearly documented environment/animation limits. No linked/playable engine
-or Godot/Unity/Unreal runtime compatibility is claimed.
+Later [action research](native-boyd-actions.md) executed 3,072 original-only
+fixtures. Dispatcher, playback, Lua context switching, audio sync and actual
+gameplay remain open. That research adds no matches and does not establish a
+linked or playable engine. Names remain provisional and mocks remain explicit.
+
+Next: follow [Windows continuation](windows-continuation.md); start with dispatcher
+`0x00441240`, animation opcode 1 and Lua opcode 3, then `LoadAnim_impl` at
+`0x005c3520`. The native Windows compiler/verifier path needs validation before
+new matching claims. Keep the pinned compiler and flags unchanged.
+
+Protected operations: preserve research checkouts, original game/compiler files,
+private reports, installations and saves. This update authorizes only the fork
+checkpoint and handoff; no installations or game launches. Proprietary reference
+inputs and local evidence stay private. Earlier asset tooling already present in
+the fork is unchanged by this update.

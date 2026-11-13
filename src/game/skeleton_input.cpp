@@ -13,7 +13,9 @@ struct BoneMatrix : EMatrix {
 struct BoneTranslation : Vector3 {
     BoneTranslation() { x = y = z = 0.0f; }
 };
+extern EQuat g_identityQuaternion;
 struct BoneRotation : EQuat {
+    void SetIdentity() { x=g_identityQuaternion.x; y=g_identityQuaternion.y; z=g_identityQuaternion.z; w=g_identityQuaternion.w; }
     BoneRotation() { x=0.0f; y=0.0f; z=0.0f; w=1.0f; }
 };
 struct BoneScale : Vector3 {
@@ -42,6 +44,7 @@ struct RuntimeBone {
     ~RuntimeBone();
     RuntimeBone *ReadInput(class EStream *,unsigned int,Skeleton *);
     void Transform(const EMatrix &);
+    RuntimeBone *GetParent();
     BoneMatrix first,second;
     BoneRotation rotation;
     BoneScale scale;
@@ -69,6 +72,7 @@ public:
     virtual ~EStream() {}
     virtual const char *GetName() { return 0; }
     virtual void Read(void *,unsigned int)=0;
+    void ReadString(char *, unsigned int);
     template <class T> void Transfer(T *data) { Read(data, sizeof(T)); }
 };
 void ReadSkeletonName(EStream *,SkeletonData *); // cdecl 0x6a5a10
@@ -107,3 +111,71 @@ bool Skeleton::ReadInput(EStream *stream,unsigned int version) // 0x49a040,608
 typedef char BoneInfoSize[(sizeof(BoneInfo) == 0x60) ? 1 : -1];
 typedef char RuntimeBoneSize[(sizeof(RuntimeBone) == 0xb0) ? 1 : -1];
 typedef char SkeletonDataSize[(sizeof(SkeletonData) == 12) ? 1 : -1];
+
+// 0x00492010: preorder traversal of caller-owned contiguous runtime records.
+extern EQuat g_identityQuaternion;
+RuntimeBone *RuntimeBone::ReadInput(EStream *stream,unsigned int version,Skeleton *skeleton)
+{
+    owner=skeleton;
+    BoneInfo *boneInfo=&owner->info[index];
+    flag0=0;
+    char nameBuffer[260];
+    stream->ReadString(nameBuffer,255);
+    boneInfo->SetName(nameBuffer);
+    owner=skeleton;
+    BoneTranslation rotationAngles;
+    stream->Read(&boneInfo->translation,12);
+    stream->Read(&rotationAngles,12);
+    Vector3 zero(-1.0f,-1.0f,-1.0f);
+    if ((rotationAngles.x==zero.x && rotationAngles.y==zero.y && rotationAngles.z==zero.z) ? true : false) {
+        boneInfo->rotation.SetIdentity();
+        flag3=1;
+    } else {
+        boneInfo->rotation.SetEuler(rotationAngles);
+    }
+    translation=boneInfo->translation;
+    rotation.EQuat::operator=(boneInfo->rotation);
+    if(version>294) {
+        unsigned short extra;
+        stream->Read(&extra,2);
+    }
+    unsigned int childCount;
+    stream->Read(&childCount,4);
+    hasChildren=childCount!=0;
+    if(hasChildren) {
+        RuntimeBone *previous=0;
+        RuntimeBone *child=hasChildren ? this+1 : 0;
+        unsigned int i=0;
+        while(i<childCount) {
+            child->parent=index;
+            if(previous) previous->next=child->index;
+            unsigned short serializedId;
+            stream->Read(&serializedId,2);
+            previous=child;
+            child=child->ReadInput(stream,version,skeleton);
+            ++i;
+        }
+        return child;
+    } else {
+        return this+1;
+    }
+}
+
+// 0x00491ab0: category-8 string ownership; input may alias the freed name.
+void FreeFileName(char *block, int category, int flags);
+char *CopyFileName(const char *name, int category);
+void BoneInfo::SetName(const char *value)
+{
+    if (name) {
+        FreeFileName(name, 8, 1);
+        name = 0;
+    }
+    if (value)
+        name = CopyFileName(value, 8);
+}
+
+// 0x00492720: the indices are relative to contiguous runtime records.
+RuntimeBone *RuntimeBone::GetParent()
+{
+    return parent != 0xff ? this - index + parent : 0;
+}
