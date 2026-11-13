@@ -1,8 +1,7 @@
 # Psychonauts
 
 Current native checkpoint (12 November 2026): **3,396 matching functions /304,109
-mapped bytes**. See [current fork handoff](docs/fork-development.md) and
-[Windows continuation](docs/windows-continuation.md). Historical totals below
+mapped bytes**. See [current fork handoff](docs/fork-development.md). Historical totals below
 describe earlier checkpoints. This update contains pure native decomp work.
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
