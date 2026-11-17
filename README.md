@@ -1,8 +1,8 @@
 # Psychonauts
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-35.53%25%20(3883%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-13.64%25-red)
+![Engine](https://img.shields.io/badge/Engine-36.18%25%20(3955%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-13.72%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
@@ -18,7 +18,7 @@ This repository does **not** contain any game assets or game code. You need your
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3883 / 10930 functions (35.53 %), 13.64 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3955 / 10930 functions (36.18 %), 13.72 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -207,6 +207,8 @@ The engine gives the scripts 1134 C functions (`SetCamera`, `PlaySound`, `SayLin
 The first two are identical for every script function, so they match as soon as the macro is right: 1118 wrappers (16 functions run on the normal stack and have none) and 1134 registrations. They are spread over 29 object files, `src/game/*_lua.cpp` has one file per object. The file names are made up, and most of these objects contain more than the script functions.
 
 The real functions are what I'm working on now. 958 of the 1134 match so far, the others are still `LUA_FUNCTION_TODO`, which only declares them. Almost all of them start the same way: check the number of arguments, fetch the arguments with a handful of helpers (`GetNumberArg`, `GetStringArg`, `GetEntityArg`, ...), call into the engine and push the result. The helpers live in `src/game/luafunc.cpp` and all 23 of them match.
+
+Every object file also has dynamic initializers: small functions the compiler writes for globals that need code to set them up. A header with constants like `DEG_TO_RAD = PI / 180.0` gives every file that includes it its own copy of them, so the same handful of tiny functions shows up again and again at the end of the code. Each file's initializers sit together and in order, which is how the class registrations (`EClassInfo` objects with the entity class name, type and create function) and these constants get matched. `tools/objmatch.py` uses that order: an initializer next to an already matched one has to be the function right before or after it.
 
 Because the script functions reach into every part of the engine, the C++ classes they use show up bit by bit. `src/game/engine.h` and `src/game/classes.h` have what is known so far: members at the offsets the code uses, with padding in between. Classes with RTTI in the executable (`GameApp`, `EEntity`, `ERopeEntity`, ...) keep their real names, everything else is named after what it seems to do. Expect a lot of these names to change.
 
