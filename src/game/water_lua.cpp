@@ -135,4 +135,20 @@ LUA_FUNCTION(SetWaterFresnelTexture)
 
 LUA_FUNCTION_TODO(SetupWaterTextures)
 
-LUA_FUNCTION_TODO(TestTableArray)
+LUA_FUNCTION(TestTableArray)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 2, 2))
+        return 0;
+    EScriptObject *so = GetScriptObjectArg(L, 1, false, false);
+    if (!so)
+        return 0;
+    const char *name = GetStringArg(L, 2, false);
+    TArray<EScriptObject *> list(0, false);
+    g_game->m_scripts.GetTableArray(so, name, &list);
+    for (unsigned int i = 0; i < list.m_count; i++) {
+        EScriptObject *obj = list[i];
+        obj->GetName();
+    }
+    return 0;
+}

@@ -322,6 +322,11 @@ struct ECamera {
     Vector3 GetRight() { return Vector3(m_matrix.m[0][0], m_matrix.m[1][0], m_matrix.m[2][0]); }
     Vector3 GetView() { return Vector3(-m_matrix.m[0][2], -m_matrix.m[1][2], -m_matrix.m[2][2]); }
     // the stack layout of the callers shows a local that is not used
+    Vector3 GetTargetPoint(bool smoothed);
+    Vector3 ToSpherical(const Vector3 &offset);
+    // not inlined by MSVC (it returns a temporary), the callers keep its stack space
+    Vector3 GetChaseAngles() { return ToSpherical(m_position - GetTargetPoint(true)); }
+    float GetChaseAzimuth() { return GetChaseAngles().y; }
     void SetHintAzimuth(float azimuth)
     {
         float old;
@@ -500,6 +505,13 @@ public:
     Vector3 &GetScale() { return m_scale; }
 
     struct EBone *FindBone(const char *name);
+    void SetBaseTexture(void *texture, void *alt, int flags);
+    float GetTextureFrame(void *texture);
+    float GetTextureFramerate(void *texture);
+    int GetTexturePlayMode(void *texture);
+    void SetTextureFrame(void *texture, float frame);
+    void SetTextureFramerate(void *texture, float rate);
+    void SetTexturePlayMode(void *texture, int mode, float timeMs, int loops);
     bool HasCollideGeometry();
     bool Contains(Vector3 *point, int flags);
     void StartMeshAnim(int anim, bool loop);

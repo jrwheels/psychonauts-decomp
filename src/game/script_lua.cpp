@@ -8,6 +8,22 @@
 #include "classes.h"
 
 
+// pushes the three components, PushVector in luafunc.cpp does the same out of line
+inline void PushVector3(lua_State *L, const Vector3 &v)
+{
+    char unused[0xc];  // the original keeps this much stack space here
+    lua_pushnumber(L, v.x);
+    lua_pushnumber(L, v.y);
+    lua_pushnumber(L, v.z);
+}
+
+// random number generator used by the scripts
+class ERandom {
+public:
+    int Rand();
+};
+extern ERandom g_scriptRandom;
+
 LUA_FUNCTION_NOSTACK(Yield)
 {
     g_game->m_scripts.Yield(L);
@@ -325,7 +341,21 @@ LUA_FUNCTION(EulerToVector)
     return 3;
 }
 
-LUA_FUNCTION_TODO(CrossProduct)
+LUA_FUNCTION(CrossProduct)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 6, 7))
+        return 0;
+    Vector3 pA(GetNumberArg(L, 1, false), GetNumberArg(L, 2, false), GetNumberArg(L, 3, false));
+    Vector3 b(GetNumberArg(L, 4, false), GetNumberArg(L, 5, false), GetNumberArg(L, 6, false));
+    bool normalize = n >= 7 ? GetNumberArg(L, 7, true) != 0 : false;
+    if (normalize) {
+        pA.Normalize();
+        b.Normalize();
+    }
+    PushVector3(L, pA.Cross(b));
+    return 3;
+}
 
 LUA_FUNCTION(DotProduct)
 {
@@ -380,7 +410,35 @@ LUA_FUNCTION(RandomVector)
     return 3;
 }
 
-LUA_FUNCTION_TODO(random)
+LUA_FUNCTION(random)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 0, 2))
+        return 0;
+    int myA = n >= 1 ? (int)GetNumberArg(L, 1, true) : 0;
+    int newBVal = n >= 2 ? (int)GetNumberArg(L, 2, true) : 0;
+    double r = (g_scriptRandom.Rand() % 0x7fff) / 32767.0;
+    int count = lua_gettop(L);
+    int curLo = count == 2 ? myA : 0;
+    int myHi = count == 2 ? newBVal : myA;
+    int result = 0;
+    switch (count) {
+    case 0:
+        lua_pushnumber(L, (float)r);
+        break;
+    case 1:
+        result = (int)(myHi * r) + 1;
+        lua_pushint(L, result);
+        break;
+    case 2:
+        result = (int)((myHi - curLo + 1) * r) + curLo;
+        lua_pushint(L, result);
+        break;
+    default:
+        lua_error(L, "wrong number of arguments");
+    }
+    return 1;
+}
 
 LUA_FUNCTION(GetCurrentLevelName)
 {
@@ -2308,7 +2366,20 @@ LUA_FUNCTION(InitPosition)
     return 0;
 }
 
-LUA_FUNCTION_TODO(MoveToPosition)
+LUA_FUNCTION(MoveToPosition)
+{
+    int aN = lua_gettop(L);
+    if (!CheckArgs(L, 4, 6))
+        return 0;
+    EEntity *ent = GetEntityArg(L, 1, false, 0);
+    if (!ent)
+        return 0;
+    Vector3 pos(GetNumberArg(L, 2, false), GetNumberArg(L, 3, false), GetNumberArg(L, 4, false));
+    bool teleport = aN >= 5 ? GetNumberArg(L, 5, true) != 0 : false;
+    bool flag = aN >= 6 ? GetNumberArg(L, 6, true) != 0 : false;
+    ent->GetPhysics()->MoveToPosition(pos, teleport);
+    return 0;
+}
 
 LUA_FUNCTION(GetVelocity)
 {
@@ -2818,7 +2889,7 @@ LUA_FUNCTION(CalculateRightVector)
     if (!CheckArgs(L, 3, 3))
         return 0;
     Vector3 dir(GetNumberArg(L, 1, false), GetNumberArg(L, 2, false), GetNumberArg(L, 3, false));
-    PushVectorXYZ(L, dir.Cross(g_upVector));
+    PushVectorXYZ(L, dir.CrossNormalized(g_upVector));
     return 3;
 }
 

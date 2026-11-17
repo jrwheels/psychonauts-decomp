@@ -23,6 +23,7 @@ static const float kDefaultAltitude = 14.0f;
 static const float kDefaultTargetHeight = 150.0f;
 
 
+
 LUA_FUNCTION(SetCamera)
 {
     int n = lua_gettop(L);
@@ -871,7 +872,12 @@ LUA_FUNCTION(GetChaseCameraRadius)
 
 LUA_FUNCTION_TODO(SetChaseCameraAzimuth)
 
-LUA_FUNCTION_TODO(GetChaseCameraAzimuth)
+LUA_FUNCTION(GetChaseCameraAzimuth)
+{
+    float azimuth = g_game->GetCamera()->GetChaseAzimuth();
+    lua_pushnumber(L, azimuth);
+    return 1;
+}
 
 LUA_FUNCTION(SetChaseCameraAltitude)
 {

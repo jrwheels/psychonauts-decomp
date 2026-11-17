@@ -735,7 +735,19 @@ LUA_FUNCTION(GetEntityTexCoordVel)
     return 2;
 }
 
-LUA_FUNCTION_TODO(SetEntitySortingSphere)
+LUA_FUNCTION(SetEntitySortingSphere)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 2, 2))
+        return 0;
+    ETriggerBase *trigVal = GetTriggerArg(L, 1, false);
+    if (!trigVal)
+        return 0;
+    bool on = GetNumberArg(L, 2, false) != 0;
+    ELevel *pLevel = g_game->GetLevel();
+    pLevel->m_sortingSphereEntity = trigVal;
+    return 0;
+}
 
 LUA_FUNCTION(SetEntityCameraAlphaRadius)
 {
@@ -1003,9 +1015,39 @@ LUA_FUNCTION(SetEnvironmentMap)
     return 0;
 }
 
-LUA_FUNCTION_TODO(SetBaseTexture)
+LUA_FUNCTION(SetBaseTexture)
+{
+    int curNArg = lua_gettop(L);
+    if (!CheckArgs(L, 2, 3))
+        return 0;
+    ETriggerA8 *mesh = (ETriggerA8 *)GetTriggerA8Arg(L, 1, false);
+    if (!mesh)
+        return 0;
+    EResource *res = (EResource *)GetResourceArg(L, 2);
+    EResource *alt = curNArg >= 3 ? (EResource *)GetResourceArg(L, 3) : 0;
+    void *pTexture = 0;
+    if (res)
+        pTexture = res->m_handle;
+    else {
+        LuaCallSite(L);
+        lua_tostring(L, 2);
+    }
+    mesh->SetBaseTexture(pTexture, alt ? alt->m_handle : 0, 0);
+    return 0;
+}
 
-LUA_FUNCTION_TODO(RestoreBaseTexture)
+LUA_FUNCTION(RestoreBaseTexture)
+{
+    int aN = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    ETriggerA8 *mesh = (ETriggerA8 *)GetTriggerA8Arg(L, 1, false);
+    if (!mesh)
+        return 0;
+    EResource *alt = aN >= 2 ? (EResource *)GetResourceArg(L, 2) : 0;
+    mesh->SetBaseTexture(0, alt ? alt->m_handle : 0, 0);
+    return 0;
+}
 
 LUA_FUNCTION(SetTrapTextureString)
 {
@@ -1018,17 +1060,137 @@ LUA_FUNCTION(SetTrapTextureString)
     return 0;
 }
 
-LUA_FUNCTION_TODO(GetAnimatedTextureFrame)
+LUA_FUNCTION(GetAnimatedTextureFrame)
+{
+    int curNArg = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    EResource *res = (EResource *)GetResourceArg(L, 1);
+    ETriggerA8 *mesh = curNArg >= 2 ? (ETriggerA8 *)GetTriggerA8Arg(L, 2, true) : 0;
+    if (!res) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (!res->m_anim) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (mesh)
+        lua_pushnumber(L, mesh->GetTextureFrame(res->m_handle));
+    else
+        lua_pushnumber(L, res->m_anim->m_frame);
+    return 1;
+}
 
-LUA_FUNCTION_TODO(SetAnimatedTextureFrame)
+LUA_FUNCTION(SetAnimatedTextureFrame)
+{
+    int curNArg = lua_gettop(L);
+    if (!CheckArgs(L, 2, 3))
+        return 0;
+    EResource *res = (EResource *)GetResourceArg(L, 1);
+    float frame = GetNumberArg(L, 2, false);
+    ETriggerA8 *mesh = curNArg >= 3 ? (ETriggerA8 *)GetTriggerA8Arg(L, 3, true) : 0;
+    if (!res) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (!res->m_anim) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (frame < 0.0 || frame >= res->m_anim->m_frameCount)
+        return 0;
+    if (mesh)
+        mesh->SetTextureFrame(res->m_handle, frame);
+    else
+        res->m_anim->m_frame = frame;
+    return 0;
+}
 
-LUA_FUNCTION_TODO(GetAnimatedTextureFramerate)
+LUA_FUNCTION(GetAnimatedTextureFramerate)
+{
+    int curNArg = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    EResource *res = (EResource *)GetResourceArg(L, 1);
+    ETriggerA8 *mesh = curNArg >= 2 ? (ETriggerA8 *)GetTriggerA8Arg(L, 2, true) : 0;
+    if (!res) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (!res->m_anim) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (mesh)
+        lua_pushnumber(L, mesh->GetTextureFramerate(res->m_handle));
+    else
+        lua_pushnumber(L, res->m_anim->m_framerate);
+    return 1;
+}
 
-LUA_FUNCTION_TODO(SetAnimatedTextureFramerate)
+LUA_FUNCTION(SetAnimatedTextureFramerate)
+{
+    int curNArg = lua_gettop(L);
+    if (!CheckArgs(L, 2, 3))
+        return 0;
+    EResource *res = (EResource *)GetResourceArg(L, 1);
+    float rate = GetNumberArg(L, 2, false);
+    ETriggerA8 *mesh = curNArg >= 3 ? (ETriggerA8 *)GetTriggerA8Arg(L, 3, true) : 0;
+    if (!res) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (!res->m_anim) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (mesh)
+        mesh->SetTextureFramerate(res->m_handle, rate);
+    else
+        res->m_anim->m_framerate = rate;
+    return 0;
+}
 
-LUA_FUNCTION_TODO(GetAnimatedTexturePlayMode)
+LUA_FUNCTION(GetAnimatedTexturePlayMode)
+{
+    int curNArg = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    EResource *res = (EResource *)GetResourceArg(L, 1);
+    ETriggerA8 *mesh = curNArg >= 2 ? (ETriggerA8 *)GetTriggerA8Arg(L, 2, true) : 0;
+    if (!res) {
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (mesh)
+        lua_pushint(L, mesh->GetTexturePlayMode(res->m_handle));
+    else
+        lua_pushint(L, res->m_anim ? res->m_anim->m_playMode : 8);
+    return 1;
+}
 
-LUA_FUNCTION_TODO(SetAnimatedTexturePlayMode)
+LUA_FUNCTION(SetAnimatedTexturePlayMode)
+{
+    int aN = lua_gettop(L);
+    if (!CheckArgs(L, 2, 4))
+        return 0;
+    EResource *pRes = (EResource *)GetResourceArg(L, 1);
+    int mode = (int)GetNumberArg(L, 2, false);
+    int loops = aN >= 3 ? (int)GetNumberArg(L, 3, true) : -1;
+    ETriggerA8 *aMesh = aN >= 4 ? (ETriggerA8 *)GetTriggerA8Arg(L, 4, true) : 0;
+    int curPlayModeVal = mode;
+    if (!pRes) {
+        LuaCallSite(L);
+        lua_tostring(L, 1);
+        return 0;
+    }
+    if (aMesh)
+        aMesh->SetTexturePlayMode(pRes->m_handle, curPlayModeVal, g_game->m_time * 1000.0, loops);
+    else
+        pRes->SetPlayMode(curPlayModeVal, g_game->m_time * 1000.0, loops);
+    return 0;
+}
 
 LUA_FUNCTION(GetViewPortDimensions)
 {

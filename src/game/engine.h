@@ -66,6 +66,7 @@ struct Vector3 {
         z = v.z;
     }
     Vector3 Cross(const Vector3 &v) const;
+    Vector3 CrossNormalized(const Vector3 &v) const;   // cross product made unit length, with fallbacks for parallel vectors
     float Dot(const Vector3 &v) const;
     float LengthSq() const;
     void operator/=(float s);
@@ -197,6 +198,7 @@ struct EQuat {
     void SetEuler(const Vector3 &angles);
     void SetAxisAngle(const EAxisAngle &aa);
     EQuat operator*(const EQuat &q) const;
+    Vector3 operator*(const Vector3 &v) const;
     EQuat Slerp(const EQuat &to, float t, bool shortest) const;
     Vector3 ToEuler() const;
     EQuat operator*(float s) const { return EQuat(x * s, y * s, z * s, w * s); }
@@ -255,7 +257,7 @@ public:
     ~TArray() { Clear(); Reserve(0, 0); }
     void Clear()
     {
-        if (__is_class(T)) {
+        if (true) {  // a type trait in the original, always true for the types seen so far
             for (unsigned int i = 0; i < m_count; i++)
                 GetData()[i].~T();
         }
@@ -332,6 +334,7 @@ public:
     void ResetSplineDelta();
     void SetPosition(const Vector3 &pos, bool teleport);
     void MoveTo(const Vector3 &pos, int mode, int flags);
+    void MoveToPosition(const Vector3 &pos, bool teleport);
     void SetAbsPosition(const Vector3 &pos, bool collide);
     void SetRotation(const EMatrix &rot, int flags);
     void SetLocalRotation(const EMatrix &rot, int flags);
@@ -514,6 +517,7 @@ public:
     void KillAllTimers(EScriptObject *so);
     void DoFile(const char *name, bool once);
     void KillScript(EScriptObject *so);
+    void GetTableArray(EScriptObject *so, const char *name, TArray<EScriptObject *> *out);
     void CreateTimer(EScriptObject *so, float secs, unsigned short id, int repeat, const char *name);
     bool KillTimer(EScriptObject *so, unsigned short id, const char *name);
     struct ETimer *FindTimer(EScriptObject *so, unsigned short id, const char *name, int flags);
@@ -671,14 +675,25 @@ public:
     bool m_continueExists;          // 0x46b1
 };
 
+// animation state of an animated texture
+struct EAnimTexture {
+    int m_frameCount;               // 0x00
+    float m_frame;                  // 0x04
+    char pad8[0x10 - 0x8];
+    float m_framerate;              // 0x10
+    int m_playMode;                 // 0x14
+};
+
 struct EResource {
     void *GetHandle() { return m_handle; }
     const char *GetName() { return m_name; }
+    void SetPlayMode(int mode, float timeMs, int loops);
     void *m_handle;
     void **m_data;
     char pad8[0xc - 0x8];
     const char *m_name;             // 0x0c
-    char pad10[0x24 - 0x10];
+    EAnimTexture *m_anim;           // 0x10
+    char pad14[0x24 - 0x14];
     unsigned int m_flags;           // 0x24
 };
 
