@@ -209,6 +209,38 @@ def run(exe, objs, known_in=None):
     for v in by_section.values():
         v.sort()
 
+    # MSVC puts every dynamic initializer (??__E) and atexit destructor (??__F) into a
+    # section of its own. The linker keeps those of one object together and in order,
+    # so a neighbour that is already matched tells where the next one sits.
+    init_order = {}
+    for key, (fn, hits) in candidates.items():
+        if fn.name.startswith("??__E") or fn.name.startswith("??__F"):
+            init_order.setdefault((key[0], fn.name[:5]), []).append((fn.section.index, key))
+    for v in init_order.values():
+        v.sort()
+    init_pos = {}
+    for v in init_order.values():
+        for n, (_, key) in enumerate(v):
+            init_pos[key] = (v, n)
+    starts_sorted = sorted(set(va for fn, hits in candidates.values() for va in hits))
+
+    def expected_init(key):
+        if key not in init_pos:
+            return None
+        import bisect
+        v, n = init_pos[key]
+        if n + 1 < len(v) and v[n + 1][1] in results:
+            nxt = results[v[n + 1][1]]
+            i = bisect.bisect_left(starts_sorted, nxt)
+            if i > 0:
+                return starts_sorted[i - 1]
+        if n > 0 and v[n - 1][1] in results:
+            prv = results[v[n - 1][1]]
+            i = bisect.bisect_right(starts_sorted, prv)
+            if i < len(starts_sorted):
+                return starts_sorted[i]
+        return None
+
     def expected(key):
         """address from the closest matched function before it in the same section"""
         fn = candidates[key][0]
@@ -218,6 +250,8 @@ def run(exe, objs, known_in=None):
                 break
             if other in results:
                 best = results[other] + (fn.offset - off)
+        if best is None:
+            best = expected_init(key)
         return best
 
     changed = True

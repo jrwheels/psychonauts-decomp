@@ -6,6 +6,10 @@
 #include "win32.h"
 #include <stdlib.h>
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const EQuat IDENTITY_QUAT(0.0f, 0.0f, 0.0f, 1.0f);
+
 // Shared ESoundManager layout is declared in engine.h.
 
 class EBlendShapeManager {

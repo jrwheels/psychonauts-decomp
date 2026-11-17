@@ -131,6 +131,14 @@ struct ECredits {
 
 #include <string.h>
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const Vector2 CONST_VEC2(32.0f, 325.0f);
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+static const EQuat IDENTITY_QUAT(0.0f, 0.0f, 0.0f, 1.0f);
+
 // a 3D text the scripts placed
 struct EText3D {
     char pad0[0x104];

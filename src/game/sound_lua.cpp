@@ -9,6 +9,10 @@
 void StrToLower(char *s);
 #include "diagnostic.h"
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const Vector2 CONST_VEC2(32.0f, 325.0f);
+
 void EEntity::StopSounds()
 {
     if (m_soundInstance)

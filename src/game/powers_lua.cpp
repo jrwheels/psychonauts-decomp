@@ -6,6 +6,12 @@
 #include "classes.h"
 #include <math.h>
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+
 // tuning values the debug functions at the end of this file change
 extern int g_LR;
 extern bool g_LAmoeba;

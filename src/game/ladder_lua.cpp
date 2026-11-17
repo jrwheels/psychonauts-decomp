@@ -1,14 +1,19 @@
 // Script functions, file name made up.
 
+#include <malloc.h>
 #include "engine.h"
 #include "luafunc.h"
 
 class EPlayerEntity {
 public:
+    EPlayerEntity(class EDomain *domain, const char *name);
+    void *operator new(size_t size) { return _aligned_malloc(size, 16); }
+    static EEntity *Create(class EDomain *domain, const char *name) { return (EEntity *)new EPlayerEntity(domain, name); }
     char pad0[0xa8];
     struct Model *m_model;          // 0xa8
     char padac[0x11c - 0xac];
     float m_lookTargetSearchDist;   // 0x11c
+    char pad120[0x190 - 0x120];
 
     static EClassInfo s_class;
 };
@@ -25,6 +30,14 @@ public:
     float m_294;
 };
 
+
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+
+EClassInfo EPlayerEntity::s_class("EPlayerEntity", -2, &EPlayerEntity::Create, &g_meshEntityClass);
 
 LUA_FUNCTION(PlayerGetLadderLSO)
 {

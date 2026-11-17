@@ -3,6 +3,11 @@
 #include "engine.h"
 #include "luafunc.h"
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const float CONST_2 = 2.0f;
+static const float TWO_OVER_17 = CONST_2 / 17.0;
+
 
 LUA_FUNCTION(EnableWater)
 {

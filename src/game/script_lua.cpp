@@ -7,6 +7,18 @@
 #include "luafunc.h"
 #include "classes.h"
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const double PI = 3.14159265358979323846;
+static const double RAD_TO_DEG = 180.0 / PI;
+static const float RAD_TO_DEG_F = (float)RAD_TO_DEG;
+
+inline float RadToDeg(float rad) { return rad * RAD_TO_DEG_F; }
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+static const EQuat IDENTITY_QUAT(0.0f, 0.0f, 0.0f, 1.0f);
+
 
 // pushes the three components, PushVector in luafunc.cpp does the same out of line
 inline void PushVector3(lua_State *L, const Vector3 &v)

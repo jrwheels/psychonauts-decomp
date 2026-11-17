@@ -380,8 +380,8 @@ address,size,origin,name,status,object
 0x004184e0,99,pointer,,,
 0x00418550,84,pointer,,,
 0x004185b0,436,pointer,,,
-0x00418770,99,pointer,,,
-0x004187e0,84,pointer,,,
+0x00418770,99,pointer,?$TArray::?$TArray,matching,game/linecollision_lua.cpp
+0x004187e0,84,pointer,?$TArray::~?$TArray,matching,game/linecollision_lua.cpp
 0x00418840,450,pointer,,,
 0x00418a10,127,pointer,,,
 0x00418a90,111,pointer,,,
@@ -6316,7 +6316,7 @@ address,size,origin,name,status,object
 0x005ed4f0,96,pointer,,,
 0x005ed550,151,pointer,,,
 0x005ed5f0,87,gap,,,
-0x005ed650,66,gap,,,
+0x005ed650,66,gap,EMoverEntity::Create,matching,game/mover_lua.cpp
 0x005ed6a0,94,gap,MoverReset,matching,game/mover_lua.cpp
 0x005ed700,134,gap,MoverReset_impl,matching,game/mover_lua.cpp
 0x005ed790,94,gap,MoverSetMass,matching,game/mover_lua.cpp
@@ -6377,7 +6377,7 @@ address,size,origin,name,status,object
 0x005f2510,166,pointer,,,
 0x005f25c0,63,pointer,,,
 0x005f2600,90,pointer,,,
-0x005f2660,66,gap,,,
+0x005f2660,66,gap,EPlayerEntity::Create,matching,game/ladder_lua.cpp
 0x005f26b0,94,gap,PlayerGetLadderLSO,matching,game/ladder_lua.cpp
 0x005f2710,201,gap,PlayerGetLadderLSO_impl,matching,game/ladder_lua.cpp
 0x005f27e0,94,gap,PlayerSetLookTargetSearchDist,matching,game/ladder_lua.cpp
@@ -6450,7 +6450,7 @@ address,size,origin,name,status,object
 0x005f7690,1639,pointer,,,
 0x005f7d00,1327,pointer,,,
 0x005f8230,85,pointer,,,
-0x005f8290,66,gap,,,
+0x005f8290,66,gap,ERopeEntity::Create,matching,game/rope_lua.cpp
 0x005f82e0,94,gap,RopeSetStart,matching,game/rope_lua.cpp
 0x005f8340,184,gap,RopeSetStart_impl,matching,game/rope_lua.cpp
 0x005f8400,94,gap,RopeSetEnd,matching,game/rope_lua.cpp
@@ -6547,7 +6547,7 @@ address,size,origin,name,status,object
 0x0060f340,516,pointer,,,
 0x0060f550,50,gap,,,
 0x0060f590,178,pointer,,,
-0x0060f650,66,gap,,,
+0x0060f650,66,gap,EBubbleEntity::Create,matching,game/bubble_lua.cpp
 0x0060f6a0,94,gap,BubbleSetSquish,matching,game/bubble_lua.cpp
 0x0060f700,112,gap,BubbleSetSquish_impl,matching,game/bubble_lua.cpp
 0x0060f770,94,gap,BubbleGetAverageSpeed_ForSpikyBall,matching,game/bubble_lua.cpp
@@ -6581,7 +6581,7 @@ address,size,origin,name,status,object
 0x00611430,37,pointer,,,
 0x00611460,45,pointer,,,
 0x00611490,28,pointer,,,
-0x006114b0,66,gap,,,
+0x006114b0,66,gap,ETightropeEntity::Create,matching,game/tightrope_lua.cpp
 0x00611500,94,gap,TightropeSetBouncy,matching,game/tightrope_lua.cpp
 0x00611560,188,gap,TightropeSetBouncy_impl,matching,game/tightrope_lua.cpp
 0x00611620,94,gap,TightropeAddVel,matching,game/tightrope_lua.cpp
@@ -6617,7 +6617,7 @@ address,size,origin,name,status,object
 0x006142c0,33,gap,,,
 0x006142f0,33,pointer,,,
 0x00614320,75,pointer,,,
-0x00614370,66,gap,,,
+0x00614370,66,gap,ETrampolineEntity::Create,matching,game/trampoline_lua.cpp
 0x006143c0,94,gap,Trampoline_onBeginLevel,matching,game/trampoline_lua.cpp
 0x00614420,96,gap,Trampoline_onBeginLevel_impl,matching,game/trampoline_lua.cpp
 0x00614480,94,gap,Trampoline_onEntered,matching,game/trampoline_lua.cpp
@@ -6648,7 +6648,7 @@ address,size,origin,name,status,object
 0x00614fc0,201,pointer,,,
 0x00615090,501,pointer,,,
 0x00615290,934,pointer,,,
-0x00615640,66,gap,,,
+0x00615640,66,gap,ETrapezeEntity::Create,matching,game/trapeze_lua.cpp
 0x00615690,94,gap,TrapezeGetSwingSpeed,matching,game/trapeze_lua.cpp
 0x006156f0,124,gap,TrapezeGetSwingSpeed_impl,matching,game/trapeze_lua.cpp
 0x00615770,94,gap,TrapezeSetSwingSpeed,matching,game/trapeze_lua.cpp
@@ -9266,14 +9266,14 @@ address,size,origin,name,status,object
 0x006ee130,21,pointer,,,
 0x006ee150,23,pointer,,,
 0x006ee170,23,pointer,,,
-0x006ee190,23,pointer,,,
-0x006ee1b0,23,pointer,,,
-0x006ee1d0,17,pointer,,,
-0x006ee1f0,17,pointer,,,
-0x006ee210,23,pointer,,,
-0x006ee230,21,pointer,,,
-0x006ee250,23,pointer,,,
-0x006ee270,23,pointer,,,
+0x006ee190,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/animmanager_lua.cpp
+0x006ee1b0,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/animmanager_lua.cpp
+0x006ee1d0,17,pointer,dynamic initializer for DEG_TO_RAD_F,matching,game/animmanager_lua.cpp
+0x006ee1f0,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/animmanager_lua.cpp
+0x006ee210,23,pointer,dynamic initializer for ONE_OVER_255_EPS,matching,game/animmanager_lua.cpp
+0x006ee230,21,pointer,dynamic initializer for SEVEN_EIGHTHS,matching,game/animmanager_lua.cpp
+0x006ee250,23,pointer,dynamic initializer for MS_PER_FRAME,matching,game/animmanager_lua.cpp
+0x006ee270,23,pointer,dynamic initializer for FRAMES_PER_MS,matching,game/animmanager_lua.cpp
 0x006ee290,25,pointer,dynamic initializer for AnimManager_SqueezeCache_reg,matching,game/animmanager_lua.cpp
 0x006ee2b0,25,pointer,dynamic initializer for AnimManager_PurgeCache_reg,matching,game/animmanager_lua.cpp
 0x006ee2d0,25,pointer,dynamic initializer for AnimManager_SetCacheSize_reg,matching,game/animmanager_lua.cpp
@@ -9310,13 +9310,13 @@ address,size,origin,name,status,object
 0x006eea40,25,pointer,dynamic initializer for AddFrozen_reg,matching,game/freeze_lua.cpp
 0x006eea60,25,pointer,dynamic initializer for GetFreezeThawDists_reg,matching,game/freeze_lua.cpp
 0x006eea80,25,pointer,dynamic initializer for SetFreezeThawDists_reg,matching,game/freeze_lua.cpp
-0x006eeaa0,49,pointer,,,
-0x006eeae0,23,pointer,,,
-0x006eeb00,23,pointer,,,
-0x006eeb20,17,pointer,,,
-0x006eeb40,49,pointer,,,
-0x006eeb80,32,pointer,,,
-0x006eeba0,32,pointer,,,
+0x006eeaa0,49,pointer,dynamic initializer for s_lineColor,matching,game/linecollision_lua.cpp
+0x006eeae0,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/linecollision_lua.cpp
+0x006eeb00,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/linecollision_lua.cpp
+0x006eeb20,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/linecollision_lua.cpp
+0x006eeb40,49,pointer,dynamic initializer for s_normalColor,matching,game/linecollision_lua.cpp
+0x006eeb80,32,pointer,dynamic initializer for g_linePoints,matching,game/linecollision_lua.cpp
+0x006eeba0,32,pointer,dynamic initializer for g_lineNormals,matching,game/linecollision_lua.cpp
 0x006eebc0,25,pointer,dynamic initializer for StartLineCollision_reg,matching,game/linecollision_lua.cpp
 0x006eebe0,25,pointer,dynamic initializer for AddLineCollision_reg,matching,game/linecollision_lua.cpp
 0x006eec00,25,pointer,dynamic initializer for EndLineCollision_reg,matching,game/linecollision_lua.cpp
@@ -9534,9 +9534,9 @@ address,size,origin,name,status,object
 0x006f0a20,25,pointer,dynamic initializer for SetSteamRichPresenceStatus_reg,matching,game/savegame_lua.cpp
 0x006f0a40,25,pointer,dynamic initializer for ResetSteamUserStats_reg,matching,game/savegame_lua.cpp
 0x006f0a60,25,pointer,dynamic initializer for GetSaveString_reg,matching,game/savegame_lua.cpp
-0x006f0a80,29,pointer,,,
-0x006f0aa0,37,pointer,,,
-0x006f0ad0,37,pointer,,,
+0x006f0a80,29,pointer,dynamic initializer for CONST_125,matching,game/playercontrol_lua.cpp
+0x006f0aa0,37,pointer,dynamic initializer for IDENTITY_QUAT,matching,game/playercontrol_lua.cpp
+0x006f0ad0,37,pointer,dynamic initializer for CONST_VEC3,matching,game/playercontrol_lua.cpp
 0x006f0b00,25,pointer,dynamic initializer for PlayerControl_onSlide_reg,matching,game/playercontrol_lua.cpp
 0x006f0b20,25,pointer,dynamic initializer for SetPlayerMovementScale_reg,matching,game/playercontrol_lua.cpp
 0x006f0b40,25,pointer,dynamic initializer for EnablePlayerJumping_reg,matching,game/playercontrol_lua.cpp
@@ -9675,7 +9675,7 @@ address,size,origin,name,status,object
 0x006f1c30,25,pointer,dynamic initializer for SetRailCameraAltitude_reg,matching,game/camera_lua.cpp
 0x006f1c50,25,pointer,dynamic initializer for SetFlyCamPos_reg,matching,game/camera_lua.cpp
 0x006f1c70,25,pointer,dynamic initializer for SetFlyCamOri_reg,matching,game/camera_lua.cpp
-0x006f1c90,37,pointer,,,
+0x006f1c90,37,pointer,dynamic initializer for IDENTITY_QUAT,matching,game/debugmenu_lua.cpp
 0x006f1cc0,25,pointer,dynamic initializer for DbgMenuReset_reg,matching,game/debugmenu_lua.cpp
 0x006f1ce0,25,pointer,dynamic initializer for DbgMenuAppend_reg,matching,game/debugmenu_lua.cpp
 0x006f1d00,25,pointer,dynamic initializer for DBGMenuSetCheck_reg,matching,game/debugmenu_lua.cpp
@@ -9741,7 +9741,7 @@ address,size,origin,name,status,object
 0x006f2480,25,pointer,dynamic initializer for TestExit_reg,matching,game/debugmenu_lua.cpp
 0x006f24a0,25,pointer,dynamic initializer for Debug_SetProductionLoading_reg,matching,game/debugmenu_lua.cpp
 0x006f24c0,25,pointer,dynamic initializer for SetPCDisplayOptions_reg,matching,game/debugmenu_lua.cpp
-0x006f24e0,23,pointer,,,
+0x006f24e0,23,pointer,dynamic initializer for TWO_OVER_17,matching,game/water_lua.cpp
 0x006f2500,25,pointer,dynamic initializer for EnableWater_reg,matching,game/water_lua.cpp
 0x006f2520,25,pointer,dynamic initializer for DisplayReflectionTexture_reg,matching,game/water_lua.cpp
 0x006f2540,25,pointer,dynamic initializer for SetReflectionScale_reg,matching,game/water_lua.cpp
@@ -9754,10 +9754,10 @@ address,size,origin,name,status,object
 0x006f2620,25,pointer,dynamic initializer for SetWaterFresnelTexture_reg,matching,game/water_lua.cpp
 0x006f2640,25,pointer,dynamic initializer for SetupWaterTextures_reg,matching,game/water_lua.cpp
 0x006f2660,25,pointer,dynamic initializer for TestTableArray_reg,matching,game/water_lua.cpp
-0x006f2680,23,pointer,,,
-0x006f26a0,23,pointer,,,
-0x006f26c0,17,pointer,,,
-0x006f26e0,17,pointer,,,
+0x006f2680,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/particles_lua.cpp
+0x006f26a0,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/particles_lua.cpp
+0x006f26c0,17,pointer,dynamic initializer for DEG_TO_RAD_F,matching,game/particles_lua.cpp
+0x006f26e0,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/particles_lua.cpp
 0x006f2700,25,pointer,dynamic initializer for CreateParticleEmitter_reg,matching,game/particles_lua.cpp
 0x006f2720,25,pointer,dynamic initializer for CreateLineParticleEmitter_reg,matching,game/particles_lua.cpp
 0x006f2740,25,pointer,dynamic initializer for CreateMeshEmitter_reg,matching,game/particles_lua.cpp
@@ -9916,7 +9916,7 @@ address,size,origin,name,status,object
 0x006f3a60,25,pointer,dynamic initializer for RenderReachable_reg,matching,game/navigation_lua.cpp
 0x006f3a80,25,pointer,dynamic initializer for DumpNavMeshInfo_reg,matching,game/navigation_lua.cpp
 0x006f3aa0,25,pointer,dynamic initializer for StraightNav_reg,matching,game/navigation_lua.cpp
-0x006f3ac0,29,pointer,,,
+0x006f3ac0,29,pointer,dynamic initializer for CONST_125,matching,game/collision_lua.cpp
 0x006f3ae0,25,pointer,dynamic initializer for CheckForCollision_reg,matching,game/collision_lua.cpp
 0x006f3b00,25,pointer,dynamic initializer for MultiCheckCollision_reg,matching,game/collision_lua.cpp
 0x006f3b20,25,pointer,dynamic initializer for SetSwitchableCollisionEnable_reg,matching,game/collision_lua.cpp
@@ -9954,7 +9954,7 @@ address,size,origin,name,status,object
 0x006f3f20,25,pointer,dynamic initializer for GetPushParams_reg,matching,game/collision_lua.cpp
 0x006f3f40,25,pointer,dynamic initializer for Rail_ShowClosestPoints_reg,matching,game/collision_lua.cpp
 0x006f3f60,25,pointer,dynamic initializer for PrecomputeTrajectory_reg,matching,game/collision_lua.cpp
-0x006f3f80,29,pointer,,,
+0x006f3f80,29,pointer,dynamic initializer for CONST_125,matching,game/powers_lua.cpp
 0x006f3fa0,25,pointer,dynamic initializer for InterruptPowers_reg,matching,game/powers_lua.cpp
 0x006f3fc0,25,pointer,dynamic initializer for EnablePower_reg,matching,game/powers_lua.cpp
 0x006f3fe0,25,pointer,dynamic initializer for DisablePower_reg,matching,game/powers_lua.cpp
@@ -10126,7 +10126,7 @@ address,size,origin,name,status,object
 0x006f54a0,25,pointer,dynamic initializer for RumbleRight_reg,matching,game/input_lua.cpp
 0x006f54c0,25,pointer,dynamic initializer for RumbleLeftBezier_reg,matching,game/input_lua.cpp
 0x006f54e0,25,pointer,dynamic initializer for RumbleRightBezier_reg,matching,game/input_lua.cpp
-0x006f5500,29,pointer,,,
+0x006f5500,29,pointer,dynamic initializer for CONST_VEC2,matching,game/sound_lua.cpp
 0x006f5520,25,pointer,dynamic initializer for LoadSound_reg,matching,game/sound_lua.cpp
 0x006f5540,25,pointer,dynamic initializer for GetSoundName_reg,matching,game/sound_lua.cpp
 0x006f5560,25,pointer,dynamic initializer for PlaySoundWithBabble_reg,matching,game/sound_lua.cpp
@@ -10243,9 +10243,9 @@ address,size,origin,name,status,object
 0x006f6340,25,pointer,dynamic initializer for UnregisterTriggerVolume_reg,matching,game/trigger_lua.cpp
 0x006f6360,25,pointer,dynamic initializer for GetTriggerVolumeOrientation_reg,matching,game/trigger_lua.cpp
 0x006f6380,25,pointer,dynamic initializer for DumpTriggerOBBs_reg,matching,game/trigger_lua.cpp
-0x006f63a0,29,pointer,,,
-0x006f63c0,29,pointer,,,
-0x006f63e0,37,pointer,,,
+0x006f63a0,29,pointer,dynamic initializer for CONST_VEC2,matching,game/dialog_lua.cpp
+0x006f63c0,29,pointer,dynamic initializer for CONST_125,matching,game/dialog_lua.cpp
+0x006f63e0,37,pointer,dynamic initializer for IDENTITY_QUAT,matching,game/dialog_lua.cpp
 0x006f6410,25,pointer,dynamic initializer for SayLine_reg,matching,game/dialog_lua.cpp
 0x006f6430,25,pointer,dynamic initializer for PreloadSaylineHead_reg,matching,game/dialog_lua.cpp
 0x006f6450,25,pointer,dynamic initializer for SetSaylinePosition_reg,matching,game/dialog_lua.cpp
@@ -10399,10 +10399,10 @@ address,size,origin,name,status,object
 0x006f76d0,25,pointer,dynamic initializer for GetCollectedFigmentCount_reg,matching,game/dialog_lua.cpp
 0x006f76f0,25,pointer,dynamic initializer for IsExitFromJournal_reg,matching,game/dialog_lua.cpp
 0x006f7710,25,pointer,dynamic initializer for GetLanguage_reg,matching,game/dialog_lua.cpp
-0x006f7730,23,pointer,,,
-0x006f7750,17,pointer,,,
-0x006f7770,29,pointer,,,
-0x006f7790,37,pointer,,,
+0x006f7730,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/script_lua.cpp
+0x006f7750,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/script_lua.cpp
+0x006f7770,29,pointer,dynamic initializer for CONST_125,matching,game/script_lua.cpp
+0x006f7790,37,pointer,dynamic initializer for IDENTITY_QUAT,matching,game/script_lua.cpp
 0x006f77c0,25,pointer,dynamic initializer for Yield_reg,matching,game/script_lua.cpp
 0x006f77e0,25,pointer,dynamic initializer for IsDead_reg,matching,game/script_lua.cpp
 0x006f7800,25,pointer,dynamic initializer for PassItemToPsack_reg,matching,game/script_lua.cpp
@@ -10721,9 +10721,9 @@ address,size,origin,name,status,object
 0x006f9f70,25,pointer,dynamic initializer for MMGravityEntity_Register_reg,matching,game/mmgravity_lua.cpp
 0x006f9f90,25,pointer,dynamic initializer for MMGravityEntity_Unregister_reg,matching,game/mmgravity_lua.cpp
 0x006f9fb0,25,pointer,dynamic initializer for MMGravityEntity_DoWork_reg,matching,game/mmgravity_lua.cpp
-0x006f9fd0,23,pointer,,,
-0x006f9ff0,17,pointer,,,
-0x006fa010,32,pointer,,,
+0x006f9fd0,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/mover_lua.cpp
+0x006f9ff0,17,pointer,dynamic initializer for DEG_TO_RAD_F,matching,game/mover_lua.cpp
+0x006fa010,32,pointer,dynamic initializer for ?s_class@EMoverEntity,matching,game/mover_lua.cpp
 0x006fa030,25,pointer,dynamic initializer for MoverReset_reg,matching,game/mover_lua.cpp
 0x006fa050,25,pointer,dynamic initializer for MoverSetMass_reg,matching,game/mover_lua.cpp
 0x006fa070,25,pointer,dynamic initializer for MoverCalculateMassDistribution_reg,matching,game/mover_lua.cpp
@@ -10735,20 +10735,20 @@ address,size,origin,name,status,object
 0x006fa130,25,pointer,dynamic initializer for MoverAddWaterSpring_reg,matching,game/mover_lua.cpp
 0x006fa150,25,pointer,dynamic initializer for RelativeRazPos_reg,matching,game/mover_lua.cpp
 0x006fa170,25,pointer,dynamic initializer for MoverSetDebug_reg,matching,game/mover_lua.cpp
-0x006fa190,29,pointer,,,
-0x006fa1b0,32,pointer,,,
+0x006fa190,29,pointer,dynamic initializer for CONST_125,matching,game/ladder_lua.cpp
+0x006fa1b0,32,pointer,dynamic initializer for ?s_class@EPlayerEntity,matching,game/ladder_lua.cpp
 0x006fa1d0,25,pointer,dynamic initializer for PlayerGetLadderLSO_reg,matching,game/ladder_lua.cpp
 0x006fa1f0,25,pointer,dynamic initializer for PlayerSetLookTargetSearchDist_reg,matching,game/ladder_lua.cpp
 0x006fa210,25,pointer,dynamic initializer for PlayerGetSuckStatus_LLLL_reg,matching,game/ladder_lua.cpp
 0x006fa230,25,pointer,dynamic initializer for Cutscene_DisableBackpackBounce_reg,matching,game/ladder_lua.cpp
 0x006fa250,29,pointer,,,
 0x006fa270,32,pointer,,,
-0x006fa290,23,pointer,,,
-0x006fa2b0,23,pointer,,,
-0x006fa2d0,17,pointer,,,
-0x006fa2f0,17,pointer,,,
-0x006fa310,23,pointer,,,
-0x006fa330,32,pointer,,,
+0x006fa290,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/rope_lua.cpp
+0x006fa2b0,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/rope_lua.cpp
+0x006fa2d0,17,pointer,dynamic initializer for DEG_TO_RAD_F,matching,game/rope_lua.cpp
+0x006fa2f0,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/rope_lua.cpp
+0x006fa310,23,pointer,dynamic initializer for DEG_TO_RAD2,matching,game/rope_lua.cpp
+0x006fa330,32,pointer,dynamic initializer for ?s_class@ERopeEntity,matching,game/rope_lua.cpp
 0x006fa350,25,pointer,dynamic initializer for RopeSetStart_reg,matching,game/rope_lua.cpp
 0x006fa370,25,pointer,dynamic initializer for RopeSetEnd_reg,matching,game/rope_lua.cpp
 0x006fa390,25,pointer,dynamic initializer for RopeSetK_reg,matching,game/rope_lua.cpp
@@ -10758,35 +10758,35 @@ address,size,origin,name,status,object
 0x006fa410,17,pointer,,,
 0x006fa430,29,pointer,,,
 0x006fa450,32,pointer,,,
-0x006fa470,23,pointer,,,
-0x006fa490,17,pointer,,,
-0x006fa4b0,29,pointer,,,
-0x006fa4d0,32,pointer,,,
+0x006fa470,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/bubble_lua.cpp
+0x006fa490,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/bubble_lua.cpp
+0x006fa4b0,29,pointer,dynamic initializer for CONST_125,matching,game/bubble_lua.cpp
+0x006fa4d0,32,pointer,dynamic initializer for ?s_class@EBubbleEntity,matching,game/bubble_lua.cpp
 0x006fa4f0,25,pointer,dynamic initializer for BubbleSetSquish_reg,matching,game/bubble_lua.cpp
 0x006fa510,25,pointer,dynamic initializer for BubbleGetAverageSpeed_ForSpikyBall_reg,matching,game/bubble_lua.cpp
 0x006fa530,25,pointer,dynamic initializer for BubbleSetTrailEntity_reg,matching,game/bubble_lua.cpp
 0x006fa550,25,pointer,dynamic initializer for BubbleSetTrailTexture_reg,matching,game/bubble_lua.cpp
-0x006fa570,23,pointer,,,
-0x006fa590,29,pointer,,,
-0x006fa5b0,32,pointer,,,
+0x006fa570,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/tightrope_lua.cpp
+0x006fa590,29,pointer,dynamic initializer for CONST_125,matching,game/tightrope_lua.cpp
+0x006fa5b0,32,pointer,dynamic initializer for ?s_class@ETightropeEntity,matching,game/tightrope_lua.cpp
 0x006fa5d0,25,pointer,dynamic initializer for TightropeSetBouncy_reg,matching,game/tightrope_lua.cpp
 0x006fa5f0,25,pointer,dynamic initializer for TightropeAddVel_reg,matching,game/tightrope_lua.cpp
 0x006fa610,25,pointer,dynamic initializer for TightropeGetRope_reg,matching,game/tightrope_lua.cpp
 0x006fa630,25,pointer,dynamic initializer for TightropeSetMass_reg,matching,game/tightrope_lua.cpp
 0x006fa650,25,pointer,dynamic initializer for TightropeSetStiffness_reg,matching,game/tightrope_lua.cpp
-0x006fa670,23,pointer,,,
-0x006fa690,29,pointer,,,
-0x006fa6b0,117,pointer,,,
-0x006fa730,32,pointer,,,
+0x006fa670,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/trampoline_lua.cpp
+0x006fa690,29,pointer,dynamic initializer for CONST_125,matching,game/trampoline_lua.cpp
+0x006fa6b0,117,pointer,dynamic initializer for s_bounceCurve,matching,game/trampoline_lua.cpp
+0x006fa730,32,pointer,dynamic initializer for ?s_class@ETrampolineEntity,matching,game/trampoline_lua.cpp
 0x006fa750,25,pointer,dynamic initializer for Trampoline_onBeginLevel_reg,matching,game/trampoline_lua.cpp
 0x006fa770,25,pointer,dynamic initializer for Trampoline_onEntered_reg,matching,game/trampoline_lua.cpp
 0x006fa790,25,pointer,dynamic initializer for Trampoline_onExited_reg,matching,game/trampoline_lua.cpp
 0x006fa7b0,25,pointer,dynamic initializer for Trampoline_ClearBouncer_reg,matching,game/trampoline_lua.cpp
-0x006fa7d0,23,pointer,,,
-0x006fa7f0,23,pointer,,,
-0x006fa810,17,pointer,,,
-0x006fa830,17,pointer,,,
-0x006fa850,32,pointer,,,
+0x006fa7d0,23,pointer,dynamic initializer for DEG_TO_RAD,matching,game/trapeze_lua.cpp
+0x006fa7f0,23,pointer,dynamic initializer for RAD_TO_DEG,matching,game/trapeze_lua.cpp
+0x006fa810,17,pointer,dynamic initializer for DEG_TO_RAD_F,matching,game/trapeze_lua.cpp
+0x006fa830,17,pointer,dynamic initializer for RAD_TO_DEG_F,matching,game/trapeze_lua.cpp
+0x006fa850,32,pointer,dynamic initializer for ?s_class@ETrapezeEntity,matching,game/trapeze_lua.cpp
 0x006fa870,25,pointer,dynamic initializer for TrapezeGetSwingSpeed_reg,matching,game/trapeze_lua.cpp
 0x006fa890,25,pointer,dynamic initializer for TrapezeSetSwingSpeed_reg,matching,game/trapeze_lua.cpp
 0x006fa8b0,25,pointer,dynamic initializer for TrapezeSetMaxEnergyPct_reg,matching,game/trapeze_lua.cpp
@@ -10908,8 +10908,8 @@ address,size,origin,name,status,object
 0x006fbb30,38,gap,,,
 0x006fbb60,38,gap,,,
 0x006fbb90,20,gap,,,
-0x006fbbb0,20,gap,,,
-0x006fbbd0,20,gap,,,
+0x006fbbb0,20,gap,?__Fg_linePoints,matching,game/linecollision_lua.cpp
+0x006fbbd0,20,gap,?__Fg_lineNormals,matching,game/linecollision_lua.cpp
 0x006fbbf0,15,gap,,,
 0x006fbc00,5,gap,,,
 0x006fbc10,20,gap,,,

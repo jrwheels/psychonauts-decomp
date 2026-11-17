@@ -393,13 +393,17 @@ class EClassInfo *GetClassByType(int type);
 // run time type of the entities
 class EClassInfo {
 public:
-    const char *m_name;
-    int m_type;
+    EClassInfo(const char *name, int type, EEntity *(*create)(class EDomain *domain, const char *name), EClassInfo *parent);
     bool IsDerivedFrom(EClassInfo *base);
 
-    char pad8[0x10 - 0x8];
+    const char *m_name;
+    int m_type;
+    EClassInfo *m_parent;           // 0x08
+    EClassInfo *m_next;             // 0x0c, list of all classes
     EEntity *(*m_create)(class EDomain *domain, const char *name);  // 0x10
 };
+
+extern EClassInfo g_meshEntityClass;    // "EntityType_Mesh", the parent of most entity classes
 
 class EEntity {
 public:

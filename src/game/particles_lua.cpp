@@ -8,13 +8,18 @@
 #include "classes.h"
 #include "diagnostic.h"
 
-// per-file copies of the angle conversion factors, set up at startup
-extern float g_peDegToRad;
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const double PI = 3.14159265358979323846;
+static const double DEG_TO_RAD = PI / 180.0;
+static const double RAD_TO_DEG = 180.0 / PI;
+static const float DEG_TO_RAD_F = (float)DEG_TO_RAD;
+static const float RAD_TO_DEG_F = (float)RAD_TO_DEG;
+
 
 // names for emitters the scripts create without one
 static int s_emitterCount;
 static char s_emitterName[0x32];
-extern float g_peRadToDeg;
 
 LUA_FUNCTION(CreateParticleEmitter)
 {
@@ -376,7 +381,7 @@ LUA_FUNCTION(PESetConeAngle)
         return 0;
     float fAVal = GetNumberArg(L, 2, false);
     float b = GetNumberArg(L, 3, false);
-    pPe->SetConeAngle(g_peDegToRad * fAVal, g_peDegToRad * b);
+    pPe->SetConeAngle(DEG_TO_RAD_F * fAVal, DEG_TO_RAD_F * b);
     return 0;
 }
 
@@ -389,9 +394,9 @@ LUA_FUNCTION(PEGetConeAngle)
     if (!pPe)
         return 0;
     float myA = pPe->m_coneAngle1;
-    lua_pushnumber(L, myA * g_peRadToDeg);
+    lua_pushnumber(L, myA * RAD_TO_DEG_F);
     float b = pPe->m_coneAngle2;
-    lua_pushnumber(L, b * g_peRadToDeg);
+    lua_pushnumber(L, b * RAD_TO_DEG_F);
     return 2;
 }
 

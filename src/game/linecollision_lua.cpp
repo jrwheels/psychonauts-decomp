@@ -5,9 +5,18 @@
 
 #include "classes.h"
 
+static const Color s_lineColor(0.7f, 0.7f, 0.3f, 1.0f);
+
+static const double PI = 3.14159265358979323846;
+const double DEG_TO_RAD = PI / 180.0;
+const double RAD_TO_DEG = 180.0 / PI;
+const float RAD_TO_DEG_F = (float)RAD_TO_DEG;
+
+static const Color s_normalColor(0.4f, 0.4f, 0.6f, 1.0f);
+
 // the points the scripts collect between StartLineCollision and EndLineCollision
-extern TArray<Vector3> g_linePoints;
-extern TArray<Vector3> g_lineNormals;
+TArray<Vector3> g_linePoints(0, false);
+TArray<Vector3> g_lineNormals(0, false);
 
 
 LUA_FUNCTION(StartLineCollision)

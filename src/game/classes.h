@@ -849,9 +849,6 @@ struct EBone {
     unsigned char m_flare : 1;
 };
 
-extern float g_radToDeg;
-
-inline float RadToDeg(float rad) { return rad * g_radToDeg; }
 void ScriptWarning(const char *fmt, ...);
 void ScriptError(const char *fmt, ...);
 

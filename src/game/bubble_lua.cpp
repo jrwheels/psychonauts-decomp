@@ -1,5 +1,6 @@
 // Script functions, file name made up.
 
+#include <malloc.h>
 #include "engine.h"
 #include "luafunc.h"
 
@@ -13,15 +14,30 @@ public:
 
 class EBubbleEntity {
 public:
+    EBubbleEntity(class EDomain *domain, const char *name);
+    void *operator new(size_t size) { return _aligned_malloc(size, 16); }
+    static EEntity *Create(class EDomain *domain, const char *name) { return (EEntity *)new EBubbleEntity(domain, name); }
     void SetTrail(EBallTrailEntity *trail);
     float GetAverageSpeed() { return m_averageSpeed; }
 
     char pad0[0x150];
     float m_averageSpeed;           // 0x150
+    char pad154[0x1d0 - 0x154];
 
     static EClassInfo s_class;
 };
 
+
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const double PI = 3.14159265358979323846;
+static const double RAD_TO_DEG = 180.0 / PI;
+static const float RAD_TO_DEG_F = (float)RAD_TO_DEG;
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+
+EClassInfo EBubbleEntity::s_class("EntityType_ThoughtBubble", 5, &EBubbleEntity::Create, &g_meshEntityClass);
 
 LUA_FUNCTION(BubbleSetSquish)
 {
