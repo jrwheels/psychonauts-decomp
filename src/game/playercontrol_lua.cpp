@@ -3,6 +3,14 @@
 #include "engine.h"
 #include "luafunc.h"
 
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+static const EQuat IDENTITY_QUAT(0.0f, 0.0f, 0.0f, 1.0f);
+static const Vector3 CONST_VEC3(0.0f, -182.6f, -40.0f);
+
 extern float *g_slideTime;
 
 // control handler 0

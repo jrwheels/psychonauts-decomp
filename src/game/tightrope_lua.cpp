@@ -1,5 +1,6 @@
 // Script functions, file name made up.
 
+#include <malloc.h>
 #include "engine.h"
 #include "luafunc.h"
 
@@ -8,6 +9,9 @@ static const float kStiffnessScale = 80.0f;
 
 class ETightropeEntity {
 public:
+    ETightropeEntity(class EDomain *domain, const char *name);
+    void *operator new(size_t size) { return _aligned_malloc(size, 16); }
+    static EEntity *Create(class EDomain *domain, const char *name) { return (EEntity *)new ETightropeEntity(domain, name); }
     char pad0[0x110];
     bool m_bouncy;                  // 0x110
     char pad111[0x114 - 0x111];
@@ -18,6 +22,7 @@ public:
     float m_velX;                   // 0x124
     float m_128;
     float m_velY;                   // 0x12c
+    char pad130[0x144 - 0x130];
 
     static EClassInfo s_class;
 };
@@ -33,6 +38,16 @@ public:
     bool m_facingForward;           // 0x240
 };
 
+
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const double PI = 3.14159265358979323846;
+static const double DEG_TO_RAD = PI / 180.0;
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+
+EClassInfo ETightropeEntity::s_class("ETightropeEntity", -2, &ETightropeEntity::Create, &g_meshEntityClass);
 
 LUA_FUNCTION(TightropeSetBouncy)
 {

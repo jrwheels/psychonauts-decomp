@@ -1,18 +1,17 @@
 # Psychonauts
 
-Current native checkpoint (12 November 2026): **3,396 matching functions /304,109
-mapped bytes**. See [current fork handoff](docs/fork-development.md). Historical totals below
-describe earlier checkpoints. This update contains pure native decomp work.
+The fork combines upstream's script reconstruction with its own native engine
+work. See the [current fork handoff](docs/fork-development.md).
 
 ![Lua scripts](https://img.shields.io/badge/Lua%20scripts-100%25-brightgreen)
-![Engine](https://img.shields.io/badge/Engine-31.07%25%20(3396%2F10930)-orange)
-![Engine code](https://img.shields.io/badge/Engine%20code-10.36%25-red)
+![Engine](https://img.shields.io/badge/Engine-36.26%25%20(3963%2F10930)-orange)
+![Engine code](https://img.shields.io/badge/Engine%20code-13.74%25-red)
 
 A work-in-progress decompilation of Psychonauts (2005, PC).
 
 The game is split into two very different parts:
 
-- **The engine** (`Psychonauts.exe`): C++, 32 bit x86. Rendering, physics, audio, loading, the Lua runtime. **Started:** the Lua runtime matches completely. Of the C++ part the glue around the script functions is done and the script functions themselves are in progress.
+- **The engine** (`Psychonauts.exe`): C++, 32 bit x86. Rendering, physics, audio, loading, the Lua runtime. **Started:** the Lua runtime matches completely. Of the C++ part the glue around the script functions is done, the script functions themselves are in progress, and the first pieces of file loading, resources and meshes match too.
 - **The scripts**: Lua 4.0 with some Double Fine changes. Raz, enemies, bosses, cutscenes, every level script. **Done:** every function decompiles to source that recompiles to the exact same bytes.
 
 This repository contains reconstruction source and tooling, but no original game
@@ -24,7 +23,7 @@ acquired original compiler for native matching. The engine is not linked or play
 | Part | Matching | Notes |
 | --- | --- | --- |
 | Lua scripts | 106607 / 106607 functions (100 %) | 9955 bytecode chunks from `.lub`, `.lpf`, `.ppf` and `.pkg` files |
-| Engine | 3389 / 10930 functions (31.01 %), 10.33 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
+| Engine | 3963 / 10930 functions (36.26 %), 13.74 % of the code | Lua 4.0 runtime in `src/lua` complete, script functions in `src/game` in progress |
 
 ![Progress map](engine/progress.svg)
 
@@ -212,9 +211,11 @@ The engine gives the scripts 1134 C functions (`SetCamera`, `PlaySound`, `SayLin
 
 The first two are identical for every script function, so they match as soon as the macro is right: 1118 wrappers (16 functions run on the normal stack and have none) and 1134 registrations. They are spread over 29 object files, `src/game/*_lua.cpp` has one file per object. The file names are made up, and most of these objects contain more than the script functions.
 
-The real functions are what I'm working on now. 477 of the 1134 match so far, the others are still `LUA_FUNCTION_TODO`, which only declares them. Almost all of them start the same way: check the number of arguments, fetch the arguments with a handful of helpers (`GetNumberArg`, `GetStringArg`, `GetEntityArg`, ...), call into the engine and push the result. The helpers live in `src/game/luafunc.cpp` and all 23 of them match.
+The real functions are what I'm working on now. 958 of the 1134 match so far, the others are still `LUA_FUNCTION_TODO`, which only declares them. Almost all of them start the same way: check the number of arguments, fetch the arguments with a handful of helpers (`GetNumberArg`, `GetStringArg`, `GetEntityArg`, ...), call into the engine and push the result. The helpers live in `src/game/luafunc.cpp` and all 23 of them match.
 
-Because the script functions reach into every part of the engine, the C++ classes they use show up bit by bit. `src/game/engine.h` has what is known so far: members at the offsets the code uses, with padding in between. Classes with RTTI in the executable (`GameApp`, `EEntity`, `ERopeEntity`, ...) keep their real names, everything else is named after what it seems to do. Expect a lot of these names to change.
+Every object file also has dynamic initializers: small functions the compiler writes for globals that need code to set them up. A header with constants like `DEG_TO_RAD = PI / 180.0` gives every file that includes it its own copy of them, so the same handful of tiny functions shows up again and again at the end of the code. Each file's initializers sit together and in order, which is how the class registrations (`EClassInfo` objects with the entity class name, type and create function) and these constants get matched. `tools/objmatch.py` uses that order: an initializer next to an already matched one has to be the function right before or after it.
+
+Because the script functions reach into every part of the engine, the C++ classes they use show up bit by bit. `src/game/engine.h` and `src/game/classes.h` have what is known so far: members at the offsets the code uses, with padding in between. Classes with RTTI in the executable (`GameApp`, `EEntity`, `ERopeEntity`, ...) keep their real names, everything else is named after what it seems to do. Expect a lot of these names to change.
 
 More things the compiler does that matter here:
 
@@ -235,7 +236,7 @@ The rest of the engine will follow the usual setup for MSVC games: a Ghidra proj
 | `contribute/` | Contributor setup, AI instructions, workflow helpers and their tests |
 | `tools/` | Script decompiler, repacker, installer, diff tool, and the tools for the executable: `peinfo.py`, `funclist.py`, `build.sh`, `objmatch.py`, `progressmap.py` |
 | `src/lua/` | Lua 4.0 runtime as used by the engine |
-| `src/game/` | Engine code in C++, so far the script functions and the classes they use |
+| `src/game/` | Engine code in C++: the script functions, the classes they use, and the first file, resource and mesh code |
 | `engine/` | Function list of `Psychonauts.exe`, with names for the functions that match |
 | `psyluac/` | Lua 4.0 compiler patched to produce Psychonauts bytecode |
 
@@ -249,9 +250,15 @@ and review.
 - [Psychonauts Lua API documentation](https://psycholuaapi.readthedocs.io/) documents the functions the engine gives to Lua
 - Double Fine Explorer by Quick and Easy Software reads the `.pkg` and `.ppf` containers
 
+## Contributors
+
+- [jrwheels](https://github.com/jrwheels) matched the first native file, streaming, resource and mesh functions and part of the sound script functions (#2), then the resource cache, animation headers and skeleton input (#3)
+
 ## License
 
-My code (`tools/` and `psyluac/psyluac.c`) is under the MIT license, see `LICENSE`.
+Upstream distributes its tools, patched Lua compiler and engine reconstruction under the GNU General Public License v3.0. See [LICENSE](LICENSE). Earlier MIT-licensed versions remain available under the terms in [LICENSE.MIT](LICENSE.MIT). The original Lua 4.0 license notices still apply to the files listed below.
+
+The code in `src/game/` recreates Double Fine's code from the executable. The license covers the work that went into the reconstruction, it does not give anyone rights to Psychonauts itself.
 
 The rest of `psyluac/` and all of `src/lua/` is Lua 4.0 by TeCGraf, PUC-Rio under its own license, see `COPYRIGHT` in both folders. Every changed file says so at the top. In `psyluac/` I changed `llimits.h`, `lparser.c` and `ldo.c`. In `src/lua/` the changes are Double Fine's, reconstructed from the executable (`tools/mark.py` adds the note).
 

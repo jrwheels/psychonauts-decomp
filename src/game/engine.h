@@ -58,6 +58,7 @@ struct Vector3 {
     }
     void operator+=(const Vector3 &v);
     void EulerToVector(Vector3 *out) const;
+    void Set(float x_, float y_, float z_) { x = x_; y = y_; z = z_; }
     void Set(const Vector3 &v)
     {
         x = v.x;
@@ -65,6 +66,7 @@ struct Vector3 {
         z = v.z;
     }
     Vector3 Cross(const Vector3 &v) const;
+    Vector3 CrossNormalized(const Vector3 &v) const;   // cross product made unit length, with fallbacks for parallel vectors
     float Dot(const Vector3 &v) const;
     float LengthSq() const;
     void operator/=(float s);
@@ -88,6 +90,7 @@ struct Vector2 {
     float x, y;
     Vector2() {}
     Vector2(float x_, float y_) { x = x_; y = y_; }
+    void Set(float x_, float y_) { x = x_; y = y_; }
 };
 
 struct Color {
@@ -97,6 +100,16 @@ struct Color {
     void operator*=(float s);
     void operator/=(float s);
 };
+
+inline int Clamp(int x, int lo, int hi)
+{
+    if (x > hi)
+        return hi;
+    else if (x < lo)
+        return lo;
+    else
+        return x;
+}
 
 inline float Clamp(float x, float lo, float hi)
 {
@@ -110,6 +123,8 @@ inline float Clamp(float x, float lo, float hi)
 
 
 inline float Max(float a, float b) { return a > b ? a : b; }
+inline float Min(float a, float b) { return a < b ? a : b; }
+inline unsigned int Min(unsigned int a, unsigned int b) { return a < b ? a : b; }
 
 // a Vector3 padded to 16 bytes for the SSE code
 struct __declspec(align(16)) Vector3A : public Vector3 {
@@ -139,6 +154,7 @@ struct __declspec(align(16)) EMatrix {
         }
     }
     Vector3 &GetTranslation() { return *(Vector3 *)m[3]; }
+    EMatrix operator*(const EMatrix &b) const;
 
     float m[4][4];
 };
@@ -163,6 +179,14 @@ struct EQuat {
     EQuat() {}
     EQuat(float x_, float y_, float z_, float w_) { x = x_; y = y_; z = z_; w = w_; }
     EQuat(const EMatrix &m);
+    explicit EQuat(const Vector3 &euler) { SetEuler(euler); }
+    EQuat(const EQuat &q)
+    {
+        x = q.x;
+        y = q.y;
+        z = q.z;
+        w = q.w;
+    }
     EQuat &operator=(const EQuat &q)
     {
         x = q.x;
@@ -174,6 +198,7 @@ struct EQuat {
     void SetEuler(const Vector3 &angles);
     void SetAxisAngle(const EAxisAngle &aa);
     EQuat operator*(const EQuat &q) const;
+    Vector3 operator*(const Vector3 &v) const;
     EQuat Slerp(const EQuat &to, float t, bool shortest) const;
     Vector3 ToEuler() const;
     EQuat operator*(float s) const { return EQuat(x * s, y * s, z * s, w * s); }
@@ -181,8 +206,10 @@ struct EQuat {
 };
 
 extern Vector3 g_zeroVector;
+extern EQuat g_identityQuat;
 extern Vector3 g_upVector;
 EMatrix EulerToMatrix(const Vector3 &angles);
+EMatrix TranslationMatrix(const Vector3 &pos);
 EQuat QuatFromVectors(const Vector3 &from, const Vector3 &to);
 Vector3 GetRandomVector(float maxLen, float minLen, float a, float b);
 extern struct EMatrix g_identityMatrix;
@@ -224,13 +251,22 @@ public:
     void *m_data;
 };
 
+// The Steam build retains the element loop for class and pointer arrays.
+template <class T> struct ArrayClearUsesElementLoop {
+    enum { value = __is_class(T) };
+};
+
+template <class T> struct ArrayClearUsesElementLoop<T *> {
+    enum { value = true };
+};
+
 template <class T> class TArray : public EArrayBase {
 public:
     TArray(int category, bool flag);
     ~TArray() { Clear(); Reserve(0, 0); }
     void Clear()
     {
-        if (__is_class(T)) {
+        if (ArrayClearUsesElementLoop<T>::value) {
             for (unsigned int i = 0; i < m_count; i++)
                 GetData()[i].~T();
         }
@@ -238,6 +274,7 @@ public:
     }
     T *GetData() { return (T *)m_data; }
     T &operator[](int i) { return ((T *)m_data)[i]; }
+    bool IsValid(unsigned int i) { return i < m_count; }
 };
 
 template <class T> TArray<T>::TArray(int category, bool flag)
@@ -262,14 +299,38 @@ struct EBitSet {
         unsigned int mask = 1 << (bit & 31);
         m_bits[index] &= ~mask;
     }
+    bool Test(int bit)
+    {
+        int index = bit >> 5;
+        unsigned int mask = 1 << (bit & 31);
+        return (m_bits[index] & mask) != 0;
+    }
     unsigned int m_bits[1];
 };
 
 char *StrDup(const char *s, int category);
 
 // m_10 of every entity, RTTI EPhysics and subclasses
+// what the collision code found under an entity
+struct ESurfaceInfo {
+    unsigned int m_bits : 24;
+    unsigned int m_material : 4;
+    unsigned int m_number : 4;
+};
+
+struct ECollideSphere {
+    Vector3 m_center;
+    float m_radius;
+};
+
 class EPhysics {
 public:
+    bool TestPhysFlag(unsigned int flag) { return (flag & m_physFlags) != 0; }
+    struct ETriCache *GetTriCache(int index);
+    unsigned int GetSurfaceFlags() { return *(unsigned int *)&m_surface; }
+    void SetCollideMode(int mode);
+    ESurfaceInfo GetSurface() { return m_surface; }
+    EEntity *GetTouching(int i) { return m_touching[i]; }
     void SetNavGroup(unsigned int group);
     int GetMode();
     void SetMode(int mode, int flags);
@@ -279,8 +340,10 @@ public:
     Vector3 &GetAnimVelocity() { return m_animVelocity; }
     Vector3 GetTotalVelocity() { return m_velocity + m_animVelocity; }
     EMatrix &GetLocalMatrix() { return m_localMatrix ? *m_localMatrix : m_matrix; }
+    void ResetSplineDelta();
     void SetPosition(const Vector3 &pos, bool teleport);
     void MoveTo(const Vector3 &pos, int mode, int flags);
+    void MoveToPosition(const Vector3 &pos, bool teleport);
     void SetAbsPosition(const Vector3 &pos, bool collide);
     void SetRotation(const EMatrix &rot, int flags);
     void SetLocalRotation(const EMatrix &rot, int flags);
@@ -299,33 +362,68 @@ public:
     char pad58[0x68 - 0x58];
     Vector3 m_velocity;                 // 0x68
     Vector3 m_animVelocity;             // 0x74
-    char pad80[0x94 - 0x80];
+    Vector3 m_splineDelta;              // 0x80
+    char pad8c[0x94 - 0x8c];
     EBitSet m_flags;                // 0x94
-    char pad98[0xa0 - 0x98];
+    char pad98[0x9c - 0x98];
+    ESurfaceInfo m_surface;         // 0x9c
     int m_a0;                           // 0xa0
-    char pada4[0xb8 - 0xa4];
+    char pada4[0xa8 - 0xa4];
+    EEntity *m_touching[4];         // 0xa8
+
     EMatrix *m_localMatrix;             // 0xb8
     char padbc[0xc8 - 0xbc];
     Vector3 m_forward;              // 0xc8
     char padd4[0xe0 - 0xd4];
     Vector3 m_up;                   // 0xe0
     Vector3 m_gravityDir;           // 0xec
+    char padf8[0xfc - 0xf8];
+    EEntity *m_ignoreEntity;        // 0xfc
+    float m_ignoreTime;             // 0x100
+    char pad104[0x108 - 0x104];
+    unsigned short m_pushSpeed;     // 0x108
+    unsigned char m_pushPriority;   // 0x10a
+    char pad10b[0x110 - 0x10b];
+    int m_collideType;              // 0x110
+    float m_stepHeight;             // 0x114
+    Vector3 m_surfaceNormal;        // 0x118
+    Vector3 m_smoothSurfaceNormal;  // 0x124
+    float m_surfaceDistance;        // 0x130
+    char pad134[0x140 - 0x134];
+    ECollideSphere m_spheres[3];    // 0x140
+    int m_numSpheres;               // 0x170
 
     // 0x68 is the velocity
     void AddVelocity(const Vector3 &v);
 };
 
+class EClassInfo *GetClassByType(int type);
+
 // run time type of the entities
 class EClassInfo {
 public:
-    const char *m_name;
+    EClassInfo(const char *name, int type, EEntity *(*create)(class EDomain *domain, const char *name), EClassInfo *parent);
     bool IsDerivedFrom(EClassInfo *base);
+
+    const char *m_name;
+    int m_type;
+    EClassInfo *m_parent;           // 0x08
+    EClassInfo *m_next;             // 0x0c, list of all classes
+    EEntity *(*m_create)(class EDomain *domain, const char *name);  // 0x10
 };
+
+extern EClassInfo g_meshEntityClass;    // "EntityType_Mesh", the parent of most entity classes
 
 class EEntity {
 public:
     EEntity *FindEntity(const char *name);
+    bool Load(const char *type, const char *name, int a, int b, int c, bool d);
     void StopSounds();            // local verified native 0x00421520; provisional name
+    class ESplineController *getSplineController();
+    Vector3 GetPosition() { return GetPhysics()->GetPosition(); }
+    void *GetSoundInstance() { return m_soundInstance; }
+    void *PlaySound(void *sound, bool a, bool b);
+    void *PlaySoundOnce(void *sound, bool a);
     void AttachTo(EEntity *parent, const struct EMatrix *offset, const char *bone);
     EScriptObject *GetScriptObject() { return m_scriptObject; }
     EPhysics *GetPhysics() { return m_physics; }
@@ -334,6 +432,17 @@ public:
     bool HasFlag(unsigned int flag) { return (m_entityFlags & flag) != 0; }
     bool IsDeleted() { return (m_flags & 3) != 0; }
     bool IsSleeping() { return m_sleeping; }
+    void GetScriptValue(const char *name, int *out);
+    bool IsType(int type)
+    {
+        if (GetClass()->m_type == type)
+            return true;
+        if (0)
+            return false;
+        return GetClass()->IsDerivedFrom(GetClassByType(type));
+    }
+    float GetInvisibility();
+    void SetInvisibility(float amount);
     bool IsA(EClassInfo *cls)
     {
         if (cls == GetClass())
@@ -351,7 +460,8 @@ public:
     char pad14[0x1c - 0x14];
     EClassInfo *m_class;            // 0x1c
     const char *m_name;             // 0x20
-    char pad24[0x38 - 0x24];
+    char pad24[0x34 - 0x24];
+    class EDomain *m_domain;        // 0x34
     void *m_soundInstance;          // local binary-verified +0x38
     char pad3c[0x64 - 0x3c];
     union {
@@ -366,10 +476,24 @@ public:
             unsigned int m_unknownFlagsHigh : 29;
         };
     };
+    class ESplineCollision *m_splineCollision;     // 0x68
 };
 
 class ETriggerBase : public EEntity {
 public:
+    float GetAlpha();
+    void SetAuraColor(const Color &color);
+    void SetCameraAlphaRadius(float radius);
+    void SetDistortionScale(float scale);
+    Vector2 GetTexCoordVel();
+    void SetTexCoordVel(const Vector2 &vel);
+    void SetDistortionColor(const Vector3 &color);
+    void SetLightRigScale(const Vector3 &scale);
+    void SetSolidColorIntensity(float intensity, float secs);
+    void SetAlpha(float alpha, float ms);
+    void SetAmbientLight(const Vector3 &color);
+    void SetSolidColor(const Color &color);
+    void SetGlow(float scale, float ms);
     static EClassInfo s_class;
 };
 
@@ -381,6 +505,7 @@ public:
     void SetState(lua_State *L);
     bool CanHandleMessage(const char *msg);
     bool GetStringField(const char *key, const char **out);
+    EEntity *GetEntity();
 
     bool IsDead() { return m_dead; }
 
@@ -404,10 +529,11 @@ public:
     void ReleaseThread(struct EScriptThread *thread);
     EScriptObject *FindById(int id);
     EScriptObject *FindByName(const char *name);
-    void Yield(lua_State *L);
+    bool Yield(lua_State *L);
     void KillAllTimers(EScriptObject *so);
     void DoFile(const char *name, bool once);
     void KillScript(EScriptObject *so);
+    void GetTableArray(EScriptObject *so, const char *name, TArray<EScriptObject *> *out);
     void CreateTimer(EScriptObject *so, float secs, unsigned short id, int repeat, const char *name);
     bool KillTimer(EScriptObject *so, unsigned short id, const char *name);
     struct ETimer *FindTimer(EScriptObject *so, unsigned short id, const char *name, int flags);
@@ -415,6 +541,7 @@ public:
     void SetValue(EScriptObject *so, const char *path, EScriptObject *value);
     void SetValue(EScriptObject *so, const char *path, const char *value);
     void SetValue(EScriptObject *so, const char *path, float value);
+    void GetNumber(EScriptObject *so, const char *path, float *out);
     const char *GetCallerName(lua_State *L);
     void RegisterCutscene(EScriptObject *so);
     void UnregisterCutscene(EScriptObject *so);
@@ -468,18 +595,26 @@ public:
     EBackpack *GetBackpack() { return m_backpack; }
     bool IsZLocked() { return m_zLocked; }
     void SetZLock(bool on);
+    void GetScriptValue(const char *name, int *out);
+    float GetInvisibility();
+    void SetInvisibility(float amount);
     void ClearExtraIdles();
     void LoadMesh(const char *name, int flags, bool keep);
     void AddExtraIdle(const char *anim, bool a, bool b);
+    EEntity *GetLockTarget() { return m_lockTarget; }
 
     char pad0[0xc - 0x0];
     EScriptObject *m_scriptObject;      // 0xc
     EPhysics *m_player;        // 0x10
-    char pad14[0x118 - 0x14];
+    char pad14[0x80 - 0x14];
+    EEntity *m_lockTarget;              // 0x80
+    char pad84[0x118 - 0x84];
     EBubble *m_bubble;              // 0x118
     float m_lookBoxDepth;               // 0x11c
     float m_movementScale;          // 0x120
-    char pad124[0x128 - 0x124];
+    bool m_noFallOffBall;           // 0x124
+    unsigned char m_wallMaterial;   // 0x125
+    char pad126[0x128 - 0x126];
     EBackpack *m_backpack;          // 0x128
     char pad12c[0x184 - 0x12c];
     bool m_zLocked;                 // 0x184
@@ -506,12 +641,51 @@ public:
     float m_thawDistSq;             // 0x48
 };
 
+struct EProfileOption {
+    char pad0[4];
+    int m_changed;                  // 0x04
+    char pad8[0xc - 0x8];
+    char m_value[4];                // 0x0c
+};
+
+class EProfileOptionTable {
+public:
+    EProfileOption *Find(const char *name, bool create);
+    template <class T> bool Set(const char *name, T value, bool create)
+    {
+        EProfileOption *option = Find(name, create);
+        char unused[0x1c];  // the original has more locals here
+        if (option) {
+            *(T *)option->m_value = value;
+            option->m_changed = 1;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    char pad0[0x14];
+};
+
 struct EProfile {
     const char *GetName() { return m_name; }
+    template <class T> bool SetOption(const char *name, T *value, bool create)
+    {
+        if (m_options.Set(name, *value, create)) {
+            return true;
+        } else if (m_moreOptions.Set(name, *value, create)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    void Save();
 
     char pad0[0x16f4];
     const char *m_name;             // 0x16f4
-    char pad16f8[0x1724 - 0x16f8];
+    char pad16f8[0x16fc - 0x16f8];
+    EProfileOptionTable m_options;      // 0x16fc
+    EProfileOptionTable m_moreOptions;  // 0x1710
 };
 
 class ESaveManager {
@@ -530,10 +704,26 @@ public:
     bool m_continueExists;          // 0x46b1
 };
 
+// animation state of an animated texture
+struct EAnimTexture {
+    int m_frameCount;               // 0x00
+    float m_frame;                  // 0x04
+    char pad8[0x10 - 0x8];
+    float m_framerate;              // 0x10
+    int m_playMode;                 // 0x14
+};
+
 struct EResource {
     void *GetHandle() { return m_handle; }
+    const char *GetName() { return m_name; }
+    void SetPlayMode(int mode, float timeMs, int loops);
     void *m_handle;
     void **m_data;
+    char pad8[0xc - 0x8];
+    const char *m_name;             // 0x0c
+    EAnimTexture *m_anim;           // 0x10
+    char pad14[0x24 - 0x14];
+    unsigned int m_flags;           // 0x24
 };
 
 class EWater {
@@ -585,12 +775,18 @@ public:
     void PrintNote(const char *text);
     void SetProximityHint(const char *text, bool flag);
     void SetCollectedItemText(const char *text, bool flag);
+    void ClearCollectedItemText() { m_collectedText.Clear(); }
 
-    char pad0[0x2fa];
+    char pad0[0x2e0];
+    struct EHUDTextLine {
+        void Clear();
+        char pad[0x1a];
+    } m_collectedText;              // 0x2e0
 };
 
 class EKeypad {
 public:
+    void Init(const char *name, bool flag, EScriptObject *listener);
     void Exit();
     void AddNumber(int number);
 };
@@ -605,8 +801,10 @@ public:
     bool IsNewGoalDone();
     bool IsCompletedGoalDone();
     void ShowDemoEnd(bool show, int flags);
+    void AddCompletedGoal(const char *name);
 
-    char pad0[8];
+    class EPowerHUD *m_powers;          // 0x00
+    char pad4[4];
     struct EHUDCounter *m_arrowheads;   // 0x08
     struct EHUDCounter *m_psiCards;     // 0x0c
     struct EHUDCounter *m_rank;         // 0x10
@@ -639,7 +837,6 @@ public:
     struct EScavengerSheet *m_scavenger;    // 0x1d0
 };
 class ESoundManager;
-class ELightManager;
 class EBlendShapeManager;
 class EResourceManager {
 public:
@@ -647,25 +844,88 @@ public:
     EResource *GetById(int id);
     void DumpInfo(bool all);
     void WriteAllToPackFile(bool all, unsigned short flags);
-    void *Get(void *handle);
+    EResource *Get(void *handle);
     void *Find(const char *name);
     void *Load(const char *name, int flags, int unknown);
+    void SetTrapTextureString(const char *str);
+    void *GetTexture(void *handle, int flags);
 };
 
 class ENavMesh;
 
 class ELevel {
 public:
+    void SetMotionBlurState(unsigned int state, float ms);
     ENavMesh *GetNavMesh();
     EEntity *GetRoot() { return m_root; }
 
-    char pad0[0xbc];
+    char pad0[0x8 - 0x0];
+    float m_nearZ;                      // 0x8
+    float m_farZ;                       // 0xc
+    char pad10[0x1c - 0x10];
+    bool m_distanceFog;                 // 0x1c
+    bool m_heightFog;                   // 0x1d
+    char pad1e[0x20 - 0x1e];
+    Vector3 m_fogColor;                 // 0x20
+    float m_fogStart;                   // 0x2c
+    float m_fogEnd;                     // 0x30
+    Vector2 m_heightFogRange;           // 0x34
+    char pad3c[0x50 - 0x3c];
+    float m_detailCullStart;            // 0x50
+    float m_detailCullEnd;              // 0x54
+    void *m_distortionTexture;          // 0x58
+    float m_distortionScale;            // 0x5c
+    Vector3 m_distortionColor;          // 0x60
+    unsigned int m_distortionFilter;    // 0x6c
+    bool m_distortionFullScreen;        // 0x70
+    char pad71[0x84 - 0x71];
+    int m_shadowBlendMode;              // 0x84
+    bool m_shadowFixedDirection;        // 0x88
+    char pad89[0x8c - 0x89];
+    void *m_shadowLightSource;          // 0x8c
+    float m_shadowCullingBias;          // 0x90
+    float m_staticLightIntensity;       // 0x94
+    float m_dynamicLightIntensity;      // 0x98
+    float m_lightRigIntensity;          // 0x9c
+    char pada0[0xb8 - 0xa0];
+    unsigned int m_numWaterBlurs;       // 0xb8
     float m_reflectionScale;        // 0xbc
     float m_refractionScale;        // 0xc0
     float m_reflectionBumpScale;    // 0xc4
     float m_refractionBumpScale;    // 0xc8
     float m_fresnelBumpScale;       // 0xcc
-    char padd0[0x164 - 0xd0];
+    unsigned int m_numGlowBlurs;        // 0xd0
+    char padd4[0xe4 - 0xd4];
+    bool m_auras;                       // 0xe4
+    char pade5[0xe8 - 0xe5];
+    void *m_environmentMap;             // 0xe8
+    bool m_motionBlur;                  // 0xec
+    char paded[0xfc - 0xed];
+    float m_motionBlurOutput;           // 0xfc
+    char pad100[0x104 - 0x100];
+    float m_motionBlurTime;             // 0x104
+    float m_motionBlurScale;            // 0x108
+    unsigned int m_motionBlurFilter;    // 0x10c
+    void *m_motionBlurMask;             // 0x110
+    float m_motionBlurOutput2;          // 0x114
+    float m_motionBlurOutputTime2;      // 0x118
+    char pad11c[0x120 - 0x11c];
+    void *m_movieStaticTexture;         // 0x120
+    void *m_splineTexture;              // 0x124
+    float m_splineThickness;            // 0x128
+    float m_splineDensity;              // 0x12c
+    bool m_freezeCoyoteProjections;     // 0x130
+    char pad131[0x134 - 0x131];
+    float m_psychedelicAlpha;           // 0x134
+    float m_psychedelicTarget;          // 0x138
+    float m_psychedelicTime;            // 0x13c
+    char pad140[0x144 - 0x140];
+    void *m_sortingSphereEntity;        // 0x144
+    char pad148[0x15c - 0x148];
+    bool m_shaderLOD;                   // 0x15c
+    bool m_mirrorScene;                 // 0x15d
+    unsigned char m_binaryAlphaThreshold; // 0x15e
+    char pad15f[0x164 - 0x15f];
     EEntity *m_root;        // 0x164
     struct EMeshAnimManager *m_meshAnims;   // 0x168
 
@@ -699,17 +959,17 @@ public:
     virtual void Vf10();
     virtual void Vf14();
     virtual void Vf18();
-    virtual void Vf1c();
+    virtual void PurgeSoundData(const char *name, const char *suffix, bool all); // 0x1c
     virtual void *FindSound(const char *name); // 0x20; provisional name/handle type
     virtual void Vf24();
     virtual const char *GetSoundName(void *sound); // 0x28; observed pointer return
-    virtual void Vf2c();
+    virtual void *Play(void *sound, int a, int b); // 0x2c
     virtual void Stop(void *sound, void *entity_instance, void *sound_instance); // 0x30; handle semantics provisional
     virtual bool IsPlaying(void *sound); // 0x34; provisional method name
     virtual void StopOnInstance(void *instance); // 0x38; provisional name
     virtual void Vf3c();
     virtual int GetCueLength(void *sound); // 0x40; result type/units provisional
-    virtual void Vf44();
+    virtual bool HasFlag(void *sound, int flag); // 0x44
     virtual bool IsAvailable();     // 0x48; provisional name, AL result observed
     virtual void Vf4c();
     virtual void Vf50();
@@ -750,15 +1010,58 @@ public:
     virtual void SetDistanceFactor(float factor);  // 0xd8
     virtual void SetRolloffFactor(float factor);   // 0xdc
     virtual void SetEcho(void *instance, bool enable);  // 0xe0
-    virtual void Vfe4();
-    virtual void Vfe8();
-    virtual void Vfec();
+    virtual bool IsCategoryPlaying(void *instance, int category); // 0xe4
+    virtual bool IsEntityPlayingCategory(EEntity *entity, int category); // 0xe8
+    virtual void AttachInstance(EEntity *entity, void *sound_instance); // 0xec
     virtual void Vff0();
     virtual void Vff4();
     virtual void Vff8();
     virtual void Vffc();
     virtual void DumpSounds(bool all); // upstream observed slot 0x100
     virtual void DumpChannels();       // upstream observed slot 0x104
+    virtual void Vf108();
+    virtual void Set2DAttenuation(int value);   // 0x10c
+};
+
+struct ESaylineManager {
+    bool IsDone(EScriptObject *speaker);
+    void Remove(bool all);
+    EScriptObject *GetSpeaker();
+
+    char pad0[0xc];
+    bool m_resetPosition;           // 0x0c
+    char padd[0x1c - 0xd];
+    Vector2 m_position;             // 0x1c
+};
+
+struct EInputRecorder {
+    void RecordUseSaveGame(const char *name);
+    void PlaybackUseSaveGame(const char *name);
+    void PlaybackFile(const char *name);
+    void StopRecording();
+    void StopPlayback();
+    void Playback(const char *name, int flags);
+    bool IsRecording() { return m_recording; }
+    bool IsPlaying() { return m_playing; }
+    bool WaitForPlayback();
+    void PauseRecording(bool pause);
+    void Record(const char *path);
+
+    char pad0[0x12];
+    bool m_showInfo;                // 0x12
+    char pad13[0x19 - 0x13];
+    bool m_recording;               // 0x19
+    bool m_playing;                 // 0x1a
+};
+
+class ELight;
+
+class ELightManager {
+public:
+    void DumpInfo();
+    unsigned int FindLight(const char *name, void *mesh);
+    void SetPsiLightColor(const Vector3 &color);
+    ELight *Get(unsigned int handle);
 };
 
 class GameApp {
@@ -794,6 +1097,12 @@ public:
     EControlHandler *GetControlHandler(int id);
     struct ECamera *GetCamera();
     struct ECamera *GetRenderCamera();
+    bool CamerasEnabled();
+    void SetCurrentCamera(unsigned int index, unsigned int channel);
+    struct ECamera *GetCameraByIndex(int index);
+    struct ERenderChannel *GetChannel(unsigned int index);
+    void SetCameraType(struct ECamera *cam, unsigned int type);
+    void SetChannelCamera(struct ECamera *cam, int channel);
     void DumpEntityInfo();
     const char *GetLocalizedText(const char *id);
     EHUD *GetHUD() { return &m_hud; }
@@ -816,6 +1125,7 @@ public:
     bool SetSkyBox(const char *name, int index);
     void SetActiveSkyBox(int index);
     void UpdateDomainSleep();
+    void DestroyEmitter(class EParticleEmitter *pe);
     float GetFrameSecs() { return m_frameSecs; }
     bool IsRunningAtDF() { return m_runningAtDF; }
     bool IsOXMBuild() { return m_oxmBuild; }
@@ -825,8 +1135,20 @@ public:
     float GetRealFrameSecs() { return m_realFrameSecs; }
     int GetCurrentControlHandlerId();
     struct EActionItems *GetActionItems() { return m_actionItems; }
-    struct EInventory *GetInventory() { return (struct EInventory *)m_inventory; }
+    class EPlayer *GetPlayer() { return m_player; }
     void SetSteamRichPresence(const char *key, const char *value);
+    void LoadSoundData(const char *name, bool a, bool b);
+    void StartMusicCue();
+    void StartStinger();
+    EScriptManager *GetScriptVM() { return &m_scripts; }
+    class EPathManager *GetPathManager() { return m_pathManager; }
+    class EPsiBlastManager *GetPsiBlasts() { return m_psiBlasts; }
+    void SetVideoVolume(int volume) { m_videoVolume = volume; }
+    class ETelekinesis *GetTelekinesis() { return m_telekinesis; }
+    EScriptHolder *GetThoughtBubble() { return m_8190; }
+    void SetClairvoyanceMask(void *texture) { m_clairvoyanceMask = texture; }
+    void SetClairvoyanceFilter(unsigned int filter) { m_clairvoyanceFilter = filter; }
+    void SetClairvoyanceTarget(EEntity *ent, bool fade);
     void SetSoundCameraRelative(bool relative, bool second)
     {
         m_soundCameraRelative = relative;
@@ -839,11 +1161,19 @@ public:
     char pad8[0x10 - 0x8];
     EBlendShapeManager *m_blendShapes;  // 0x10
     struct EEventFileManager *m_events; // 0x14
-    char pad18[0x2c - 0x18];
+    char pad18[0x1c - 0x18];
+    class EPathManager *m_pathManager;  // 0x1c
+    char pad20[0x24 - 0x20];
+    int m_videoVolume;                  // 0x24
+    char pad28[0x2c - 0x28];
     EDebugDisplay m_debug;              // 0x2c
     char pad30[0x38 - 0x30];
     int m_timingInfo;                   // 0x38
-    char pad3c[0x65 - 0x3c];
+    char pad3c[0x56 - 0x3c];
+    bool m_movieCaptureFlag;            // 0x56
+    char pad57[0x5c - 0x57];
+    bool m_noPlayerGlow;                // 0x5c
+    char pad5d[0x65 - 0x5d];
     bool m_waterEnabled;                // 0x65
     char pad66[0x72 - 0x66];
     bool m_debugLookAt;                 // 0x72
@@ -851,15 +1181,30 @@ public:
     unsigned char m_editableLightMode;          // 0xa2
     char pada3[0xba - 0xa3];
     bool m_subtitles;                   // 0xba
-    char padbb[0xcd - 0xbb];
+    char padbb[0xc0 - 0xbb];
+    bool m_screenshot;                  // 0xc0
+    bool m_screenshotA;                 // 0xc1
+    bool m_screenshotB;                 // 0xc2
+    bool m_movieCapture;                // 0xc3
+    char padc4[0xca - 0xc4];
+    bool m_captureEnvironmentMap;       // 0xca
+    bool m_refreshVertexShaders;        // 0xcb
+    bool m_refreshPixelShaders;         // 0xcc
     bool m_timingInfoAll;               // 0xcd
-    char padce[0xe5 - 0xce];
+    char padce[0xd6 - 0xce];
+    bool m_hudHidden;                   // 0xd6
+    char padd7[0xe5 - 0xd7];
     bool m_e5;                          // 0xe5
     char pade6[0xeb - 0xe6];
     bool m_goalDisplay;                 // 0xeb
-    char padec[0x100 - 0xec];
+    char padec[0xee - 0xec];
+    bool m_cameraHints;                 // 0xee
+    char padef[0x100 - 0xef];
     float m_gameSpeed;                  // 0x100
-    char pad104[0x144 - 0x104];
+    char pad104[0x118 - 0x104];
+    unsigned int m_environmentMapSize;  // 0x118
+    float m_environmentMapTime;         // 0x11c
+    char pad120[0x144 - 0x120];
     void *m_animDisplayEntity;          // 0x144
     float m_frameSecs;                  // 0x148
     float m_realFrameSecs;              // 0x14c
@@ -870,7 +1215,10 @@ public:
     ESoundManager *m_sound;             // 0x198
     EResourceManager *m_resources;      // 0x19c
     EWater *m_water;                    // 0x1a0
-    char pad1a4[0x1b8 - 0x1a4];
+    char pad1a4[0x1ac - 0x1a4];
+    class ELightmaps *m_lightmaps;      // 0x1ac
+    char pad1b0[0x1b4 - 0x1b0];
+    class EParticleManager *m_particles;    // 0x1b4
     ELightManager *m_lights;            // 0x1b8
     char pad1bc[0x1c0 - 0x1bc];
     struct EDecalManager *m_decals;     // 0x1c0
@@ -878,18 +1226,48 @@ public:
     ELevelManager *m_levels;            // 0x1cc
     char pad1d0[0x1dc - 0x1d0];
     EFreezeManager *m_freeze;           // 0x1dc
-    char pad1e0[0x818c - 0x1e0];
+    char pad1e0[0x209 - 0x1e0];
+    bool m_skipSounds;                  // 0x209
+    char pad20a[0x8140 - 0x20a];
+    void *m_deeLiteTexture;             // 0x8140
+    char pad8144[0x818c - 0x8144];
     EPlayerControl *m_playerControl;    // 0x818c
     struct EScriptHolder *m_8190;       // 0x8190
-    char pad8194[0x81b4 - 0x8194];
-    void *m_unk81b4;                    // 0x81b4
-    char pad81b8[0x8238 - 0x81b8];
+    class EFirestarting *m_firestarting; // 0x8194
+    class EInvisibility *m_invisibility; // 0x8198
+    char pad819c[0x81a4 - 0x819c];
+    class EPsiBlastManager *m_psiBlasts; // 0x81a4
+    char pad81a8[0x81b4 - 0x81a8];
+    class EDomain *m_mainDomain;        // 0x81b4
+    char pad81b8[0x81d4 - 0x81b8];
+    float m_rumbleLeftStart;            // 0x81d4
+    float m_rumbleLeftEnd;              // 0x81d8
+    float m_rumbleLeftInvLength;        // 0x81dc
+    float m_rumbleRightStart;           // 0x81e0
+    float m_rumbleRightEnd;             // 0x81e4
+    float m_rumbleRightInvLength;       // 0x81e8
+    Vector2 m_rumbleLeftKeys[4];        // 0x81ec, bezier control points (time, strength)
+    Vector2 m_rumbleRightKeys[4];       // 0x820c
+    char pad822c[0x8238 - 0x822c];
     struct EActionItems *m_actionItems; // 0x8238
-    void *m_inventory;                  // 0x823c
-    char pad8240[0x8294 - 0x8240];
+    class EPlayer *m_player;                  // 0x823c
+    class ETelekinesis *m_telekinesis;  // 0x8240
+    char pad8244[0x8294 - 0x8244];
     float m_moveInput[2];               // 0x8294
-    char pad829c[0x8398 - 0x829c];
-    char m_levelFilter[0x100];          // 0x8398
+    char pad829c[0x82b0 - 0x829c];
+    bool m_skipDialog;                  // 0x82b0
+    char pad82b1[0x8398 - 0x82b1];
+    char m_levelFilter[0x80];           // 0x8398
+    char pad8418[0x8420 - 0x8418];
+    void *m_clawCloseSound;             // 0x8420
+    void *m_clawOpenSound;              // 0x8424
+    char pad8428[0x8462 - 0x8428];
+    bool m_clairvoyanceOff;             // 0x8462
+    bool m_clairvoyanceOn;              // 0x8463
+    char pad8464[0x8468 - 0x8464];
+    void *m_clairvoyanceMask;           // 0x8468
+    unsigned int m_clairvoyanceFilter;  // 0x846c
+    char pad8470[0x8498 - 0x8470];
     char pad8498[0x88c4 - 0x8498];
     struct EBunkhouseUI *m_bunkhouse;   // 0x88c4
     struct EMainMenu *m_mainMenu;       // 0x88c8
@@ -900,7 +1278,9 @@ public:
     EHUDElements m_hudElements;         // 0x8930
     char pad8954[0x895c - 0x8954];
     struct ECredits *m_credits;         // 0x895c
-    char pad8960[0x8c64 - 0x8960];
+    char pad8960[0x89f4 - 0x8960];
+    bool m_hudOverlayHidden;            // 0x89f4
+    char pad89f5[0x8c64 - 0x89f5];
     EMenuManager *m_menus;              // 0x8c64
     struct EFader *m_fader;             // 0x8c68
     struct EInputRecorder *m_recorder;  // 0x8c6c
@@ -910,7 +1290,9 @@ public:
     ESaveManager *m_save;               // 0x8c80
     struct ELine2DManager *m_lines2d;   // 0x8c84
     struct EText3DManager *m_text3d;    // 0x8c88
-    char pad8c8c[0x9035 - 0x8c8c];
+    char pad8c8c[0x8f9c - 0x8c8c];
+    class ECameraPathManager *m_cameraPaths; // 0x8f9c
+    char pad8fa0[0x9035 - 0x8fa0];
     union {
         struct {
             bool m_9035_0 : 1;                  // 0x9035
@@ -937,7 +1319,8 @@ public:
     bool m_productionLoading;           // 0x9584
     char pad9585[0x95a0 - 0x9585];
     EHUD m_hud;                         // 0x95a0
-    char m_levelName[0x9a34 - 0x989a];  // 0x989a
+    char m_levelName[0x9a30 - 0x989a];  // 0x989a
+    int m_gameState;                    // 0x9a30
     EScriptManager m_scripts;           // 0x9a34
     // end of GameApp
 };

@@ -59,14 +59,26 @@ public:
 
 class EMoverEntity {
 public:
+    EMoverEntity(class EDomain *domain, const char *name);
+    void *operator new(size_t size) { return _aligned_malloc(size, 16); }
+    static EEntity *Create(class EDomain *domain, const char *name) { return (EEntity *)new EMoverEntity(domain, name); }
     EMoverPhysics *GetPhysics() { return m_physics; }
 
     char pad0[0x10];
     EMoverPhysics *m_physics;       // 0x10
+    char pad14[0x114 - 0x14];
 
     static EClassInfo s_class;
 };
 
+
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const double PI = 3.14159265358979323846;
+static const double DEG_TO_RAD = PI / 180.0;
+static const float DEG_TO_RAD_F = (float)DEG_TO_RAD;
+
+EClassInfo EMoverEntity::s_class("EMoverEntity", -2, &EMoverEntity::Create, &g_meshEntityClass);
 
 LUA_FUNCTION(MoverReset)
 {

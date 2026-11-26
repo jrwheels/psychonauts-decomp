@@ -1,10 +1,22 @@
 # Fork development checkpoint
 
-Current publication checkout: branch `development/verified-native-and-assets`;
-public destination: `jrwheels/psychonauts-decomp`, `main`. The branch name is
-historical; this update contains pure native decomp work. The canonical research
-checkout and its active native worktree remain selected by the private native
-pointer. Existing dirty research worktrees and recovery evidence are preserved.
+## Upstream integration
+
+The fork merge combines the previous fork tip `135c50b` with upstream
+`8674306`. The supported Steam executable still yields **3,963 matching
+functions / 403,495 mapped bytes** after rebuilding all 67 sources with
+VC++ 2008 RTM x86. This retains all 3,396 previous fork matches and all
+3,955 upstream matches. The function map and progress image reflect this
+combined result. The full run passed 110 required tooling tests, nine optional
+Rust tests, 15,697 differential cases across 37 suites, and 44 original-only
+cases against the supported executable.
+
+The array element loop is retained for pointer and class arrays. The
+`char` specialization skips the loop, preserving the fork's existing
+savegame match. Upstream license terms and earlier MIT notices are preserved
+in the repository license files.
+
+## Previous native checkpoint
 
 As of 12 November 2026: **3,396 matching functions /304,109 mapped bytes**,
 up from the fork's 3,389 /303,359. All seven new matching rows were reviewed;

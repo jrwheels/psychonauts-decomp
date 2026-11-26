@@ -1,5 +1,7 @@
 // Script functions, file name made up.
 
+#include <stdio.h>
+
 #include "engine.h"
 #include "luafunc.h"
 
@@ -9,7 +11,16 @@ struct EDialogBubble {
 
     char pad0[0x2cc];
     int m_font;                     // 0x2cc
+    Vector2 m_textScale;            // 0x2d0
+    Vector2 m_choiceScale;          // 0x2d8
 };
+
+inline void SetDialogFontScale(Vector2 text, Vector2 choices)
+{
+    EDialogBubble *bubble = g_game->m_dialogBubble;
+    bubble->m_textScale = text;
+    bubble->m_choiceScale = choices;
+}
 
 struct EJournal {
     void CompletedGoal(const char *name);
@@ -18,6 +29,8 @@ struct EJournal {
 
 struct EScrapbook {
     void RegisterEnvelope(const char *a, const char *b, const char *c);
+    void AddScrapbookItem(const char *b, const char *a, const char *c);
+    void AddEmoBagItem(const char *b, const char *a, const char *c);
 };
 
 struct EGameMenuList {
@@ -118,19 +131,23 @@ struct ECredits {
 
 #include <string.h>
 
-struct ESaylineManager {
-    bool IsDone(EScriptObject *speaker);
-    void Remove(bool all);
-    EScriptObject *GetSpeaker();
+// Constants the original gets from shared headers. Every file that includes them
+// has its own copy, set up by a dynamic initializer at startup.
+static const Vector2 CONST_VEC2(32.0f, 325.0f);
+static const float CONST_150 = 150.0f;
+static const float CONST_50 = 50.0f;
+static const float CONST_125 = CONST_150 - CONST_50 * 0.5f;
+static const EQuat IDENTITY_QUAT(0.0f, 0.0f, 0.0f, 1.0f);
 
-    char pad0[0xc];
-    bool m_resetPosition;           // 0x0c
-    char padd[0x1c - 0xd];
-    Vector2 m_position;             // 0x1c
+// a 3D text the scripts placed
+struct EText3D {
+    char pad0[0x104];
+    Vector3 m_offset;               // 0x104
+    Vector3 m_scale;                // 0x110
 };
 
-
 struct EText3DManager {
+    EText3D *Find(void *text);
     void AttachToBone(void *text, ETriggerBase *ent, const char *bone);
     void Remove3(void *text);
     void FadeOnHUD(void *text, bool in);
@@ -139,6 +156,7 @@ struct EText3DManager {
 };
 
 struct EHUDCounter {
+    void Add(int count, ETriggerBase *from, int flags);
     void Show(bool show);
     void Rankup(Vector2 pos, int rank);
 
@@ -146,29 +164,33 @@ struct EHUDCounter {
     int m_count;                    // 0x0c
 };
 
-struct EInputRecorder {
-    void RecordUseSaveGame(const char *name);
-    void PlaybackUseSaveGame(const char *name);
-    void PlaybackFile(const char *name);
-    void StopRecording();
-    void StopPlayback();
-    void Playback(const char *name, int flags);
-
-    char pad0[0x12];
-    bool m_showInfo;                // 0x12
-    char pad13[0x19 - 0x13];
-    bool m_recording;               // 0x19
-    bool m_playing;                 // 0x1a
-};
-
 struct ELine2DManager {
     void Remove(void *line);
 };
 
 
+// names of the options in the profile, 0x77f5e0
+extern const char *g_profileOptionNames[];
+
 LUA_FUNCTION_NOSTACK_TODO(SayLine)
 
-LUA_FUNCTION_TODO(PreloadSaylineHead)
+LUA_FUNCTION(PreloadSaylineHead)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 1, 1))
+        return 0;
+    const char *pszHead = GetStringArg(L, 1, false);
+    char name[0x100];
+    strncpy(name, pszHead, 0xff);
+    char *pszDot = strchr(name, '.');
+    if (pszDot)
+        *pszDot = 0;
+    char path[0x100];
+    _snprintf(path, 0xff, "workresource\\Textures\\UI\\Sayline Heads\\%s.dds", name);
+    path[0xfe] = 0;
+    g_game->m_resources->Load(path, 1, 0);
+    return 0;
+}
 
 static inline void SetSaylinePos(Vector2 pos)
 {
@@ -309,7 +331,18 @@ LUA_FUNCTION(SetCollectedItemText)
     return 0;
 }
 
-LUA_FUNCTION_TODO(ClearCollectedItemText)
+LUA_FUNCTION(ClearCollectedItemText)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 0, 0))
+        return 0;
+    g_game->GetHUD()->ClearCollectedItemText();
+    g_game->m_hudElements.m_cheering->Set(2000.0f, 0, 1000.0f);
+    {
+        char unused[0x24];
+    }
+    return 0;
+}
 
 LUA_FUNCTION(HideFordCheering)
 {
@@ -348,9 +381,39 @@ LUA_FUNCTION_TODO(DisplayText3)
 
 LUA_FUNCTION_TODO(AdjustColor3)
 
-LUA_FUNCTION_TODO(AdjustPos3)
+LUA_FUNCTION(AdjustPos3)
+{
+    int aN = lua_gettop(L);
+    if (!CheckArgs(L, 4, 4))
+        return 0;
+    void *id = lua_torawvalue(L, 1);
+    float x = GetNumberArg(L, 2, false);
+    float y = GetNumberArg(L, 3, false);
+    float z = GetNumberArg(L, 4, false);
+    EText3D *pText = g_game->m_text3d->Find(id);
+    if (!pText)
+        return 0;
+    Vector3 myPos(x, y, z);
+    pText->m_offset = myPos;
+    return 0;
+}
 
-LUA_FUNCTION_TODO(AdjustScale3)
+LUA_FUNCTION(AdjustScale3)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 4, 4))
+        return 0;
+    void *theId = lua_torawvalue(L, 1);
+    float fXVal = GetNumberArg(L, 2, false);
+    float y = GetNumberArg(L, 3, false);
+    float z = GetNumberArg(L, 4, false);
+    EText3D *pText = g_game->m_text3d->Find(theId);
+    if (!pText)
+        return 0;
+    Vector3 pos(fXVal, y, z);
+    pText->m_scale = pos;
+    return 0;
+}
 
 LUA_FUNCTION(RemoveText3)
 {
@@ -419,7 +482,20 @@ LUA_FUNCTION(ShowHealth)
     return 0;
 }
 
-LUA_FUNCTION_TODO(HideHUD)
+LUA_FUNCTION(HideHUD)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    bool bHide = GetNumberArg(L, 1, false) != 0;
+    bool overlay = n >= 2 ? GetNumberArg(L, 2, true) != 0 : false;
+    g_game->m_hudHidden = bHide;
+    if (g_game->m_hudHidden)
+        g_game->m_hudOverlayHidden = overlay;
+    else
+        g_game->m_hudOverlayHidden = false;
+    return 0;
+}
 
 LUA_FUNCTION_TODO(CollectiblePickedUp)
 
@@ -437,7 +513,22 @@ LUA_FUNCTION(UI_SetNumCollectibles)
     return 0;
 }
 
-LUA_FUNCTION_TODO(UI_AdjustCollectible)
+LUA_FUNCTION(UI_AdjustCollectible)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 3, 3))
+        return 0;
+    const char *type = GetStringArg(L, 1, false);
+    int iCount = (int)GetNumberArg(L, 2, false);
+    ETriggerBase *curFromVal = GetTriggerArg(L, 3, false);
+    if (!curFromVal)
+        return 0;
+    if (iCount && !_stricmp(type, "arrowhead"))
+        g_game->m_hudElements.m_arrowheads->Add(iCount, curFromVal, 0);
+    else if (iCount && !_stricmp(type, "PSICards"))
+        g_game->m_hudElements.m_psiCards->Add(iCount, curFromVal, 0);
+    return 0;
+}
 
 LUA_FUNCTION_TODO(UI_AddFigment)
 
@@ -453,7 +544,21 @@ LUA_FUNCTION(ShowRecPlayInfo)
 
 LUA_FUNCTION_TODO(RecordControllerInput)
 
-LUA_FUNCTION_TODO(AttractModeRecordInput)
+LUA_FUNCTION(AttractModeRecordInput)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 1, 1))
+        return 0;
+    const char *szLevel = GetStringArg(L, 1, false);
+    char path[0x100];
+    strncpy(path, "workresource\\Levels\\", 0xff);
+    strncat(path, szLevel, 0x32);
+    if (!strchr(path, '.'))
+        strncat(path, ".plb", 0x32);
+    path[0xfe] = 0;
+    g_game->m_recorder->Record(path);
+    return 0;
+}
 
 LUA_FUNCTION(AttractModeRecordInputUseSaveGame)
 {
@@ -658,7 +763,16 @@ LUA_FUNCTION(SetDialogBubbleFont)
 
 LUA_FUNCTION_TODO(SetDialogBubbleFontColors)
 
-LUA_FUNCTION_TODO(SetDialogBubbleFontScale)
+LUA_FUNCTION(SetDialogBubbleFontScale)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 2, 2))
+        return 0;
+    float theText = GetNumberArg(L, 1, false);
+    float choices = GetNumberArg(L, 2, false);
+    SetDialogFontScale(Vector2(theText, theText), Vector2(choices, choices));
+    return 0;
+}
 
 LUA_FUNCTION_TODO(JournalAddGoal)
 
@@ -685,9 +799,39 @@ LUA_FUNCTION(JournalRemoveAllGoals)
     return 0;
 }
 
-LUA_FUNCTION_TODO(JournalAddScrapbookItem)
+LUA_FUNCTION(JournalAddScrapbookItem)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 2, 3))
+        return 0;
+    const char *szA = GetStringArg(L, 1, false);
+    const char *b = GetStringArg(L, 2, false);
+    const char *c = n >= 3 ? GetStringArg(L, 3, true) : 0;
+    EGameMenuPage *thePage = (EGameMenuPage *)g_game->m_menus->GetPage("InGameMenu");
+    if (thePage) {
+        EScrapbook *book = thePage->m_scrapbook;
+        if (book)
+            book->AddScrapbookItem(b, szA, c);
+    }
+    return 0;
+}
 
-LUA_FUNCTION_TODO(JournalAddEmoBagItem)
+LUA_FUNCTION(JournalAddEmoBagItem)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 2, 3))
+        return 0;
+    const char *szA = GetStringArg(L, 1, false);
+    const char *b = GetStringArg(L, 2, false);
+    const char *c = n >= 3 ? GetStringArg(L, 3, true) : 0;
+    EGameMenuPage *thePage = (EGameMenuPage *)g_game->m_menus->GetPage("InGameMenu");
+    if (thePage) {
+        EScrapbook *book = thePage->m_scrapbook;
+        if (book)
+            book->AddEmoBagItem(b, szA, c);
+    }
+    return 0;
+}
 
 LUA_FUNCTION_TODO(JournalAddMovie)
 
@@ -825,7 +969,18 @@ LUA_FUNCTION(BunkhouseUIGetBunkDisplayName)
     return 1;
 }
 
-LUA_FUNCTION_TODO(InitKeypad)
+LUA_FUNCTION(InitKeypad)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 1, 3))
+        return 0;
+    const char *name = GetStringArg(L, 1, false);
+    EScriptObject *listenerVal = n >= 2 ? GetScriptObjectArg(L, 2, false, false) : 0;
+    bool flag = n >= 3 ? GetNumberArg(L, 3, true) != 0 : true;
+    EHUDElements *pHudVal = &g_game->m_hudElements;
+    pHudVal->m_keypad->Init(name, flag, listenerVal);
+    return 0;
+}
 
 LUA_FUNCTION(ExitKeypad)
 {
@@ -1012,7 +1167,19 @@ LUA_FUNCTION(DeactivateSlideshowControlHandler)
     return 0;
 }
 
-LUA_FUNCTION_TODO(InitPlayerMood)
+LUA_FUNCTION(InitPlayerMood)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    if (n == 2) {
+        float mood = GetNumberArg(L, 1, false);
+        float time = n >= 2 ? GetNumberArg(L, 2, true) : 0.0f;
+    } else if (lua_gettop(L) == 1) {
+        float mood = GetNumberArg(L, 1, false);
+    }
+    return 0;
+}
 
 LUA_FUNCTION(GetPlayerMaxMood)
 {
@@ -1047,11 +1214,47 @@ LUA_FUNCTION(GetPlayerMood)
     return 1;
 }
 
-LUA_FUNCTION_TODO(SetCamInvertPitch)
+LUA_FUNCTION(SetCamInvertPitch)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 0, 1))
+        return 0;
+    bool invert = n >= 1 ? GetNumberArg(L, 1, true) != 0 : false;
+    EProfile *pProfile = g_game->GetSave()->GetCurrentProfile();
+    if (!pProfile)
+        return 0;
+    pProfile->SetOption(g_profileOptionNames[1], &invert, false);
+    pProfile->Save();
+    return 0;
+}
 
-LUA_FUNCTION_TODO(SetCamInvertYaw)
+LUA_FUNCTION(SetCamInvertYaw)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 0, 1))
+        return 0;
+    bool invert = n >= 1 ? GetNumberArg(L, 1, true) != 0 : false;
+    EProfile *pProfile = g_game->GetSave()->GetCurrentProfile();
+    if (!pProfile)
+        return 0;
+    pProfile->SetOption(g_profileOptionNames[0], &invert, false);
+    pProfile->Save();
+    return 0;
+}
 
-LUA_FUNCTION_TODO(SetCamFirstPersonInvertPitch)
+LUA_FUNCTION(SetCamFirstPersonInvertPitch)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 0, 1))
+        return 0;
+    bool invert = n >= 1 ? GetNumberArg(L, 1, true) != 0 : false;
+    EProfile *pProfile = g_game->GetSave()->GetCurrentProfile();
+    if (!pProfile)
+        return 0;
+    pProfile->SetOption(g_profileOptionNames[2], &invert, false);
+    pProfile->Save();
+    return 0;
+}
 
 LUA_FUNCTION(RankupCheerNoPower)
 {
@@ -1198,7 +1401,23 @@ LUA_FUNCTION(ClearRazTable)
     return 0;
 }
 
-LUA_FUNCTION_TODO(AddCompletedGoalDisplay)
+LUA_FUNCTION(AddCompletedGoalDisplay)
+{
+    int n = lua_gettop(L);
+    if (!CheckArgs(L, 1, 2))
+        return 0;
+    const char *name = GetStringArg(L, 1, false);
+    const char *pGoal = n >= 2 ? GetStringArg(L, 2, true) : 0;
+    if (!g_game->m_goalDisplay)
+        return 0;
+    g_game->m_hudElements.AddCompletedGoal(name);
+    if (pGoal) {
+        EGameMenuPage *page = (EGameMenuPage *)g_game->m_menus->GetPage("InGameMenu");
+        if (page)
+            page->GetJournal()->CompletedGoal(pGoal);
+    }
+    return 0;
+}
 
 LUA_FUNCTION(AddNewGoalDisplay)
 {
